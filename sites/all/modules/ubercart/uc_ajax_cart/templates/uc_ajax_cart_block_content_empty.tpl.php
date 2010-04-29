@@ -1,0 +1,1 @@
+<?php print t('No product in cart'); ?>

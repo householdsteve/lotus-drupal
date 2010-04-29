@@ -1,0 +1,9 @@
+name = Quice Ubercart Mods
+description = Addons and modification to UC for Qui C'e'
+dependencies[] = uc_order
+package = "Twinbit - Quice"
+core = 6.x
+
+version = "6.x-1.0"
+core = "6.x"
+project = "quice_uc"

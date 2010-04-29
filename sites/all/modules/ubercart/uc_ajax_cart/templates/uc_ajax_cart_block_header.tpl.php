@@ -1,0 +1,1 @@
+<h2 id="ajax-cart-headline"><a href="#" onclick="ajaxCartToggleView();return false;">Shopping cart</a></h2>

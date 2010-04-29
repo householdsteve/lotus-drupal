@@ -1,0 +1,5 @@
+name = Custom Cart
+description = Customizes the ubercart cart display
+dependencies[] = uc_cart
+package = "Ubercart - core (optional)"
+core = 6.x

@@ -1,0 +1,21 @@
+/* $Id: terminal.css,v 1.1.2.1 2009/11/24 23:06:41 snufkin Exp $ */
+
+#terminal-corner {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  font: monospace;
+  height: 12px;
+  background: url('images/bar.png') right; // no-repeat;
+  display: none;
+}
+
+#terminal-container {
+  background: #ccc url('images/bar.png') top repeat-x;
+  height: 200px;
+}
+
+#terminal-container input {
+  background: #ccc;
+}

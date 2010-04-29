@@ -1,0 +1,7 @@
+; $Id: lotusPD.info $
+name = lotusPD
+description = template created for lotus pd by steven mccrumb & marco chiapella
+screenshot = screenshot.png
+version = 1.0
+core = 6.x
+engine = phptemplate

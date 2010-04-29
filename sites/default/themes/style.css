@@ -1,0 +1,181 @@
+@import url(css/reset.css);
+
+@font-face {
+	font-family: 'BebasRegular';
+	src: url('fonts/BEBAS___.eot');
+	src: local('☺'), url('fonts/BEBAS___.ttf') format('truetype'), url('fonts/BEBAS___.svg#webfont') format('svg');
+}
+
+html, body  {
+	font: 11px Helvetica, sans-serif;
+	background: #fff;
+	padding: 0;
+	margin: 0;
+	color:#000;
+	min-height:100%;
+	height:100%;
+	font-size:14px;
+	background: #fff url('images/grad_bg.png') top left repeat-x;
+	
+}
+
+a {
+	text-decoration:none;
+	color:#737373;
+}
+
+a:hover {
+	color:#fff;
+}
+
+/* new clearfix */
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+
+#container {
+	height:100%;
+	position:relative;
+	width:950px;
+	padding:0 0 0 0;
+	margin:0 auto;
+}
+
+.wrapper {
+	background:#000;
+	width:930px;
+	padding:10px;
+	position:relative;
+}
+
+div#footer {
+	text-align:center;
+	margin:20px 0;
+	color:#3e3e3e;
+}
+
+div#footer h4 {
+	font: 18px/20px 'BebasRegular', Helvetica, sans-serif;
+	margin:0 0 8px 0;
+	color:#000;
+}
+
+div#primary {
+	position:relative;
+	height:50px;
+	padding:15px 0 15px 10px;
+}
+
+div#social {
+	position:absolute;
+	right:10px;
+	top:15px;
+	color:#b4b4b0;
+	font: 33px/15px 'BebasRegular', Helvetica, sans-serif;
+}
+
+div#social span {
+	display:inline-block;
+	padding:0 10px 0 0;
+}
+
+div#social img {
+	position:relative;
+	top:6px;
+}
+
+div#navigation-holder {
+	padding-bottom:80px;
+}
+
+div#navigation {
+	background:url('images/double-lines.gif') bottom center repeat-x;
+	padding:0 0 4px 0;
+	height:75px;
+}
+
+div#navigation > ul:first-child {
+	border-bottom: 2px solid #3e3e3e;
+	padding:0;
+}
+
+div#navigation ul {
+	
+	padding:0 0 10px 0;
+	position:relative;
+}
+
+div#navigation ul li {
+	font: 30px/27px 'BebasRegular', Helvetica, sans-serif;
+	display:inline-block;
+	float:left;
+	height:35px;
+	
+}
+
+div#navigation ul.second li {
+	font: 18px/15px 'BebasRegular', Helvetica, sans-serif;
+	padding:15px 0 0 0;
+}
+
+
+div#navigation ul.first ul {
+	position:absolute;
+	top:30px;
+	left:0;
+	width:500px;
+	display:none;
+}
+
+
+div#navigation ul li a {
+	padding:0 20px 0 0;
+	background: url('images/slash.png') 98% 70% no-repeat;
+}
+
+div#navigation ul li.last a {
+	padding:0 0 0 0;
+	background: none;
+}
+
+div#navigation ul li.active a {
+	color:#fff;
+}
+
+div#navigation ul.first.active ul {
+	display:block;
+}
+
+div#content {
+	background:#000;
+	color:#fff;
+}
+
+div#content h2 {
+	font-family: 'Georgia', 'Times', serif;
+	font-weight:normal;
+	font-size:20px;
+}
+.content-body {
+	margin:auto;
+	background:url('images/double-lines.gif') 50% 70px repeat-x;
+	padding-bottom:70px;
+}
+
+.fixed-center {
+	width:575px;
+	margin:55px auto 0 auto;
+}
+
+
+
+
+
