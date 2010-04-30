@@ -97,3 +97,14 @@ function lotusPD_img_assist_page($content, $attributes = NULL) {
   return $output;
 }
 
+function lotusPD_menu_tree($tree) {
+  return '<ul class="menu clearfix">'. $tree .'</ul>';
+}
+
+
+function lotusPD_preprocess_page(&$vars, $hook) {
+  $menu_l = menu_tree_all_data("primary-links");
+  //$tree = menu_tree_all_data($menu_l);
+  $tO = menu_tree_output($menu_l);
+  $vars['primary_links'] = $tO;
+}
