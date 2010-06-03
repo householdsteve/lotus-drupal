@@ -1,0 +1,12 @@
+; $Id: jcarousel.info,v 1.1.2.2.2.2 2009/11/16 18:05:05 robloach Exp $
+name = jCarousel
+description = Provides the jQuery jCarousel plugin.
+core = 6.x
+package = User interface
+
+; Information added by drupal.org packaging script on 2009-11-17
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "jcarousel"
+datestamp = "1258416702"
+

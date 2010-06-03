@@ -1,0 +1,9 @@
+/* $Id: jcarousel.css,v 1.1.2.1.2.2 2009/11/05 20:09:59 robloach Exp $ */
+
+/**
+ * Clears any trailing conflicting CSS from Drupal.
+ */
+.jcarousel-container ul li, .jcarousel-container ul.menu li, .jcarousel-container .item-list ul {
+  background: none;
+  padding: 0pt;
+}
