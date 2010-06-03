@@ -23,7 +23,7 @@ $(document).ready(function(){
 			$("div#navigation").animate({height:"80px"}, 500 ); // do slide
 		}
 		
-		$(this).children("ul").slideDown();
+		$(this).children("ul").show();
 		
 		$(this).addClass("over");
 		setState(true);
@@ -31,16 +31,19 @@ $(document).ready(function(){
 	},function(e){
 		
 		$(this).removeClass("over");
+		
 		setTimeout(function(){
 		
 			if($("div#navigation > ul > li.over").length < 1){ // if no one has over class
-				$("div#navigation").animate({height:"37px"}, 500);
+				$("div#navigation").animate({height:"37px"}, 500, function(e){
+					
+				});
 			}
-		},300);
+		},500);
 
 			
 	
-		$(this).children("ul").slideUp();	
+		$(this).children("ul").hide();	
 		
 	});
 	

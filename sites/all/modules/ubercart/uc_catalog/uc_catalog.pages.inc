@@ -29,6 +29,9 @@ function theme_uc_catalog_browse($tid = 0) {
   $types = uc_product_types();
   $links = array();
   $child_list = array();
+	echo "<pre>";
+	print_r($catalog);
+		echo "</pre>";
   foreach ($catalog->children as $child) {
     if (!empty($child->nodes)) {
       $links[] = array('title' => $child->name . (variable_get('uc_catalog_breadcrumb_nodecount', FALSE) ? ' ('. $child->nodes .')' : ''), 'href' => uc_catalog_path($child),
@@ -38,7 +41,11 @@ function theme_uc_catalog_browse($tid = 0) {
     if (!empty($child->image)) {
       $image = '<div>';
       if (module_exists('imagecache')) {
-        $image .= l(theme('imagecache', 'uc_category', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
+        	if($catalog->name == 'Catalog'){
+			$image .= l(theme('imagecache', 'uc_category_large', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
+			}else{
+			$image .= l(theme('imagecache', 'uc_category', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
+		}
       }
       else {
         $image .= l(theme('image', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));

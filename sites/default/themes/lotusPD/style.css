@@ -15,7 +15,7 @@ html, body  {
 	min-height:100%;
 	height:100%;
 	font-size:14px;
-	background: #fff url('images/grad_bg.png') top left repeat-x;
+	background: #e4e3de url('images/grad_bg.png') top left repeat-x;
 	
 }
 
@@ -98,8 +98,10 @@ div#navigation-holder {
 
 div#navigation {
 	background:url('images/double-lines.gif') bottom center repeat-x;
-	padding:0 0 4px 0;
+	padding:10px 0 4px 0;
 	height:37px;
+	position:relative;
+	top:-10px;
 }
 
 ul.menu li {
