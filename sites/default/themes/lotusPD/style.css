@@ -180,8 +180,9 @@ div#content h2 {
 }
 .content-body {
 	margin:auto;
-	background:url('images/double-lines.gif') 50% 70px repeat-x;
+	background:url('images/double-lines.gif') left bottom repeat-x;
 	padding-bottom:70px;
+	text-align:right;
 }
 
 .fixed-center {
@@ -191,5 +192,24 @@ div#content h2 {
 
 
 
+/* -----  OVERRIDE STORESETTINGS CSS ----------*/
+.category-grid-products {
+	width:650px;
+	text-align:right;
+	float:right;
+}
+
+.category-grid-products table {
+	border:none;
+}
+
+.category-grid-products td {
+	border:none;
+	background:transparent;
+}
+
+ul.pager li {
+	background:#666;
+}
 
 

@@ -29,9 +29,13 @@ function theme_uc_catalog_browse($tid = 0) {
   $types = uc_product_types();
   $links = array();
   $child_list = array();
+	// get rid of last item in array (novita') if its the main gallery page //
+	if($catalog->name == 'Catalog'){
+		array_pop($catalog->children);
+	}
 	//echo "<pre>";
-//	print_r($catalog);
-	//	echo "</pre>";
+	//print_r($catalog);
+	//echo "</pre>";
   foreach ($catalog->children as $child) {
     if (!empty($child->nodes)) {
       $links[] = array('title' => $child->name . (variable_get('uc_catalog_breadcrumb_nodecount', FALSE) ? ' ('. $child->nodes .')' : ''), 'href' => uc_catalog_path($child),
@@ -85,10 +89,10 @@ function theme_uc_catalog_browse($tid = 0) {
   }
   if (!empty($catalog->image)) {
     if (module_exists('imagecache')) {
-      $output .= theme('imagecache', 'uc_thumbnail', $catalog->image['filepath'], $catalog->name, $catalog->name, array('class' => 'category'));
+      //$output .= theme('imagecache', 'uc_thumbnail', $catalog->image['filepath'], $catalog->name, $catalog->name, array('class' => 'category'));
     }
     else {
-      $output .= theme('image', $catalog->image['filepath'], $catalog->name, $catalog->name, array('class' => 'category'));
+     // $output .= theme('image', $catalog->image['filepath'], $catalog->name, $catalog->name, array('class' => 'category'));
     }
   }
 

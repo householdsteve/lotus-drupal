@@ -108,3 +108,49 @@ function lotusPD_preprocess_page(&$vars, $hook) {
   $tO = menu_tree_output($menu_l);
   $vars['primary_links'] = $tO;
 }
+
+function lotusPD_uc_catalog_product_grid($products) {
+  $product_table = '<div class="category-grid-products"><table>';
+  $count = 0;
+  $context = array(
+    'revision' => 'themed',
+    'type' => 'product',
+  );
+  foreach ($products as $nid) {
+    $product = node_load($nid);
+    $context['subject'] = array('node' => $product);
+
+    if ($count == 0) {
+      $product_table .= "<tr>";
+    }
+    elseif ($count % variable_get('uc_catalog_grid_display_width', 3) == 0) {
+      $product_table .= "</tr><tr>";
+    }
+
+    $titlelink = l($product->title, "node/$nid", array('html' => TRUE));
+    if (module_exists('imagecache') && ($field = variable_get('uc_image_'. $product->type, '')) && isset($product->$field) && file_exists($product->{$field}[0]['filepath'])) {
+      $imagelink = l(theme('imagecache', 'product_list', $product->{$field}[0]['filepath'], $product->title, $product->title), "node/$nid", array('html' => TRUE));
+    }
+    else {
+      $imagelink = '';
+    }
+
+    $product_table .= '<td>';
+    if (variable_get('uc_catalog_grid_display_title', TRUE)) {
+      $product_table .= '<span class="catalog-grid-title">'. $titlelink .'</span>';
+    }
+    if (variable_get('uc_catalog_grid_display_model', TRUE)) {
+      $product_table .= '<span class="catalog-grid-ref">'. $product->model .'</span>';
+    }
+    $product_table .= '<span class="catalog-grid-image">'. $imagelink .'</span>';
+    if (variable_get('uc_catalog_grid_display_sell_price', TRUE)) {
+      $product_table .= '<span class="catalog-grid-sell-price">'. uc_price($product->sell_price, $context) .'</span>';
+    }
+    
+    $product_table .= '</td>';
+
+    $count++;
+  }
+  $product_table .= "</tr></table></div>";
+  return $product_table;
+}
