@@ -1,0 +1,5 @@
+name = Xml importer
+description = given an external link
+dependencies[] = uc_cart
+package = "Oceanica"
+core = 6.x

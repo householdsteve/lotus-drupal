@@ -1,0 +1,281 @@
+<?php
+function xml_import_menu(){
+  $items = array();
+
+  $items['import-xml-catalog'] = array(
+    'title' => t('Import Xml'),
+    'page callback' => 'xml_import_catalog',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+$items['import-xml-products'] = array(
+    'title' => t('Import Xml products'),
+    'page callback' => 'xml_import_products',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+function xml_import_products($name) {
+	$URL = 'http://pofd.com/projects/lotus/xml/test.xml';
+	$request = 'getInventory';
+	$parameters = array("param1" => "value1", "param2" => "value2");
+	
+	$response = simpleXMLToArray(pullXML($URL,$request,$parameters));
+	
+	$countParent = 0;
+	$countChild = 0;
+	
+	
+	$output = " cool";
+	
+	foreach($response['product'] as $val){
+		
+		$output .= "name: ".$val[name]."<br>";
+		$output .= "description: ".$val[description]."<br>";
+		$output .= "misure: ".$val[misure]."<br>";
+		$output .= "imballo: ".$val[imballo]."<br>";
+		
+		$price = number_format($val[listino], 2, '.', '');
+		
+		$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val[categoria][id]));
+		
+		$output .= "cat id : ".$val[categoria][id]." cat name: ".$val[categoria][name]." matching id: ".$result->tid."<br>";
+		
+		$node = new StdClass();
+		$node->type = 'product';
+		$node->title = $val[name];
+		$node->taxonomy[3] = $result->tid;
+		$node->uid = 1;
+	  	$node->status = 1;
+	  	$node->active = 1;
+		$node->body = $val[description];
+		$node->teaser = $val[description];
+		$node->field_dimensions[0]['value'] = $val[misure];
+		$node->field_imballo[0]['value'] = $val[imballo];
+		$node->sell_price = $price;
+		$node->list_price = $price;
+		$node->cost = $price;
+		$node->model = $val[id];
+		$node->pkg_qty = $val[imballo];
+
+	  	node_save($node);
+		
+		$updateid = $node->vid;
+		$output .= "the node id: ".$node->vid;
+		$output .= "imballo: ".$val[imballo]."<br>";
+	//	$now = time();
+		//db_query("INSERT INTO {node} (type, language, title, uid, status, created, changed) 
+		//					VALUES (%s, '%s', '%s', '%d', '%d', '%d', '%d')", "product", "it", $val[name], 1, 1, $now, $now);
+		//$updateid = db_result(db_query("SELECT LAST_INSERT_ID()"));
+		
+		
+
+		//db_query("UPDATE {node} SET vid = %d WHERE id = %d", $updateid, $updateid);
+		
+		//db_query("INSERT INTO {node_revisions} (nid, uid, title, body, teaser, timestamp, format) 
+		//					VALUES (%d, '%d', '%s', '%s', '%s', '%d', '%d')", $updateid, 1, $val[name],$val[description],$val[description],$now,1);
+		
+		
+		// get cat id from temp table
+		//$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val[categoria][id]));
+		
+		//$output .= "<pre>".$result->tid."</pre>";
+	//	$output .= "cat id : ".$val[categoria][id]." cat name: ".$val[categoria][name]." matching id: ".$result->tid."<br>";
+		
+	//	db_query("INSERT INTO {term_node} (vid, nid, tid) 
+		//			VALUES (%d, '%d', '%s', '%s')", $updateid, $updateid, $result->tid);
+		
+		//db_query("INSERT INTO {content_type_product} (vid, nid, field_dimensions_value, field_imballo_value) 
+		//				VALUES (%d, '%d', '%s', '%s')", $updateid, $updateid, $val[misure],$val[imballo]);
+						
+	//	$unique_hash = md5($updateid. $updateid . $val[id] . $val[listino] . $val[listino] . $val[listino] . time());
+		
+		
+		
+	//	db_query("INSERT INTO {uc_products} (vid, nid, model, list_price, cost, sell_price, pkg_qty, unique_hash) 
+		//		VALUES (%d, '%d', '%s', '%d', '%d', '%d', '%d', '%s')", $updateid, $updateid, $val[id],$price,$price,$price,$val[imballo],$unique_hash);
+
+		$countParent++;
+
+	}
+	
+	$output .= "success!";
+	return $output;
+}
+
+
+
+
+
+function xml_import_catalog($name) {
+	$URL = 'http://pofd.com/projects/lotus/xml/test.xml';
+	$request = 'getInventory';
+	$parameters = array("param1" => "value1", "param2" => "value2");
+	
+	$response = simpleXMLToArray(pullXML($URL,$request,$parameters));
+	
+	$catList = array();
+
+
+	$countParent = 0;
+	$countChild = 0;
+	
+	foreach($response['product'] as $val){
+
+		foreach($val as $key => $v){
+
+			if($key == "categoria"){
+				$nk = (int)$v["id"];
+				$catList[$nk] = $v["name"];
+			}
+
+				$countChild++;
+		}
+		$countParent++;
+
+	}
+	
+	
+	$output = " ";
+	
+	foreach($catList as $k => $v){
+		
+		db_query("INSERT INTO {term_data} (vid, name, weight, description) VALUES (%d, '%s', '%d','%s')", 1, $v, 0,"autoImported");
+		$updateid = db_result(db_query("SELECT LAST_INSERT_ID()"));
+		
+		db_query("INSERT INTO {term_hierarchy} (tid, parent) VALUES (%d, '%d')", $updateid, 3); //3 is the standard category
+		
+		db_query("INSERT INTO {xml_import_temp_cats} (tid, cid) VALUES (%d, '%d')", $updateid, $k); //add a temp table to hold references for product import
+		
+		$output .= $v;
+		$output .= "<br>";
+		
+	}
+	$output .= "success!";
+	return $output;
+}
+
+
+   function buildCurlParamString() {
+       $urlstring = '';
+
+       foreach ($this->parameters as $key => $value) {
+           $urlstring .= urlencode($key).'='.urlencode($value).'&';
+       }
+
+       if (trim($urlstring) != '') {
+           $urlstring = preg_replace("/&$/", "", $urlstring);
+           return ($urlstring);
+       } else {
+           return (-1);
+       }
+   }
+
+
+ function pullXML($URL, $request, $parameters) {
+       
+       $simpleXML = simplexml_load_string(newFeed($URL));
+
+		return $simpleXML;
+   }
+
+	function newFeed($URL){
+		$session = curl_init($URL); 	               // Open the Curl session
+		curl_setopt($session, CURLOPT_HEADER, false); 	       // Don't return HTTP headers
+		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);   // Do return the contents of the call
+		$xml = curl_exec($session); 	                       // Make the call
+	//	header("Content-Type: text/xml"); 	               // Set the content type appropriately
+	//	echo $xml; 	      // Spit out the xml
+		curl_close($session); // And close the session
+		
+		return $xml;
+	}
+	
+	function convert_xml2array(&$result,$root,$rootname='root') {
+		$n=count($root->children());
+		if ($n>0) {
+			if (!isset($result[$rootname]['@attributes'])) {
+				$result[$rootname]['attributes']=array();
+				foreach ($root->attributes() as $atr=>$value){
+					$result[$rootname]['attributes'][$atr]=(string)$value;
+				}           
+			}
+			foreach ($root->children() as $child) {
+				$name=$child->getName();    
+				$this->convert_xml2array($result[$rootname][],$child,$name);                         
+			}
+		} else {       
+			$result[$rootname]= (array) $root;
+			if (!isset($result[$rootname]['attributes'])) {
+				$result[$rootname]['attributes']=array();
+			}
+		}
+	}
+
+	function get_array_fromXML($xml) {
+		$result=array();   
+		$doc=simplexml_load_string($xml);    
+		convert_xml2array($result,$doc);    
+		return $result['root'];   
+	}
+	
+	function simpleXMLToArray($xml,
+                    $flattenValues=true,
+                    $flattenAttributes = true,
+                    $flattenChildren=true,
+                    $valueKey='@value',
+                    $attributesKey='@attributes',
+                    $childrenKey='@children'){
+
+        $return = array();
+        if(!($xml instanceof SimpleXMLElement)){return $return;}
+        $name = $xml->getName();
+        $_value = trim((string)$xml);
+        if(strlen($_value)==0){$_value = null;};
+
+        if($_value!==null){
+            if(!$flattenValues){$return[$valueKey] = $_value;}
+            else{$return = $_value;}
+        }
+
+        $children = array();
+        $first = true;
+        foreach($xml->children() as $elementName => $child){
+            $value = simpleXMLToArray($child, $flattenValues, $flattenAttributes, $flattenChildren, $valueKey, $attributesKey, $childrenKey);
+            if(isset($children[$elementName])){
+                if($first){
+                    $temp = $children[$elementName];
+                    unset($children[$elementName]);
+                    $children[$elementName][] = $temp;
+                    $first=false;
+                }
+                $children[$elementName][] = $value;
+            }
+            else{
+                $children[$elementName] = $value;
+            }
+        }
+        if(count($children)>0){
+            if(!$flattenChildren){$return[$childrenKey] = $children;}
+            else{$return = array_merge($return,$children);}
+        }
+
+        $attributes = array();
+        foreach($xml->attributes() as $name=>$value){
+            $attributes[$name] = trim($value);
+        }
+        if(count($attributes)>0){
+            if(!$flattenAttributes){$return[$attributesKey] = $attributes;}
+            else{$return = array_merge($return, $attributes);}
+        }
+       
+        return $return;
+    }
+
+?>
