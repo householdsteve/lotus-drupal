@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<articoli>
+<product id="A35" name="A35">
+<color id="51" name="ARGENTO/SILVER"/>
+<description>
+<![CDATA[Tubo in alluminio per 1 penna]]>
+</description>
+<imballo><![CDATA[50]]></imballo>
+<misure><![CDATA[diam.2 x 15 cm]]></misure>
+<disponibile><![CDATA[2338,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,500]]></listino>
+<categoria id="34" name="ASTUCCI"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[A35.51.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="A40" name="A40">
+<color id="66" name="TRASPARENTE"/>
+<description>
+<![CDATA[Tubo in plexiglass per 1 penna]]>
+</description>
+<imballo><![CDATA[50]]></imballo>
+<misure><![CDATA[diam.2 x 15 cm]]></misure>
+<disponibile><![CDATA[5021,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[0,600]]></listino>
+<categoria id="34" name="ASTUCCI"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[A40.66.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="A55" name="A55">
+<color id="51" name="ARGENTO/SILVER"/>
+<description>
+<![CDATA[Scatola in metallo per 1 penna]]>
+</description>
+<imballo><![CDATA[36]]></imballo>
+<misure><![CDATA[18 x 6 x 2 cm]]></misure>
+<disponibile><![CDATA[346,00]]></disponibile>
+<disponibile_descr><![CDATA[346,00]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[2,450]]></listino>
+<categoria id="34" name="ASTUCCI"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[A55.51.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="A55/2" name="A55/2">
+<color id="" name=""/>
+<description>
+<![CDATA[Scatola in metallo per 1 penna]]>
+</description>
+<imballo><![CDATA[36]]></imballo>
+<misure><![CDATA[18 x 6 x 2 cm]]></misure>
+<disponibile><![CDATA[0,00]]></disponibile>
+<disponibile_descr><![CDATA[0,00]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[2,400]]></listino>
+<categoria id="51" name="ESAURITI LOTUS"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[A55/2.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="A65" name="A65">
+<color id="06" name="NERO"/>
+<description>
+<![CDATA[Astuccio per 1 o 2 penne]]>
+</description>
+<imballo><![CDATA[50]]></imballo>
+<misure><![CDATA[17 x 7 x 2,4 cm]]></misure>
+<disponibile><![CDATA[2991,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[2,450]]></listino>
+<categoria id="34" name="ASTUCCI"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[A65.06.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B020" name="B020">
+<color id="02" name="ROSSO"/>
+<description>
+<![CDATA[Borsa sportiva da viaggio o da palestra con scomparto per scarpe in nylon 600D]]>
+</description>
+<imballo><![CDATA[20]]></imballo>
+<misure><![CDATA[54 x 30 x 27 cm]]></misure>
+<disponibile><![CDATA[1325,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[11,500]]></listino>
+<categoria id="01" name="BORSE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B020.02.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B022" name="B022">
+<color id="03" name="BLU NAVY"/>
+<description>
+<![CDATA[Borsa sportiva 'trendy' in nylon 1860D]]>
+</description>
+<imballo><![CDATA[40]]></imballo>
+<misure><![CDATA[45 x 30 x 15,5 cm]]></misure>
+<disponibile><![CDATA[952,00]]></disponibile>
+<disponibile_descr><![CDATA[952,00]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[8,400]]></listino>
+<categoria id="01" name="BORSE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B022.03.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B023" name="B023">
+<color id="07" name="BLU ROYAL"/>
+<description>
+<![CDATA[Borsa da viaggio restringibile con tracolla e maniglie laterali in nylon 600D]]>
+</description>
+<imballo><![CDATA[20]]></imballo>
+<misure><![CDATA[77 x 33x 40 cm]]></misure>
+<disponibile><![CDATA[1062,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[18,400]]></listino>
+<categoria id="01" name="BORSE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B023.07.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B023" name="B023">
+<color id="52" name="MARRONE"/>
+<description>
+<![CDATA[Borsa da viaggio restringibile con tracolla e maniglie laterali in nylon 600D]]>
+</description>
+<imballo><![CDATA[20]]></imballo>
+<misure><![CDATA[77 x 33x 40 cm]]></misure>
+<disponibile><![CDATA[122,00]]></disponibile>
+<disponibile_descr><![CDATA[122,00]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[18,400]]></listino>
+<categoria id="01" name="BORSE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B023.52.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B024" name="B024">
+<color id="30" name="BLU/GRIGIO"/>
+<description>
+<![CDATA[Borsa da viaggio/sportiva multitasche in nylon 600D]]>
+</description>
+<imballo><![CDATA[15]]></imballo>
+<misure><![CDATA[58 x 32 x 27 cm]]></misure>
+<disponibile><![CDATA[733,00]]></disponibile>
+<disponibile_descr><![CDATA[733,00]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[16,900]]></listino>
+<categoria id="01" name="BORSE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B024.30.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B103" name="B103">
+<color id="08" name="ECRU/PANNA"/>
+<description>
+<![CDATA[Borsa spesa in cotone canvas molto resistente, colore naturale]]>
+</description>
+<imballo><![CDATA[50]]></imballo>
+<misure><![CDATA[38 x 45 x 10,5 cm]]></misure>
+<disponibile><![CDATA[19247,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[3,400]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B103.08.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B106" name="B106">
+<color id="01" name="VERDE"/>
+<description>
+<![CDATA[Borsa shopper con soffietto in TNT]]>
+</description>
+<imballo><![CDATA[200]]></imballo>
+<misure><![CDATA[38 x 42 x 10 cm]]></misure>
+<disponibile><![CDATA[8834,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,170]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B106.01.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B106" name="B106">
+<color id="02" name="ROSSO"/>
+<description>
+<![CDATA[Borsa shopper con soffietto in TNT]]>
+</description>
+<imballo><![CDATA[200]]></imballo>
+<misure><![CDATA[38 x 42 x 10 cm]]></misure>
+<disponibile><![CDATA[13807,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,170]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B106.02.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B106" name="B106">
+<color id="04" name="GIALLO"/>
+<description>
+<![CDATA[Borsa shopper con soffietto in TNT]]>
+</description>
+<imballo><![CDATA[200]]></imballo>
+<misure><![CDATA[38 x 42 x 10 cm]]></misure>
+<disponibile><![CDATA[13400,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,170]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B106.04.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B106" name="B106">
+<color id="06" name="NERO"/>
+<description>
+<![CDATA[Borsa shopper con soffietto in TNT]]>
+</description>
+<imballo><![CDATA[200]]></imballo>
+<misure><![CDATA[38 x 42 x 10 cm]]></misure>
+<disponibile><![CDATA[23004,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,170]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B106.06.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B106" name="B106">
+<color id="07" name="BLU ROYAL"/>
+<description>
+<![CDATA[Borsa shopper con soffietto in TNT]]>
+</description>
+<imballo><![CDATA[200]]></imballo>
+<misure><![CDATA[38 x 42 x 10 cm]]></misure>
+<disponibile><![CDATA[19802,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,170]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B106.07.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B106" name="B106">
+<color id="08" name="ECRU/PANNA"/>
+<description>
+<![CDATA[Borsa shopper con soffietto in TNT]]>
+</description>
+<imballo><![CDATA[200]]></imballo>
+<misure><![CDATA[38 x 42 x 10 cm]]></misure>
+<disponibile><![CDATA[20302,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[2800,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[30/06/2010]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,170]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B106.08.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B109" name="B109">
+<color id="02" name="ROSSO"/>
+<description>
+<![CDATA[Borsa shopping in cotone naturale con manico lungo]]>
+</description>
+<imballo><![CDATA[250]]></imballo>
+<misure><![CDATA[38 x 42 cm]]></misure>
+<disponibile><![CDATA[7086,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,050]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B109.02.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+<product id="B109" name="B109">
+<color id="03" name="BLU NAVY"/>
+<description>
+<![CDATA[Borsa shopping in cotone naturale con manico lungo]]>
+</description>
+<imballo><![CDATA[250]]></imballo>
+<misure><![CDATA[38 x 42 cm]]></misure>
+<disponibile><![CDATA[10064,00]]></disponibile>
+<disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr>
+<arrivo_1><![CDATA[0,00]]></arrivo_1>
+<data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1>
+<arrivo_2><![CDATA[0,00]]></arrivo_2>
+<data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2>
+<listino><![CDATA[1,050]]></listino>
+<categoria id="04" name="BORSE TNT/COTONE"/>
+<novita><![CDATA[]]></novita>
+<offerta><![CDATA[]]></offerta>
+<esclusiva><![CDATA[]]></esclusiva>
+<foto><![CDATA[B109.03.JPG]]></foto>
+<pubblica><![CDATA[S]]></pubblica>
+</product>
+</articoli>
