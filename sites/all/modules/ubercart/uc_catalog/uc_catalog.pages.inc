@@ -103,12 +103,14 @@ function theme_uc_catalog_browse($tid = 0) {
   else {
     $order = tapirsort_sql(uc_product_table_header());
   }
+  
+  ////// !!!!!! ---- WE NEED TO RE-WRITE THE SQL QUERY TO NOT LOAD INDIVIDUAL PRODUCTS THAT ARE PRESENT IN A PRODUCT KIT.
 
   $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
     FROM {node} n
       INNER JOIN {term_node} tn ON n.vid = tn.vid
       INNER JOIN {uc_products} AS p ON n.vid = p.vid
-    WHERE tn.tid = %d AND n.status = 1
+    WHERE tn.tid = %d AND n.status = 1 AND p.list_in_catalog = '1'
       AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
 
   $sql_count = "SELECT COUNT(DISTINCT(n.nid))

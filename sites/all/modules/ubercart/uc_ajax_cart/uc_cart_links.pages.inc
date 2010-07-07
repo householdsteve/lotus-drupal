@@ -1,4 +1,11 @@
-<?php 
+<?php
+// $Id: uc_cart_links.pages.inc,v 1.1.2.9 2010/05/01 12:42:30 erikseifert Exp $
+
+/**
+ * @file
+ * Helper functions for process cart links
+ */
+
 function uc_ajax_cart_links_process($arg1) {
   $messages = array();
 

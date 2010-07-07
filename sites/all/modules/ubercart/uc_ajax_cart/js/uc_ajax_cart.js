@@ -1,6 +1,7 @@
-var ajaxCartBlockTimeoutVar ;
+// $Id: uc_ajax_cart.js,v 1.1.2.11 2010/05/01 12:42:30 erikseifert Exp $
 
-jQuery(document).ready(function(){
+Drupal.behaviors.ucAjaxCart = function (context)
+{
 	jQuery.blockUI.defaults.growlCSS.opacity = 1;
 	jQuery.blockUI.defaults.timeout = Drupal.settings.uc_ajax_cart.TIMEOUT;
 
@@ -13,29 +14,45 @@ jQuery(document).ready(function(){
 		return false ; 
 	} );
 
-	var options = { 
-						url : Drupal.settings.uc_ajax_cart.CALLBACK, 
-						beforeSubmit : function() { 
-										ajaxCartBlockUI(Drupal.settings.uc_ajax_cart.ADD_TITLE,
-														'<div class="messages status">' + Drupal.settings.uc_ajax_cart.ADD_MESSAGE + '</div>') } , 
-						success : ajaxCartFormSubmitted,
-						type : 'post'
-					}
+
+	//jQuery('form.ajax-cart-submit-form').ajaxForm( options );
+	jQuery('form.ajax-cart-submit-form input.ajax-cart-submit-form-button').not('.ajax-cart-processed,#edit-update').click(function(){
+		var form = jQuery(this).parents('form').eq(0) ;
+		form.ajaxSubmit({ 
+				url : Drupal.settings.uc_ajax_cart.CALLBACK, 
+				beforeSubmit : function() { 
+								ajaxCartBlockUI(Drupal.settings.uc_ajax_cart.ADD_TITLE,
+												'<div class="messages status">' + Drupal.settings.uc_ajax_cart.ADD_MESSAGE + '</div>') } , 
+				success : ajaxCartFormSubmitted,
+				type : 'post'
+			});
+		return false ;
+	}).addClass('ajax-cart-processed');
 	if ( Drupal.settings.uc_ajax_cart.CART_VIEW_ON )
 	{
-		jQuery('form.ajax-cart-submit-form').ajaxForm( options );
 		ajaxCartInitCartView();
 	}
-});
+	if (jQuery('#ajaxCartUpdate').hasClass('load-on-view'))
+	{
+		ajaxCartUpdateCart();
+	}
+}
+
+var ajaxCartBlockTimeoutVar ;
 
 function ajaxCartInitCartView()
 {
-	jQuery('#uc-cart-view-form input.ajax-cart-submit-form-button').bind('click',function(){
-		jQuery(this).parents('form').ajaxForm( { 
+	jQuery('#uc-cart-view-form #edit-update').bind('click',function(){
+		jQuery(this).parents('form').ajaxSubmit( { 
 				url: Drupal.settings.uc_ajax_cart.UPDATE_CALLBACK, success  :ajaxCartUpdateCartView,beforeSubmit : function() { 
+					jQuery('#uc-cart-view-form input').attr('disabled','disabled') ;
 					ajaxCartBlockUI(Drupal.settings.uc_ajax_cart.ADD_TITLE,	'<div class="messages status">' + Drupal.settings.uc_ajax_cart.UPDATE_MESSAGE + '</div>') 
 				} 
 		});
+		return false ;
+	});
+	jQuery('#uc-cart-view-form input').bind('change',function(){
+		jQuery('#uc-cart-view-form #edit-update').trigger('click') ;
 	});
 }
 
@@ -77,8 +94,10 @@ function ajaxCartToggleView()
 
 function ajaxCartFormSubmitted( e )
 {
+	jQuery('form.ajax-cart-submit-form input').attr('disabled',false);
 	ajaxCartUpdateCart();
 	ajaxCartBlockUI(Drupal.settings.uc_ajax_cart.CART_OPERATION,e); 
+	ajaxCartReloadCartView();
 }
 
 function ajaxCartBlockUI(title,message)
@@ -88,8 +107,10 @@ function ajaxCartBlockUI(title,message)
 
 function ajaxCartBlockUIRemove( url )
 {
+	jQuery('#uc-cart-view-form input').attr('disabled','disabled');
 	ajaxCartShowMessageProxy(Drupal.settings.uc_ajax_cart.REMOVE_TITLE,Drupal.settings.uc_ajax_cart.REMOVE_MESSAGE);
 	jQuery.post(url,ajaxCartFormSubmitted) ;
+	return false;
 }
 
 function ajaxCartUpdateCart()
@@ -100,7 +121,12 @@ function ajaxCartUpdateCart()
 function ajaxCartUpdateCartView( e )
 {
 	ajaxCartFormSubmitted(e);
-	jQuery('#cart-form-pane').parent().load(Drupal.settings.uc_ajax_cart.SHOW_VIEW_CALLBACK,ajaxCartUpdateCartViewUpdated);
+	ajaxCartReloadCartView();
+}
+
+function ajaxCartReloadCartView()
+{
+	jQuery('#cart-form-pane').parent().load(Drupal.settings.uc_ajax_cart.SHOW_VIEW_CALLBACK,ajaxCartInitCartView);
 }
 
 function ajaxCartUpdateCartViewUpdated( e )

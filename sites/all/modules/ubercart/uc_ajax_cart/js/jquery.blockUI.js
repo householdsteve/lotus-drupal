@@ -37,16 +37,12 @@ $.growlUI = function(title, message, timeout, onClose) {
 	if (title) $m.append('<h1>'+title+'</h1>');
 	if (message) $m.append('<h2>'+message+'</h2>');
 	if (timeout == undefined) timeout = 3000;
-	/*$.blockUI({
+	$.blockUI({
 		message: $m, fadeIn: 700, fadeOut: 1000, centerY: false,
 		timeout: timeout, showOverlay: false,
 		onUnblock: onClose, 
 		css: $.blockUI.defaults.growlCSS
-	});*/
-	
-	$(".cart-addition").show();
-	$(".cart-addition").html(message);
-	setTimeout(function(){$(".cart-addition").fadeOut();},1500);
+	});
 };
 
 // plugin method for blocking element content

@@ -191,6 +191,14 @@ function uc_product_schema() {
         'not null' => TRUE,
         'default' => 1,
       ),
+      'list_in_category' => array(
+        'description' => t('Boolean flag signifying that the product can be displayed in catalog.'),
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 1,
+      ),
     ),
     'indexes' => array(
       'nid' => array('nid'),

@@ -1,7 +1,5 @@
 <?php
-/*
- * Helper class for handling cart
- */ 
+// $Id: uc_ajax_cart.php,v 1.1.2.10 2010/05/01 12:42:30 erikseifert Exp $
 
 class UcAjaxCart
 {
@@ -113,6 +111,12 @@ class UcAjaxCart
 			}
 		}
 	}
+	
+ public function hasAttributes($product)
+  {
+    if ( !isset($product->attributes) || !is_array($product->attributes) || count($product->attributes) == 0 ) return false ;
+    return true ;
+  }
 }
 
 

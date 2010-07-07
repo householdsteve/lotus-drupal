@@ -17,7 +17,15 @@ $items['import-xml-products'] = array(
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-
+  
+$items['import-xml-test-vars'] = array(
+    'title' => t('Test Xml products'),
+    'page callback' => 'xml_import_test',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  
 $items['delete-all-products-test'] = array(
     'title' => t('Delete all products'),
     'page callback' => 'xml_import_delete_all_products',
@@ -29,92 +37,256 @@ $items['delete-all-products-test'] = array(
   return $items;
 }
 
-function xml_import_products($name) {
-	$URL = 'http://pofd.com/projects/lotus/xml/test.xml';
+function xml_import_test($name) {
+  
+  watchdog("xml_import","tesint module");
+  /*
+  if(isset($name) && $name == "first"){
+    return "we're rolling the first upload";
+  }else{
+    return "just doing old updates";
+  }*/
+  $node = new StdClass();
+	$node->type = 'product_kit';
+	$node->title = "tetpgmtly";
+	$node->taxonomy[4] = 14;
+	$node->uid = 1;
+  $node->status = 1;
+  $node->active = 1;
+	$node->body = "pgmtly";
+	$node->teaser = "pgmtly";
+	$node->language = "it";
+  
+  // each product
+    $node->products = array(790,791,792);
+    
+  // to allow product to be old seperately -1 dont list 0 list but dont add seperate 1 list and add seperate
+    $node->mutable = 1;
+    
+  node_save($node);
+  
+}
+
+
+
+function import_image_move($filename){
+  
+  $fp = fopen (file_directory_path()."/products/imported/".$filename.".jpg", 'w');//This is the file where we save the information
+  
+   // REPLACE THIS CHECK WITH ONE THAT MAKES SURE THE IMAGE EXISTS BEFORE TRYING TO TRANSFER IT.
+    $ch = curl_init('http://localhost/lotuspd.com_prep/t/'.$filename.".jpg"); //Here is the file we are downloading
+    if($ch){
+      curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+      curl_setopt($ch, CURLOPT_FILE, $fp);
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+      curl_exec($ch);
+    }
+      curl_close($ch);
+  
+  fclose($fp);
+  return file_directory_path()."/products/imported/".$filename.".jpg";
+}
+
+function drupal_add_existing_file($file_drupal_path,$uid=1,$status=FILE_STATUS_PERMANENT) {
+  $file=(object)array(
+    'filename' =>basename($file_drupal_path),
+    'filepath' =>$file_drupal_path,
+    'filemime' =>file_get_mimetype($file_drupal_path),
+    'filesize' =>filesize($file_drupal_path),
+    'uid'      =>$uid,
+    'status'   =>$status,
+    'timestamp'=>time()
+  );
+
+  drupal_write_record('files',$file);
+
+  return field_file_load($file_drupal_path);
+}
+
+
+function xml_import_get_xml_data(){
+  
+  $URL = 'http://localhost/lotuspd.com_prep/xml/test.xml';
 	$request = 'getInventory';
 	$parameters = array("param1" => "value1", "param2" => "value2");
 	
 	$response = simpleXMLToArray(pullXML($URL,$request,$parameters));
+  
+  return $response;
+}
+
+function xml_import_product_load($model) {
+  
+  $q = db_fetch_object(db_query("SELECT * FROM {uc_products} WHERE model = '%s'", $model));
+  
+  return $q;
+}
+
+
+function xml_import_products($name) {
 	
+	$response = xml_import_get_xml_data();
+
 	$countParent = 0;
 	$countChild = 0;
-	
+	//echo "<pre>";
+	//var_dump($response);
+	//echo "</pre>";
+	//die;
+	$product_list = array();
 	
 	$output = " cool";
 	
 	foreach($response['product'] as $val){
 		
 		$output .= "name: ".$val[name]."<br>";
-		$output .= "description: ".$val[description]."<br>";
+		$output .= "color: ".$val[color][id]."<br>";
 		$output .= "misure: ".$val[misure]."<br>";
 		$output .= "imballo: ".$val[imballo]."<br>";
 		
-		$price = number_format($val[listino], 2, '.', '');
+		// here we need to check to see if a node exists with the current product name. if it exists lets just update the
+		// existing node. otherwise, lets create a new node. we'll also check the published node to see if we should delete it.
+		// for images we need a conditional that checks first if this is the first install, if so use a different image directory
+		// to download and transfer the images. otherwise use the update images directory. when updating images send the cURL call
+		// and if the file name is not present do not update the image file.
 		
-		$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val[categoria][id]));
+		      // - <pubblica><![CDATA[S]]></pubblica>
+		      
+		// ----- ASK ABOUT HAT COLORS. WHERE ONE ITEM HAS MULTIPLE COLORS. OTHERIWSE EACH COLOR OF THE PRODUCT HAS ITS OWN PAGE?
 		
-		$output .= "cat id : ".$val[categoria][id]." cat name: ".$val[categoria][name]." matching id: ".$result->tid."<br>";
+		// -- need to add the CCK fields for:
+		      // - <arrivo_1><![CDATA[0,00]]></arrivo_1>  -- int
+          // - <data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1> -- date
+          // - <arrivo_2><![CDATA[0,00]]></arrivo_2>  -- int
+          // - <data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2> -- date
+          // - <disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr> -- text
+          // - <novita><![CDATA[]]></novita>  !!!!! -- this field should also set a taxonmy category to show on the novita page
+          // - <offerta><![CDATA[]]></offerta>
+          // - <esclusiva><![CDATA[]]></esclusiva>
+          
+    // -- need to add the attributes fields. First we should loop through the xml with the categories and insert and update
+    // the attribute options, potentially using a temp table like with categories. then match up the attributes with the product
+    // node when it is inserted/updated.
+          // - <color id="51" name="ARGENTO/SILVER"/>
+                // - IMAGES WILL BE ADDED BY COMBINING THE PRODUCT CODE AND THE COLOR ID.
+                // - DEFAULT PHOTO COULD BE DETERMINED BY PUTTING ITS NAME IN THE FOTO NODE OF THE XML
+	
 		
-		$node = new StdClass();
+		$product_code = $val[id].".".$val[color][id];
+		
+		  $p = xml_import_product_load($product_code);
+
+      if($p){ // if the product exists load the node and modify it.
+        $node = node_load($p->vid);
+        $output .= "loaded existig <br>";
+      }else{
+        $node = new StdClass();
+        $output .= "creating new <br>";
+      }
+		
+		  $price = number_format($val[listino], 2, '.', '');
+      $result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val[categoria][id]));
+		
 		$node->type = 'product';
 		$node->title = $val[name];
 		$node->taxonomy[3] = $result->tid;
+		$node->language = "it";
 		$node->uid = 1;
-	  	$node->status = 1;
-	  	$node->active = 1;
+	  $node->status = 1;
+	  $node->active = 1;
 		$node->body = $val[description];
 		$node->teaser = $val[description];
 		$node->field_dimensions[0]['value'] = $val[misure];
 		$node->field_imballo[0]['value'] = $val[imballo];
+		$node->field_arrivo_1[0]['value'] = number_format($val[arrivo_1],0);
+		$node->field_data_arrivo_1[0]['value'] = $val[data_arrivo_1];
+		$node->field_arrivo_2[0]['value'] = number_format($val[arrivo_2],0);
+		$node->field_data_arrivo_2[0]['value'] = $val[data_arrivo_2];
+		$node->field_disponibile_descr[0]['value'] = $val[disponibile_descr];
+		$node->field_novita[0]['value'] = $val[novita];
+		$node->field_offerta[0]['value'] = $val[offerta];
+		$node->field_esclusiva[0]['value'] = $val[esclusiva];
+		
+	  $img_path = import_image_move($product_code);
+    $node->field_image_cache = array();
+    $node->field_image_cache[] = drupal_add_existing_file($img_path);
+ 
+		
 		$node->sell_price = $price;
 		$node->list_price = $price;
 		$node->cost = $price;
-		$node->model = $val[id];
-		//$node->pkg_qty = $val[imballo];
+		$node->model = $product_code;
 
-	  	node_save($node);
+  	node_save($node);
 		
-		$updateid = $node->vid;
+		$product_list[$val[id]]["models"][] = $product_code;
+		$product_list[$val[id]]["vids"][] = $node->vid;
 		
 		db_query("INSERT INTO {uc_product_stock} (sku, nid, active, stock, threshold) VALUES ('%s', %d, %d, %d, %d)", $node->model,$node->vid, true, $val[disponibile],$val[disponibile]);
-	
-		$output .= "the node id: ".$node->vid;
-		$output .= "imballo: ".$val[imballo]."<br>";
-	//	$now = time();
-		//db_query("INSERT INTO {node} (type, language, title, uid, status, created, changed) 
-		//					VALUES (%s, '%s', '%s', '%d', '%d', '%d', '%d')", "product", "it", $val[name], 1, 1, $now, $now);
-		//$updateid = db_result(db_query("SELECT LAST_INSERT_ID()"));
-		
-		
-
-		//db_query("UPDATE {node} SET vid = %d WHERE id = %d", $updateid, $updateid);
-		
-		//db_query("INSERT INTO {node_revisions} (nid, uid, title, body, teaser, timestamp, format) 
-		//					VALUES (%d, '%d', '%s', '%s', '%s', '%d', '%d')", $updateid, 1, $val[name],$val[description],$val[description],$now,1);
-		
-		
-		// get cat id from temp table
-		//$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val[categoria][id]));
-		
-		//$output .= "<pre>".$result->tid."</pre>";
-	//	$output .= "cat id : ".$val[categoria][id]." cat name: ".$val[categoria][name]." matching id: ".$result->tid."<br>";
-		
-	//	db_query("INSERT INTO {term_node} (vid, nid, tid) 
-		//			VALUES (%d, '%d', '%s', '%s')", $updateid, $updateid, $result->tid);
-		
-		//db_query("INSERT INTO {content_type_product} (vid, nid, field_dimensions_value, field_imballo_value) 
-		//				VALUES (%d, '%d', '%s', '%s')", $updateid, $updateid, $val[misure],$val[imballo]);
-						
-	//	$unique_hash = md5($updateid. $updateid . $val[id] . $val[listino] . $val[listino] . $val[listino] . time());
-		
-		
-		
-	//	db_query("INSERT INTO {uc_products} (vid, nid, model, list_price, cost, sell_price, pkg_qty, unique_hash) 
-		//		VALUES (%d, '%d', '%s', '%d', '%d', '%d', '%d', '%s')", $updateid, $updateid, $val[id],$price,$price,$price,$val[imballo],$unique_hash);
 
 		$countParent++;
+		
+		
 
 	}
+	
+	
+	
+	// lets add product kits now
+	
+	foreach($product_list as $key => $kit){
+	    
+	    $default_product = $product_list[$key]["vids"][0];
+	    $combined_ids = join(" / ",$product_list[$key]["models"]);
+	    echo $default_product. "  ";
+	    echo $combined_ids."  ";
+	    
+	    echo "count: ".count($product_list[$key]["models"]);
+	    
+	    $pk = xml_import_product_load($combined_ids);
+
+      if($pk && count($product_list[$key]["models"]) > 1){
+          $product_kit = node_load($pk->vid);
+          echo "laoded <br/>";
+        }elseif(count($product_list[$key]["models"]) > 1){
+          $product_kit = new StdClass();
+          $product_kit->type = "product_kit";
+          echo "new kit <br/>";
+      }else{
+        
+          echo "not a kit <br/>";
+         unset($product_kit);
+      }
+	    
+	    if(isset($product_kit->type) && $product_kit->type == "product_kit"){
+	        echo "im a kit <br/>";
+	        // load the first node and put it's details in the kit !!! maybe consider a default selection?
+	        $product_kit_first_item = node_load($default_product);
+         	$product_kit->title = $product_kit_first_item->title;
+         	$product_kit->taxonomy = $product_kit_first_item->taxonomy;
+         	$product_kit->uid = 1;
+          $product_kit->status = 1;
+          $product_kit->active = 1;
+         	$product_kit->body = $product_kit_first_item->body;
+         	$product_kit->teaser = $product_kit_first_item->teaser;
+         	$product_kit->language = "it";
+        
+           // each product
+             $product_kit->products = $product_list[$key]["vids"];
+
+           // to allow product to be old seperately -1 dont list 0 list but dont add seperate 1 list and add seperate
+             $product_kit->mutable = 1;
+
+           node_save($product_kit);
+        }
+	     
+	}
+	
+	echo "<pre>";
+	var_dump($product_list);
+	echo "</pre>";
+	die();
+	
 	
 	$output .= "success!";
 	return $output;
@@ -125,7 +297,8 @@ function xml_import_products($name) {
 
 
 function xml_import_catalog($name) {
-	$URL = 'http://pofd.com/projects/lotus/xml/test.xml';
+	//$URL = 'http://pofd.com/projects/lotus/xml/test.xml';
+	$URL = 'http://localhost/lotuspd.com_prep/xml/test.xml';
 	$request = 'getInventory';
 	$parameters = array("param1" => "value1", "param2" => "value2");
 	
@@ -179,6 +352,7 @@ function remove_temp_cats(){
 function xml_import_delete_all_products($name){
 	
 	$result = db_query("SELECT * FROM {node} WHERE type = '%s'", "product");
+	//$result = db_query("SELECT * FROM {node} WHERE type = '%s' || type = '%s'", "product", "product_kit");
 	$output = "";
 
     while ($p = db_fetch_object($result)) {
