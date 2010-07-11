@@ -1,0 +1,13 @@
+; $Id: uc_custom_price.info,v 1.1 2008/10/21 16:40:48 mrfelton Exp $
+name = Custom Price
+description = Allows the price field to be calculated with a custom equation
+dependencies[] = uc_product
+dependencies[] = token
+package = Ubercart - extra
+core = 6.x
+; Information added by drupal.org packaging script on 2010-07-11
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "uc_custom_price"
+datestamp = "1278836079"
+

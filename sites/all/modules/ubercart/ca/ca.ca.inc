@@ -35,6 +35,7 @@ function ca_ca_entity() {
     '#title' => t('Trigger arguments'),
     '#type' => 'array',
   );
+  
 
   return $entities;
 }
@@ -172,7 +173,7 @@ function ca_condition_date_form($form_state, $settings = array()) {
 function ca_condition_node_field_comparison($node, $settings) {
   // Convert the node to an array.
   $node_array = (array) $node;
-
+ 
   // Store the value of the field we're comparing.
   $field_value = $node_array[$settings['field']];
 

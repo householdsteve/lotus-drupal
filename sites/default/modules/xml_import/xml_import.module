@@ -33,9 +33,136 @@ $items['delete-all-products-test'] = array(
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+  
+$items['import-xml-users'] = array(
+    'title' => t('Import users with xml'),
+    'page callback' => 'xml_import_import_users',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
+
+/**
+ * Implementation of hook_uc_price_handler().
+ */
+function xml_import_uc_price_handler() {
+  return array(
+    'alter' => array(
+      'title' => t('Discount price handler'),
+      'description' => t('Adds discounts to product prices.'),
+      'callback' => 'xml_import_price_handler_alter',
+    ),
+  );
+}
+
+
+function xml_import_import_users($name){
+  
+  $response = xml_import_get_xml_data("http://localhost/lotuspd.com_prep/xml/clients.xml");
+ 
+
+	$output = "starting output <br/>";
+	
+	foreach($response['cliente'] as $val){
+	  
+	  $uq = db_fetch_object(db_query("SELECT uid, value FROM {profile_values} WHERE value = '%s'",$val["codice"]));
+
+    if($uq){ // if the product exists load the node and modify it.
+      $u = user_load($uq->uid);
+      $output .= "loaded existig <br>";
+      
+    }else{
+      
+      $output .= "creating new <br>";
+      $newUser = array(
+        'name' => $val["ragione_sociale"],
+        //'name' => encodeUrlParam($val["ragione_sociale"]),
+        'pass' => $val["password"], // note: do not md5 the password
+        'mail' => $val["e_mail"],
+        'status' => 1,
+        'language' => "it",
+        'init' => $val["e_mail"]
+      );           
+      $uo = user_save(null, $newUser);
+      $u = user_load($uo->uid);
+      
+      $roles = user_roles();
+      $u->roles = array(array_search('consumer_level_1', $roles) => 5);
+      
+      $edit_cliente = array(
+        'profile_codice'=> $val["codice"],
+        'profile_name' => $val["ragione_sociale"]
+        );
+        
+      xml_import_save_profile($edit_cliente, $u, 'cliente');
+    }
+	  
+    $u->name = $val["ragione_sociale"];
+    $u->pass = $val["password"];
+  	$u->mail = $val["e_mail"];
+  	$u->timezone = "7200";
+  	
+  	
+  	 $edit = array(
+      'profile_discount_1'=> $val["sconto_1"],
+      'profile_discount_2'=> $val["sconto_2"],
+      'profile_discount_3'=> $val["sconto_3"],
+      );
+
+      $ua = user_save((object) array('uid' => $u->uid), (array) $u);
+      
+      xml_import_save_profile($edit, $u, 'Discounts');
+    
+
+  }
+  
+  return $output;
+ 
+}
+
+function encodeUrlParam ( $string )
+{
+  $string = trim($string);
+   
+  if ( ctype_digit($string) )
+  {
+    return $string;
+  }
+  else
+  {     
+    // replace accented chars
+    $accents = '/&([A-Za-z]{1,2})(grave|acute|circ|cedil|uml|lig);/';
+    $string_encoded = htmlentities($string,ENT_NOQUOTES,'UTF-8');
+
+    $string = preg_replace($accents,'$1',$string_encoded);
+     
+    // clean out the rest
+    $replace = array('([\40])','([^a-zA-Z0-9-])','(-{2,})');
+    $with = array('-','','-');
+    $string = preg_replace($replace,$with,$string);
+  }
+
+  return strtolower($string);
+}
+
+
+
+function xml_import_save_profile($edit, $user, $category, $register = FALSE) {
+  $result = _profile_get_fields($category, $register);
+  while ($field = db_fetch_object($result)) {
+    if (_profile_field_serialize($field->type)) {
+       $edit[$field->name] = serialize($edit[$field->name]);
+    }
+    db_query("DELETE FROM {profile_values} WHERE fid = %d AND uid = %d", $field->fid, $user->uid);
+    db_query("INSERT INTO {profile_values} (fid, uid, value) VALUES (%d, %d, '%s')", $field->fid, $user->uid, $edit[$field->name]);
+    // Mark field as handled (prevents saving to user->data).
+    $edit[$field->name] = NULL;
+  }
+}
+
 
 function xml_import_test($name) {
   
@@ -104,9 +231,9 @@ function drupal_add_existing_file($file_drupal_path,$uid=1,$status=FILE_STATUS_P
 }
 
 
-function xml_import_get_xml_data(){
+function xml_import_get_xml_data($collect_url){
   
-  $URL = 'http://localhost/lotuspd.com_prep/xml/test.xml';
+  $URL = $collect_url;
 	$request = 'getInventory';
 	$parameters = array("param1" => "value1", "param2" => "value2");
 	
@@ -125,7 +252,7 @@ function xml_import_product_load($model) {
 
 function xml_import_products($name) {
 	
-	$response = xml_import_get_xml_data();
+	$response = xml_import_get_xml_data("http://localhost/lotuspd.com_prep/xml/test.xml");
 
 	$countParent = 0;
 	$countChild = 0;
@@ -135,7 +262,7 @@ function xml_import_products($name) {
 	//die;
 	$product_list = array();
 	
-	$output = " cool";
+	$output = " cooltwothree";
 	
 	foreach($response['product'] as $val){
 		
@@ -222,7 +349,7 @@ function xml_import_products($name) {
 		$product_list[$val[id]]["models"][] = $product_code;
 		$product_list[$val[id]]["vids"][] = $node->vid;
 		
-		db_query("INSERT INTO {uc_product_stock} (sku, nid, active, stock, threshold) VALUES ('%s', %d, %d, %d, %d)", $node->model,$node->vid, true, $val[disponibile],$val[disponibile]);
+		db_query("INSERT INTO {uc_product_stock} (sku, nid, active, stock) VALUES ('%s', %d, %d, %d)", $node->model,$node->vid, true, $val[disponibile]);
 
 		$countParent++;
 		
@@ -298,11 +425,7 @@ function xml_import_products($name) {
 
 function xml_import_catalog($name) {
 	//$URL = 'http://pofd.com/projects/lotus/xml/test.xml';
-	$URL = 'http://localhost/lotuspd.com_prep/xml/test.xml';
-	$request = 'getInventory';
-	$parameters = array("param1" => "value1", "param2" => "value2");
-	
-	$response = simpleXMLToArray(pullXML($URL,$request,$parameters));
+	$response = xml_import_get_xml_data("http://localhost/lotuspd.com_prep/xml/test.xml");
 	
 	$catList = array();
 
