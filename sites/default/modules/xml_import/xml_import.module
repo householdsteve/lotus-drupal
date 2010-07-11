@@ -343,6 +343,7 @@ function xml_import_products($name) {
 		$node->list_price = $price;
 		$node->cost = $price;
 		$node->model = $product_code;
+		$node->list_in_catalog = 0;
 
   	node_save($node);
 		
@@ -356,7 +357,6 @@ function xml_import_products($name) {
 		
 
 	}
-	
 	
 	
 	// lets add product kits now
@@ -378,11 +378,17 @@ function xml_import_products($name) {
         }elseif(count($product_list[$key]["models"]) > 1){
           $product_kit = new StdClass();
           $product_kit->type = "product_kit";
+          $product_kit->list_in_catalog = 1;
           echo "new kit <br/>";
       }else{
-        
+          
           echo "not a kit <br/>";
-         unset($product_kit);
+          $np = node_load($default_product);
+          $np->list_in_catalog = 1;
+          node_save($np);
+        	unset($np);
+          
+          unset($product_kit);
       }
 	    
 	    if(isset($product_kit->type) && $product_kit->type == "product_kit"){

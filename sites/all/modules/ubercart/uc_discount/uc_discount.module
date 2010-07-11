@@ -124,14 +124,17 @@ function uc_discount_price_handler_alter(&$price_info, &$context, &$options) {
   
   if (!isset($prices[$cache])) {
     // The discount action modifies the node's sell_price field.
-    $carter = uc_cart_get_contents();
+    $loaded_cart = uc_cart_get_contents();
 
     $node->sell_price = $price_info['price'];
-    ca_pull_trigger('calculate_product_discounts', $node, $user);
-    
-    ca_pull_trigger('uc_discount_calculate_product_discounts', $node, $user,$carter);
     
     $prices[$cache] = $node->sell_price;
+    
+    ca_pull_trigger('uc_discount_calculate_product_discounts', $node, $user, $loaded_cart);
+    
+    ca_pull_trigger('calculate_product_discounts', $node, $user);
+    
+   
   }
   else {
     $node->sell_price = $prices[$cache];

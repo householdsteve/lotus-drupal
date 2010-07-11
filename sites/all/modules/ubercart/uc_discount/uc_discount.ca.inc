@@ -206,10 +206,6 @@ function uc_discount_calculate_product_discounts_test($arguments,$settings){
       }
     }
   }
-  
-  echo "called<pre>";
-  var_dump($arguments["product"]);
-  echo "</pre>";
 }
 
 function uc_discount_condition_node_term($node, $settings) {

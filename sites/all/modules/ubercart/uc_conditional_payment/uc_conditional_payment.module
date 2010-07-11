@@ -145,14 +145,6 @@ function uc_conditional_payment_ca_condition() {
         'cart' => array('#entity' => 'cart', '#title' => t('Cart')),
       ),
     ),
-    'uc_conditional_payment_test_cart_total' => array(
-      '#title' => t('Test integration for module cart'),
-      '#category' => t('Cart'),
-      '#callback' => 'uc_conditional_payment_test_cart_total',
-      '#arguments' => array(
-        'cart' => array('#entity' => 'cart', '#title' => t('Cart')),
-      ),
-    ),
   );
 }
 
@@ -178,16 +170,6 @@ function uc_conditional_payment_cart_total($cart, $settings) {
   }
   return $result;
 }
-
-
-function uc_conditional_payment_test_cart_total($cart, $settings) {
-  
-  echo "<pre>";
-  print_r($cart);
-  echo "</pre>";
-  return $result;
-}
-
 
 
 function uc_conditional_payment_cart_total_form($form_state, $settings = array(), $arguments = array()) {
