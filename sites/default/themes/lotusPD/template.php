@@ -221,3 +221,11 @@ function lotusPD_uc_catalog_product_grid($array) {
   $product_table .= "</div></div></div>";
   return $product_table;
 }
+
+function lotus_user_link(){
+  if(user_is_logged_in()){
+    return l("My Account","user")." / ".l("Logout","logout");
+  }else{
+    return l("Area Riservata","user/login");
+  }
+}

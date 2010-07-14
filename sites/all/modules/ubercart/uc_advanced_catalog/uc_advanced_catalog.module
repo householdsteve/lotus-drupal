@@ -1,0 +1,376 @@
+<?php
+// $Id: uc_advanced_catalog.module,v 1.2 2009/12/23 09:55:48 mogtofu33 Exp $
+
+/**
+ * @file
+ * Advanced catalog module. Add filter and views managment to ubercart catalog.
+ */
+
+/******************************************************************************
+ * Drupal Hooks                                                               *
+ ******************************************************************************/
+
+/**
+ * Implementation of hook_menu().
+ */
+function uc_advanced_catalog_menu() {
+  $items = array();
+  $items['admin/store/settings/catalog/edit/advanced'] = array(
+    'title' => 'Advanced catalog settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('uc_advanced_catalog_settings_form'),
+    'access arguments' => array('administer catalog'),
+    'weight' => -5,
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'uc_advanced_catalog.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function uc_advanced_catalog_form_alter(&$form, $form_state, $form_id) {
+  if ($form_id == 'uc_catalog_grid_settings_form' && variable_get('uc_advanced_catalog', FALSE)) {
+    drupal_set_message(t('You cannot use grid display if advanced catalog is enabled.'), 'warning' );
+    $form['uc_catalog_grid_display']['#disabled'] = TRUE;
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function uc_advanced_catalog_theme() {
+  return array(
+    'uc_advanced_catalog_settings_list_form' => array(
+      'file' => 'uc_advanced_catalog.admin.inc',
+      'arguments' => array('form' => NULL),
+    ),
+  );
+}
+
+/**
+ * Display a formatted catalog page.
+ *
+ * This function is a copy of original theme_uc_catalog_browse() with filter and pager options
+ *
+ * If the category has products in it, display them in a view. Subcategories
+ *   are linked along the top of the page. If it does not have products, display
+ *   subcategories in a grid with their images and subcategories.
+ *
+ * @param $tid
+ *   Catalog term id from URL.
+ * @return
+ *   Formatted HTML of the catalog page using view.
+ */
+function uc_advanced_catalog_browse($tid = 0) {
+
+  // ADDED: specific js and css
+  drupal_add_css(drupal_get_path('module', 'uc_advanced_catalog') .'/uc_advanced_catalog.css');
+  drupal_add_js(drupal_get_path('module', 'uc_advanced_catalog') .'/uc_advanced_catalog.js');
+
+  // original code
+  drupal_add_css(drupal_get_path('module', 'uc_catalog') .'/uc_catalog.css');
+  $output = '';
+  $catalog = uc_catalog_get_page((int)$tid);
+  drupal_set_title(check_plain($catalog->name));
+  drupal_set_breadcrumb(uc_catalog_set_breadcrumb($catalog->tid));
+  $types = uc_product_types();
+  $links = array();
+  $child_list = array();
+  foreach ($catalog->children as $child) {
+    if (!empty($child->nodes)) {
+      $links[] = array('title' => $child->name . (variable_get('uc_catalog_breadcrumb_nodecount', FALSE) ? ' ('. $child->nodes .')' : ''), 'href' => uc_catalog_path($child),
+        'attributes' => array('rel' => 'tag'),
+      );
+    }
+    if (!empty($child->image)) {
+      $image = '<div>';
+      if (module_exists('imagecache')) {
+        $image .= l(theme('imagecache', 'uc_category', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
+      }
+      else {
+        $image .= l(theme('image', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
+      }
+      $image .= '</div>';
+    }
+    else {
+      $image = '<div></div>';
+    }
+    $grandchildren = array();
+    $j = 0;
+    $max_gc_display = 3;
+    foreach ($child->children as $i => $grandchild) {
+      if ($j > $max_gc_display) {
+        break;
+      }
+      $g_child_nodes = 0;
+      foreach ($types as $type) {
+        $g_child_nodes += taxonomy_term_count_nodes($grandchild->tid, $type);
+      }
+      if ($g_child_nodes) {
+        $grandchildren[$i] = l($grandchild->name, uc_catalog_path($grandchild), array('class' => 'subcategory'));
+        $j++;
+      }
+    }
+    //$grandchildren = array_slice($grandchildren, 0, intval(count($grandchildren) / 2) + 1, TRUE);
+    if ($j > $max_gc_display) {
+      array_push($grandchildren, l(t('More...'), uc_catalog_path($child), array('class' => 'subcategory')));
+    }
+    if ($child->nodes) {
+      $cell_link = $image .'<strong>'. l($child->name, uc_catalog_path($child)) .'</strong>';
+      if (variable_get('uc_catalog_show_subcategories', TRUE)) {
+        $cell_link .= "<br/><span>". implode(', ', $grandchildren) ."</span>\n";
+      }
+      $child_list[] = $cell_link;
+    }
+  }
+  if (!empty($catalog->image)) {
+    if (module_exists('imagecache')) {
+      $output .= theme('imagecache', 'uc_thumbnail', $catalog->image['filepath'], $catalog->name, $catalog->name, array('class' => 'category'));
+    }
+    else {
+      $output .= theme('image', $catalog->image['filepath'], $catalog->name, $catalog->name, array('class' => 'category'));
+    }
+  }
+
+  // ADDED: creating pager and session storage
+  $url = drupal_get_path_alias(arg(0) .'/'. arg(1));
+  $full_url = base_path() . $url;
+
+  // limit
+  $limit = variable_get('uc_advanced_catalog_limit_default', variable_get('uc_product_nodes_per_page', 12));
+  if (variable_get('uc_advanced_catalog_limit', TRUE)) {
+    $limit_options = explode(',', variable_get('uc_advanced_catalog_limit_options', '12,20,28'));
+    // session storage
+    if ($_REQUEST['limit']) {
+      $limit = $_REQUEST['limit'];
+      $_SESSION['limit'] = $limit;
+    }
+    elseif ($_SESSION['limit']) {
+      $limit = $_SESSION['limit'];
+    }
+    // filter
+    foreach ($limit_options as $v) {
+      $options[$full_url .'?limit='. $v] = $v;
+    }
+    $limit_select['limit'] = array(
+      '#type' => 'select',
+      '#prefix' => t('Show'),
+      '#attributes' => array('onchange' => 'setLocation(this.value)', 'class' => 'pager-limit-item'),
+      '#value' => $full_url .'?limit='. $limit,
+      '#options' => $options,
+      '#suffix' => t('per page'),
+    );
+    // pager table
+    $row[variable_get('uc_advanced_catalog_limit_weight', 1)] = array(
+      'data' => drupal_render($limit_select), 'class' => 'pager-cell pager-limit',
+    );
+  }
+
+  // mode
+  $mode = variable_get('uc_advanced_catalog_mode_default', 'block_1');
+  if (variable_get('uc_advanced_catalog_mode', TRUE)) {
+    // session storage
+    if ($_REQUEST['mode']) {
+      $mode = $_REQUEST['mode'];
+      $_SESSION['mode'] = $mode;
+    }
+    elseif ($_SESSION['mode']) {
+      $mode = $_SESSION['mode'];
+    }
+    // filter
+    $view_as = t('View as ');
+    if (variable_get('uc_advanced_catalog_mode_option_grid', TRUE)) {
+      $mode == 'block_1' ? $view_as .= '&nbsp;<strong>'. t('Grid') .'</strong>&nbsp;':
+        $view_as .= '&nbsp;'. l(t('Grid'), $url, array('html' => TRUE, 'query' => array('mode' => 'block_1'))) .'&nbsp;';
+    }
+    if (variable_get('uc_advanced_catalog_mode_option_table', TRUE)) {
+      $mode == 'block_2' ? $view_as .= '&nbsp;<strong>'. t('Table') .'</strong>&nbsp;':
+        $view_as .= '&nbsp;'. l(t('Table'), $url, array('html' => TRUE, 'query' => array('mode' => 'block_2'))) .'&nbsp;';
+    }
+    if (variable_get('uc_advanced_catalog_mode_option_list', TRUE)) {
+      $mode == 'block_3' ? $view_as .= '&nbsp;<strong>'. t('List') .'</strong>&nbsp;':
+        $view_as .= '&nbsp;'. l(t('List'), $url, array('html' => TRUE, 'query' => array('mode' => 'block_3'))) .'&nbsp;';
+    }
+    // pager table
+    $row[variable_get('uc_advanced_catalog_mode_weight', 2)] = array(
+      'data' => $view_as, 'class' => 'pager-cell pager-view',
+    );
+  }
+
+  // order
+  $order = variable_get('uc_advanced_catalog_ordering_default', 'ordering');
+  if (variable_get('uc_advanced_catalog_ordering', TRUE)) {
+    // session storage
+    if ($_REQUEST['order']) {
+      $order = $_REQUEST['order'];
+      $_SESSION['order'] = $order;
+    }
+    elseif ($_SESSION['order']) {
+      $order = $_SESSION['order'];
+    }
+    // filter
+    if (variable_get('uc_advanced_catalog_ordering_option_position', TRUE)) {
+      $order_options[$full_url .'?order=ordering'] = t('Position');
+    }
+    if (variable_get('uc_advanced_catalog_ordering_option_name', TRUE)) {
+      $order_options[$full_url .'?order=title'] = t('Name');
+    }
+    if (variable_get('uc_advanced_catalog_ordering_option_price', TRUE)) {
+      $order_options[$full_url .'?order=sell_price'] = t('Price');
+    }
+    if (count($order_options) > 1) {
+      $order_select['order'] = array(
+        '#type' => 'select',
+        '#prefix' => t('Sort by '),
+        '#attributes' => array('onchange' => 'setLocation(this.value)', 'class' => 'pager-order-item'),
+        '#value' => $full_url .'?order='. $order,
+        '#options' => $order_options,
+      );
+    }
+    else {
+      $order_select['order'] = array(
+        '#value' => t('Sort by ') . t(drupal_strtolower($order_options[$full_url .'?order='. $order])),
+      );
+    }
+    // pager
+    $row[variable_get('uc_advanced_catalog_ordering_weight', 4)] = array(
+      'data' => drupal_render($order_select), 'class' => 'pager-cell pager-order',
+    );
+  }
+
+  // sort dir
+  $dir = variable_get('uc_advanced_catalog_sort_default', 'ASC');
+  if ($dir == 'ASC') {
+    $icon_order = t(' ascending');
+    $dir_query = 'DESC';
+  }
+  else {
+    $icon_order = t(' descending');
+    $dir_query = 'ASC';
+  }
+  if (variable_get('uc_advanced_catalog_sort', TRUE)) {
+    if ($_REQUEST['dir']) {
+      $_REQUEST['dir'] == "DESC" ? $dir = "DESC": $dir = "ASC";
+      $_SESSION['dir'] = $dir;
+    }
+    elseif ($_SESSION['dir']) {
+      $dir = $_SESSION['dir'];
+    }
+    if ($dir == 'ASC') {
+      $dir_query = 'DESC';
+    }
+    else {
+      $dir_query = 'ASC';
+    }
+    $path = drupal_get_path('module', 'uc_advanced_catalog') .'/images/';
+    $icon_img = theme('image',
+      $path .'arrow-'. drupal_strtolower($dir_query) .'.png',
+      t('sort icon'),
+      t('Sort by ') . drupal_strtolower($order_options[$full_url .'?order='. $order]) . $icon_order
+    );
+    $icon_order = l($icon_img, $url, array('html' => TRUE, 'query' => array('dir' => $dir_query)));
+    $row[variable_get('uc_advanced_catalog_sort_weight', 3)] = array(
+      'data' => $icon_order, 'class' => 'pager-cell pager-sort',
+    );
+  }
+
+  // using existing view
+  $viewname = 'advanced_catalog';
+  $view = views_get_view($viewname);
+  $view->set_arguments(array($tid));
+  $view->set_display($mode);
+  $view->set_items_per_page($limit);
+  $view->set_use_pager('full');
+  $view->get_total_rows = TRUE;
+  $view->execute();
+  $count = count($view->result);
+
+  // extra pager text
+  $extra_pager = '';
+  if (variable_get('uc_advanced_catalog_extra', TRUE)) {
+    $currentPage = $_REQUEST['page']+1;
+    $total = $view->total_rows;
+    $start = $_REQUEST['page'] * $limit +1;
+    $end = $limit * $currentPage;
+    if ($end > $total) {
+      $end = $total;
+    }
+    $extra_pager = '<div class="pager-items">';
+    $extra_pager .= t('Items !start to !end of !total total', array('!start' => $start, '!end' => $end, '!total' => $total));
+    $extra_pager .= '</div>';
+    $row[variable_get('uc_advanced_catalog_extra_weight', 0)] = array(
+      'data' => $extra_pager, 'class' => 'pager-cell pager-extra',
+    );
+  }
+
+  if ($count > 0) {
+    if (count($links)) {
+      $output .= theme('links', $links, array('class' => 'links inline uc-categories')) ."<br />\n";
+    }
+
+    // creating pager
+    ksort($row);
+    $rows[] = $row;
+    $pager = theme('table', array(), $rows, array('class' => 'pager-field'));
+
+    // output construction
+    $output .= $catalog->description;
+    if (variable_get('uc_advanced_catalog_sticky', FALSE)) {
+      $output .= views_embed_view('advanced_catalog', 'block_4', $tid);
+    }
+    $pager_display = variable_get('uc_advanced_catalog_pager', 'top-bottom');
+    if ($pager_display == 'top' || $pager_display == 'top-bottom') {
+      $output .= $pager;
+      $output .= theme('pager');
+    }
+    // adding view
+    $output .= $view->preview($mode);
+
+    if ($pager_display == 'bottom' || $pager_display == 'top-bottom') {
+      $output .= $pager;
+    }
+  }
+  else {
+    // original code
+    // Display table of child categories similar to an osCommerce site's front page.
+    $columns = variable_get('uc_catalog_category_columns', 3);
+    $cat_rows = array();
+    $row = array();
+    $i = 1;
+    foreach ($child_list as $cell) {
+      $row[] = array('data' => $cell, 'class' => 'category');
+      if ($i % $columns == 0) {
+        $cat_rows[] = $row;
+        $row = array();
+      }
+      $i++;
+    }
+    if (count($row) > 0 && count($row) < $columns) {
+      if (count($cat_rows) >= 1) {
+        $row = array_merge($row, array_fill(count($row), $columns - count($row), array('data' => '&nbsp;', 'class' => 'category')));
+      }
+      $cat_rows[] = $row;
+    }
+    $output .= $catalog->description;
+    $output .= theme('table', array(), $cat_rows, array('class' => 'category'));
+  }
+
+  return $output;
+}
+
+/******************************************************************************
+ * Views Hooks                                                                *
+ ******************************************************************************/
+
+/**
+ * Implementing hook_views_api
+ */
+function uc_advanced_catalog_views_api() {
+  return array(
+    'api' => 2.0,
+    'path' => drupal_get_path('module', 'uc_advanced_catalog') .'/includes',
+  );
+}

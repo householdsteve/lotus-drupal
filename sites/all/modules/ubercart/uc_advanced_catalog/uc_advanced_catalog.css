@@ -1,0 +1,27 @@
+/* $Id: uc_advanced_catalog.css,v 1.1 2009/12/17 14:17:40 mogtofu33 Exp $ */
+
+.pager-cell {
+
+}
+.pager-order{
+
+}
+.pager-order-item{
+
+}
+.pager-limit{
+
+}
+.pager-limit-item{
+
+}
+.pager-view{
+
+}
+.pager-sort{
+
+}
+
+.pager-field  .form-item {
+  display:inline;
+}

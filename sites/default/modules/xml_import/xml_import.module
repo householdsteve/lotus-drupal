@@ -173,6 +173,7 @@ function xml_import_test($name) {
   }else{
     return "just doing old updates";
   }*/
+  /*
   $node = new StdClass();
 	$node->type = 'product_kit';
 	$node->title = "tetpgmtly";
@@ -191,30 +192,60 @@ function xml_import_test($name) {
     $node->mutable = 1;
     
   node_save($node);
+  */
   
+  $response = xml_import_get_xml_data("http://localhost/lotuspd.com_prep/xml/test.xml");
+
+	echo "<pre>";
+	//var_dump($response);
+	echo "</pre>";
+	//die;
+	
+	foreach($response['product'] as $val){
+	  
+	  $product_code = $val[id].".".$val[color][id];
+	  
+	  for($x = 1; $x < 7; $x++){
+	    $image_code = $product_code.".0".$x; 
+	    echo $image_code."<br>";
+	    $img_path = import_image_move($image_code);
+	    echo "the image path: ".$img_path."<br>";
+	  }
+	  
+	  
+	  
+  }
 }
 
 
 
 function import_image_move($filename){
   
-  $fp = fopen (file_directory_path()."/products/imported/".$filename.".jpg", 'w');//This is the file where we save the information
+    $file_address = 'http://94.84.209.27/Lotus/Immagini/'.$filename.".jpg";
+    //$ch = curl_init('http://localhost/lotuspd.com_prep/t/'.$filename.".jpg"); //Here is the file we are downloading
+    $check_url = curl_init($file_address);
+    curl_setopt($check_url, CURLOPT_TIMEOUT, 3);
+    curl_setopt($check_url, CURLOPT_NOBODY, true);
+    curl_exec($check_url);
+    $retcode = curl_getinfo($check_url, CURLINFO_HTTP_CODE);
+    curl_exec($check_url);
+    curl_close($check_url);
+    
+    if($retcode == "200"){ 
+      $ch = curl_init($file_address); //Here is the file we are downloading
+      $fp = fopen (file_directory_path()."/products/imported/".$filename.".jpg", 'w');//This is the file where we save the information create it after we've confirmed its existance.
+        curl_setopt($ch, CURLOPT_TIMEOUT, 50);      
+        curl_setopt($ch, CURLOPT_FILE, $fp);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_exec($ch);
+        curl_close($ch);
+        fclose($fp);
+        return file_directory_path()."/products/imported/".$filename.".jpg";
+    }else{
+        return false;
+    }
   
-   // REPLACE THIS CHECK WITH ONE THAT MAKES SURE THE IMAGE EXISTS BEFORE TRYING TO TRANSFER IT.
-    $ch = curl_init('http://localhost/lotuspd.com_prep/t/'.$filename.".jpg"); //Here is the file we are downloading
-    if (false === $ch)
-        {
-            return false;
-        }
-      curl_setopt($ch, CURLOPT_TIMEOUT, 50);
-      curl_setopt($ch, CURLOPT_FILE, $fp);
-      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-      curl_exec($ch);
-   
-      curl_close($ch);
-  
-  fclose($fp);
-  return file_directory_path()."/products/imported/".$filename.".jpg";
+      
 }
 
 function drupal_add_existing_file($file_drupal_path,$uid=1,$status=FILE_STATUS_PERMANENT) {

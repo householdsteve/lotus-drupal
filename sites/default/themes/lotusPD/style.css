@@ -77,7 +77,7 @@ div#primary {
 div#social {
 	position:absolute;
 	right:0;
-	top:20px;
+	top:10px;
 	color:#b4b4b0;
 	font: 33px/33px 'BebasRegular', Helvetica, sans-serif;
 }
@@ -93,6 +93,19 @@ div#social a {
 }
 div#social a:hover {
 	color:#fff;
+}
+
+div#area-riservata {
+  position:absolute;
+	right:0;
+	bottom:4px;
+	font-size:11px;
+}
+div#area-riservata a {
+  color:#000;
+}
+div#area-riservata a:hover {
+  color:#fff;
 }
 
 

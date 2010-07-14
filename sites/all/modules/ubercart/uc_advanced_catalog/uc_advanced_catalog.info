@@ -1,0 +1,17 @@
+; $Id: uc_advanced_catalog.info,v 1.1 2009/12/17 14:17:40 mogtofu33 Exp $
+
+name = Ubercart advanced catalog
+description = Provide filter and view managment for Ubercart catalog.
+dependencies[] = uc_catalog
+dependencies[] = views
+dependencies[] = views_ui
+dependencies[] = uc_views
+package = "Ubercart - extra"
+core = "6.x"
+
+; Information added by drupal.org packaging script on 2010-07-11
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "uc_advanced_catalog"
+datestamp = "1278836067"
+

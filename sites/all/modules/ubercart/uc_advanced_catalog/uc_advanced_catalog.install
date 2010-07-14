@@ -1,0 +1,28 @@
+<?php
+// $Id: uc_advanced_catalog.install,v 1.1 2009/12/17 14:17:40 mogtofu33 Exp $
+
+/**
+ * @file
+ * Advanced catalog module install file.
+ */
+
+/**
+ * Implentation of the hook_install().
+ */
+function uc_advanced_catalog_install() {
+  $file = drupal_get_path('theme', $current_theme = variable_get('theme_default', 'none')) .'/template.php';
+  if (file_exists($file)) {
+    include_once($file);
+    if (!function_exists('phptemplate_uc_catalog_browse')) {
+      drupal_set_message(t('You need to modify your template.php file to get advanced catalog working, please see INSTALL.txt.'), 'error');
+    }
+  }
+  drupal_set_message(t('Visit <a href="!url">advanced catalog settings</a> to set-up your catalog.', array('!url' => url('admin/store/settings/catalog/edit/advanced'))));
+}
+
+/**
+ * Implentation of the hook_uninstall().
+ */
+function uc_advanced_catalog_uninstall() {
+  db_query("DELETE FROM {variable} WHERE name LIKE 'uc_advanced_catalog_%%'");
+}
