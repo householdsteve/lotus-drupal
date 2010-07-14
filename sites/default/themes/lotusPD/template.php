@@ -109,8 +109,59 @@ function lotusPD_preprocess_page(&$vars, $hook) {
   $vars['primary_links'] = $tO;
 }
 
-function lotusPD_uc_catalog_product_grid($products) {
-  $product_table = '<div class="category-grid-products"><table>';
+function learn_taxonomy_ancestry($tid){
+  
+  $p = taxonomy_get_parents($tid);
+  
+  $key = array_shift(array_keys($p));
+  
+  $c = taxonomy_get_tree($p[$key]->vid,$p[$key]->tid);
+  
+  $output = '<select id="fast-cat-change">';
+  foreach($c as $item){
+    $link = base_path().drupal_get_path_alias("catalog/".$item->tid);
+    $output .= '<option value="'.$link.'">'.$item->name.'</option>';
+  }
+  $output .= "</select>";
+  
+  return $output;
+  
+}
+
+function random_hex_color(){
+    return sprintf("%02X%02X%02X", mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255));
+}
+
+function lotusPD_uc_catalog_product_grid($array) {
+  global $pager_total_items;
+  
+  $products = $array["products"];
+  $catalog = $array["catalog"];
+  //learn_taxonomy_ancestry($catalog->tid);
+  $product_table = '<div class="full-content clearfix">';
+  
+  $product_table .= '<div class="column left">';
+  $product_table .= ' <div class="column-header light">';
+  $product_table .= '   <span class="colorblock" style="background:#'.random_hex_color().'">&nbsp;</span><span class="title">'.$catalog->name.'</span>';
+  $product_table .= ' </div>';
+
+  $product_table .= '</div>';
+  
+  $product_table .= '<div class="column middle-right">';
+    
+  $product_table .= '  <div class="clearfix">';
+  $product_table .= '    <div class="filter middle">';
+    $product_table .= ' <div class="column-header dark info">';
+      $product_table .= "(<span>".variable_get('uc_product_nodes_per_page', 12)."</span> prodotti di <span>".$pager_total_items[0]."</span> totale)";
+    $product_table .= '  </div>';
+  $product_table .= '  </div>';
+  $product_table .= '  <div class="filter right">';
+  $product_table .= $array["pager"];
+  $product_table .= ' </div>';
+  $product_table .= '</div>';
+    
+  
+  $product_table .= '<div class="category-grid-products">';
   $count = 0;
   $context = array(
     'revision' => 'themed',
@@ -121,10 +172,10 @@ function lotusPD_uc_catalog_product_grid($products) {
     $context['subject'] = array('node' => $product);
 
     if ($count == 0) {
-      $product_table .= "<tr>";
+      $product_table .= "<div class='product-row clearfix'>";
     }
     elseif ($count % variable_get('uc_catalog_grid_display_width', 3) == 0) {
-      $product_table .= "</tr><tr>";
+      $product_table .= "</div><div class='product-row clearfix'>";
     }
 
     $titlelink = l($product->title, "node/$nid", array('html' => TRUE));
@@ -135,7 +186,7 @@ function lotusPD_uc_catalog_product_grid($products) {
       $imagelink = '';
     }
 
-    $product_table .= '<td>';
+    $product_table .= '<div class="product-column">';
     if (variable_get('uc_catalog_grid_display_title', TRUE)) {
       $product_table .= '<span class="catalog-grid-title">'. $titlelink .'</span>';
     }
@@ -146,11 +197,27 @@ function lotusPD_uc_catalog_product_grid($products) {
     if (variable_get('uc_catalog_grid_display_sell_price', TRUE)) {
       $product_table .= '<span class="catalog-grid-sell-price">'. uc_price($product->sell_price, $context) .'</span>';
     }
-    
-    $product_table .= '</td>';
+    if (module_exists('uc_cart') && variable_get('uc_catalog_grid_display_add_to_cart', TRUE)) {
+      if (variable_get('uc_catalog_grid_display_attributes', TRUE)) {
+        $product_table .= theme('uc_product_add_to_cart', $product);
+      }
+      else {
+        $product_table .= drupal_get_form('uc_catalog_buy_it_now_form_'. $product->nid, $product);
+      }
+    }
+    $product_table .= '</div>';
 
     $count++;
   }
-  $product_table .= "</tr></table></div>";
+    
+ $product_table .= ' </div>';
+ 
+      $product_table .= '<div class="column middle-right">';
+          $product_table .= '  <div class="filter right">';
+          $product_table .= $array["pager"];
+          $product_table .= ' </div>';
+      $product_table .= '</div>';
+ 
+  $product_table .= "</div></div></div>";
   return $product_table;
 }

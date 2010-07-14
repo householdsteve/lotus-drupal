@@ -101,7 +101,7 @@ function theme_uc_catalog_browse($tid = 0) {
     $order = 'ORDER BY p.ordering, n.title, n.nid';
   }
   else {
-    $order = tapirsort_sql(uc_product_table_header());
+    $order = tapirsort_sql(uc_output_header());
   }
   
   ////// !!!!!! ---- WE NEED TO RE-WRITE THE SQL QUERY TO NOT LOAD INDIVIDUAL PRODUCTS THAT ARE PRESENT IN A PRODUCT KIT.
@@ -117,7 +117,7 @@ function theme_uc_catalog_browse($tid = 0) {
     FROM {node} n
       INNER JOIN {term_node} tn ON n.vid = tn.vid
       INNER JOIN {uc_products} AS p ON n.vid = p.vid
-    WHERE tn.tid = %d
+    WHERE tn.tid = %d AND n.status = 1 AND p.list_in_catalog = '1'
       AND n.status = 1
       AND n.type IN (". db_placeholders($types, 'varchar') .")";
 
@@ -136,9 +136,10 @@ function theme_uc_catalog_browse($tid = 0) {
     if (count($links)) {
       $output .= theme('links', $links, array('class' => 'links inline uc-categories')) ."<br />\n";
     }
-    $output .= $catalog->description;
-    $output .= theme('uc_catalog_products', $catalog->products);
-    $output .= theme('pager');
+    //$output .= $catalog->description;
+    $pager = theme('pager');
+    $output .= theme('uc_catalog_products',array("products" => $catalog->products, "catalog" => $catalog, "pager" => $pager));
+    
   }
   else {
     // Display table of child categories similar to an osCommerce site's front page.
@@ -146,7 +147,7 @@ function theme_uc_catalog_browse($tid = 0) {
     $cat_rows = array();
     $row = array();
     $i = 1;
-    foreach ($child_list as $cell) {
+    /*foreach ($child_list as $cell) {
       $row[] = array('data' => $cell, 'class' => 'category');
       if ($i % $columns == 0) {
         $cat_rows[] = $row;
@@ -159,10 +160,64 @@ function theme_uc_catalog_browse($tid = 0) {
         $row = array_merge($row, array_fill(count($row), $columns - count($row), array('data' => '&nbsp;', 'class' => 'category')));
       }
       $cat_rows[] = $row;
+    }*/
+    //$output .= $catalog->description;
+    //$output .= theme('table', array(), $cat_rows, array('class' => 'category'));
+    
+    // make new look for making our sweet looking html grid
+    $output .= '<div class="full-content clearfix">';
+
+    $output .= '<div class="column left">';
+    $output .= ' <div class="column-header light">';
+    $output .= '   <span class="colorblock" style="background:#000;">&nbsp;</span><span class="title">'.$catalog->name.'</span>';
+    $output .= ' </div>';
+
+    $output .= '</div>';
+
+    $output .= '<div class="column middle-right">';
+
+    $output .= '  <div class="spacer clearfix">';
+    
+    $output .= '  <div class="filter right">';
+      $output .= $pager;
+    $output .= ' </div>';
+    $output .= '</div>';
+
+
+    $output .= '<div class="category-grid-products">';
+    $count = 0;
+    
+    foreach ($child_list as $product) {
+      
+
+      if ($count == 0) {
+        $output .= "<div class='product-row clearfix'>";
+      }
+      elseif ($count % variable_get('uc_catalog_category_columns', 3) == 0) {
+        $output .= "</div><div class='product-row clearfix'>";
+      }
+
+      $output .= '<div class="product-column">';
+      $output .= $product;
+      $output .= '</div>';
+
+      $count++;
     }
-    $output .= $catalog->description;
-    $output .= theme('table', array(), $cat_rows, array('class' => 'category'));
+
+   $output .= ' </div>';
+
+        $output .= '<div class="column middle-right">';
+            $output .= '  <div class="filter right">';
+            $output .= $pager;
+            $output .= ' </div>';
+        $output .= '</div>';
+
+    $output .= "</div></div></div>";
   }
+  
+  //echo "<pre>";
+	//print_r($catalog);
+	//echo "</pre>";
 
   return $output;
 }

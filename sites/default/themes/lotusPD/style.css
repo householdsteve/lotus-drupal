@@ -93,7 +93,7 @@ div#social img {
 }
 
 div#navigation-holder {
-	padding-bottom:50px;
+
 }
 
 div#navigation {
@@ -102,6 +102,11 @@ div#navigation {
 	height:37px;
 	position:relative;
 	top:-10px;
+}
+
+li.over a,li.over a:hover {
+  color:#fff;
+  cursor:pointer;
 }
 
 ul.menu li {
@@ -179,10 +184,10 @@ div#content h2 {
 	font-size:20px;
 }
 .content-body {
-	margin:auto;
+	
 	background:url('images/double-lines.gif') left bottom repeat-x;
 	padding-bottom:70px;
-	text-align:right;
+	/*text-align:right;*/
 }
 
 .fixed-center {
@@ -194,9 +199,11 @@ div#content h2 {
 
 /* -----  OVERRIDE STORESETTINGS CSS ----------*/
 .category-grid-products {
-	width:650px;
-	text-align:right;
-	float:right;
+	margin:0;
+  padding:0;
+  position:relative;
+  text-align:left;
+  top:-10px
 }
 
 .category-grid-products table {
@@ -208,8 +215,228 @@ div#content h2 {
 	background:transparent;
 }
 
-ul.pager li {
-	background:#666;
+
+.category-grid-products div.product-row {
+  margin:0 0 30px 0;
 }
 
+.category-grid-products div.product-column {
+  width:220px;
+  height:270px;
+  margin:0 0 0 20px;
+  float:left;
+  background:#fff;
+  padding:0;
+}
+.category-grid-products div.product-column:first-child {
+  margin:0 0 0 0;
+}
+
+.category-grid-products .catalog-grid-title {
+  text-align:left;
+  font-family: 'Georgia', 'Times', serif;
+	font-weight:normal;
+	font-size:20px;
+	color:#fff;
+	background:#000;
+}
+.category-grid-products .catalog-grid-title a {
+  color:#fff;
+}
+.category-grid-products .catalog-grid-title a:hover {
+  color:#737373;
+}
+
+div.item-list {
+  background:#3E3E3E;
+  height:24px;
+  padding:6px;
+  width:348px;
+}
+ul.pager {
+  height:24px;
+  line-height:24px;
+}
+ul.pager li {
+	
+}
+
+div.item-list .pager li {
+  margin:0;
+  padding:5px;
+}
+
+div.item-list .pager li a {
+  color:#fff;
+}
+div.item-list .pager li a:hover {
+  color:#000;
+}
+div.item-list .pager-current {
+  color:#ff0000;
+}
+
+/* -----  PAGE SETTINGS CSS ----------*/
+
+
+div.content-filters {
+  margin:55px 0 0 0;
+  border-bottom:2px solid #3E3E3E;
+  height:29px;
+  padding:0 0 10px 0;
+}
+
+div.filter {
+  float:left;
+  margin:0;
+  padding:0;
+}
+
+div.column {
+  float:left;
+  margin:0;
+  padding:0;
+}
+
+div.left {
+  width:209px;
+  margin-right:10px;
+}
+
+div.middle {
+  width:350px;
+}
+
+div.middle-right {
+  width:710px;
+}
+
+div.right {
+  width:360px;
+  float:right;
+}
+
+div.right label, div.right input {
+  display:inline-block;
+}
+
+div.right label {
+  margin-right:9px;
+}
+
+div.middle select {
+  width:200px;
+  border:solid 1px #ccc;
+  background:#353535;
+  padding:0;
+  margin:0;
+  color:#fff;
+}
+
+.input_wrapper {
+  padding:6px;
+  background:#3e3e3e;
+  display:inline-block;
+  height:17px;
+  margin:0;
+  vertical-align: top;
+  
+}
+div.right input[type="text"] {
+  width:120px;
+  border:solid 1px #ccc;
+  background:#353535;
+  padding:0;
+  margin:0;
+}
+
+div.right input[type="submit"] {
+  border:none;
+
+}
+img.imageblock {
+  display:inline-block;
+  margin-right:9px;
+}
+input.submit-icon {
+  background:url('images/search-icon.gif') top left no-repeat;
+  width:29px;
+  height:29px;
+  text-indent: -9999px;
+  border:none;
+  padding:0;
+  margin:0;
+  position:relative;
+  left:-3px;
+  vertical-align: top;
+  color:#000;
+}
+
+div.full-content {
+  margin:10px 0 0 0;
+}
+
+div.column-header {
+  height:24px;
+  padding:6px;
+  margin:0 0 10px 0;
+  background:#3e3e3e;
+}
+
+div.spacer {
+  height:24px;
+  padding:6px;
+  width:100%;
+  margin:0;
+}
+
+div.column-header.dark {
+    background:#3e3e3e;
+    color:#fff;
+}
+
+div.column-header.dark.info {
+    background:#3e3e3e;
+    color:#666;
+    width:200px;
+    line-height:24px;
+    font-size:16px;
+}
+div.column-header.dark.info span {
+  color:#fff;
+  font-weight:bold;
+}
+
+div.column-header.light {
+    background:#fff;
+    color:#000;
+}
+
+div.column-header span {
+  display:inline-block;
+  vertical-align: middle;
+  
+}
+div.column-header span.colorblock {
+  width:24px;
+  height:24px;
+  background:red;
+  margin:0 6px 0 0;
+}
+
+div.column-header span.title {
+  text-transform:uppercase;
+  font: 18px/20px 'BebasRegular', Helvetica, sans-serif;
+}
+
+h2.product-title {
+  width:197px;
+  background:#fff;
+  height:24px;
+  padding:6px;
+  font-family: 'Georgia', 'Times', serif;
+	font-weight:normal;
+	font-size:20px;
+	color:#000;
+}
 

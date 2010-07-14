@@ -202,12 +202,15 @@ function import_image_move($filename){
   
    // REPLACE THIS CHECK WITH ONE THAT MAKES SURE THE IMAGE EXISTS BEFORE TRYING TO TRANSFER IT.
     $ch = curl_init('http://localhost/lotuspd.com_prep/t/'.$filename.".jpg"); //Here is the file we are downloading
-    if($ch){
+    if (false === $ch)
+        {
+            return false;
+        }
       curl_setopt($ch, CURLOPT_TIMEOUT, 50);
       curl_setopt($ch, CURLOPT_FILE, $fp);
       curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
       curl_exec($ch);
-    }
+   
       curl_close($ch);
   
   fclose($fp);
@@ -335,8 +338,10 @@ function xml_import_products($name) {
 		$node->field_esclusiva[0]['value'] = $val[esclusiva];
 		
 	  $img_path = import_image_move($product_code);
-    $node->field_image_cache = array();
-    $node->field_image_cache[] = drupal_add_existing_file($img_path);
+	  if($img_path){
+      $node->field_image_cache = array();
+      $node->field_image_cache[] = drupal_add_existing_file($img_path);
+    }
  
 		
 		$node->sell_price = $price;

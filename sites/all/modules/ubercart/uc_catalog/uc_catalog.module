@@ -726,7 +726,7 @@ function theme_uc_catalog_products($products) {
  * @ingroup themeable
  */
 function theme_uc_catalog_product_grid($products) {
-  $product_table = '<div class="category-grid-products"><table>';
+  $product_table = '<div class="full-content clearfix"><div class="category-grid-products">';
   $count = 0;
   $context = array(
     'revision' => 'themed',
@@ -737,10 +737,10 @@ function theme_uc_catalog_product_grid($products) {
     $context['subject'] = array('node' => $product);
 
     if ($count == 0) {
-      $product_table .= "<tr>";
+      $product_table .= "<div class='product-row'>";
     }
     elseif ($count % variable_get('uc_catalog_grid_display_width', 3) == 0) {
-      $product_table .= "</tr><tr>";
+      $product_table .= "</div>";
     }
 
     $titlelink = l($product->title, "node/$nid", array('html' => TRUE));
@@ -751,7 +751,7 @@ function theme_uc_catalog_product_grid($products) {
       $imagelink = '';
     }
 
-    $product_table .= '<td>';
+    $product_table .= '<div class="product-column">';
     if (variable_get('uc_catalog_grid_display_title', TRUE)) {
       $product_table .= '<span class="catalog-grid-title">'. $titlelink .'</span>';
     }
@@ -770,11 +770,11 @@ function theme_uc_catalog_product_grid($products) {
         $product_table .= drupal_get_form('uc_catalog_buy_it_now_form_'. $product->nid, $product);
       }
     }
-    $product_table .= '</td>';
+    $product_table .= '</div>';
 
     $count++;
   }
-  $product_table .= "</tr></table></div>";
+  $product_table .= "</div></div></div>";
   return $product_table;
 }
 
