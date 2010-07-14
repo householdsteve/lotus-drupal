@@ -110,16 +110,32 @@ function theme_uc_catalog_browse($tid = 0) {
     FROM {node} n
       INNER JOIN {term_node} tn ON n.vid = tn.vid
       INNER JOIN {uc_products} AS p ON n.vid = p.vid
-    WHERE tn.tid = %d AND n.status = 1 AND p.list_in_catalog = '1'
+    WHERE tn.tid = %d AND n.status = 1
       AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
 
   $sql_count = "SELECT COUNT(DISTINCT(n.nid))
     FROM {node} n
       INNER JOIN {term_node} tn ON n.vid = tn.vid
       INNER JOIN {uc_products} AS p ON n.vid = p.vid
-    WHERE tn.tid = %d AND n.status = 1 AND p.list_in_catalog = '1'
+    WHERE tn.tid = %d
       AND n.status = 1
       AND n.type IN (". db_placeholders($types, 'varchar') .")";
+      
+      
+    /*$sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
+       FROM {node} n
+         INNER JOIN {term_node} tn ON n.vid = tn.vid
+         INNER JOIN {uc_products} AS p ON n.vid = p.vid
+       WHERE tn.tid = %d AND n.status = 1 AND p.list_in_catalog = '1'
+         AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
+
+     $sql_count = "SELECT COUNT(DISTINCT(n.nid))
+       FROM {node} n
+         INNER JOIN {term_node} tn ON n.vid = tn.vid
+         INNER JOIN {uc_products} AS p ON n.vid = p.vid
+       WHERE tn.tid = %d AND n.status = 1 AND p.list_in_catalog = '1'
+         AND n.status = 1
+         AND n.type IN (". db_placeholders($types, 'varchar') .")";*/
 
   $sql = db_rewrite_sql($sql);
   $sql_count = db_rewrite_sql($sql_count);
@@ -166,22 +182,30 @@ function theme_uc_catalog_browse($tid = 0) {
     
     // make new look for making our sweet looking html grid
     $output .= '<div class="full-content clearfix">';
-
+    
+    
     $output .= '<div class="column left">';
-    $output .= ' <div class="column-header light">';
-    $output .= '   <span class="colorblock" style="background:#000;">&nbsp;</span><span class="title">'.$catalog->name.'</span>';
-    $output .= ' </div>';
+    if($catalog->name != 'Catalog'){
+      $output .= ' <div class="column-header light">';
+      $output .= '   <span class="colorblock" style="background:#000;">&nbsp;</span><span class="title">'.$catalog->name.'</span>';
+      $output .= ' </div>';
+    }
 
     $output .= '</div>';
 
+if($catalog->name == 'Catalog'){
+     $output .= '<div class="column full">';
+  }else{
     $output .= '<div class="column middle-right">';
-
+  }
+if($catalog->name != 'Catalog'){
     $output .= '  <div class="spacer clearfix">';
     
     $output .= '  <div class="filter right">';
       $output .= $pager;
     $output .= ' </div>';
     $output .= '</div>';
+  }
 
 
     $output .= '<div class="category-grid-products">';

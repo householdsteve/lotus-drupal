@@ -76,16 +76,26 @@ div#primary {
 
 div#social {
 	position:absolute;
-	right:10px;
-	top:15px;
+	right:0;
+	top:20px;
 	color:#b4b4b0;
-	font: 33px/15px 'BebasRegular', Helvetica, sans-serif;
+	font: 33px/33px 'BebasRegular', Helvetica, sans-serif;
 }
 
 div#social span {
 	display:inline-block;
 	padding:0 10px 0 0;
+	vertical-align:middle;
 }
+
+div#social a {
+	color:#b4b4b0;
+}
+div#social a:hover {
+	color:#fff;
+}
+
+
 
 div#social img {
 	position:relative;
@@ -130,7 +140,7 @@ div#navigation ul {
 }
 
 div#navigation ul li {
-	font: 30px/27px 'BebasRegular', Helvetica, sans-serif;
+	font: 28px/27px 'BebasRegular', Helvetica, sans-serif;
 	display:inline-block;
 	float:left;
 	height:35px;
@@ -203,7 +213,6 @@ div#content h2 {
   padding:0;
   position:relative;
   text-align:left;
-  top:-10px
 }
 
 .category-grid-products table {
@@ -218,6 +227,15 @@ div#content h2 {
 
 .category-grid-products div.product-row {
   margin:0 0 30px 0;
+}
+
+div.full .category-grid-products div.product-column {
+  width:315px;
+  height:auto;
+}
+
+img.imagecache-uc_category_large {
+  vertical-align:top;
 }
 
 .category-grid-products div.product-column {
@@ -298,6 +316,13 @@ div.column {
   padding:0;
 }
 
+div.column.full {
+  float:none;
+  margin:0;
+  padding:0;
+  width:100%;
+}
+
 div.left {
   width:209px;
   margin-right:10px;
@@ -309,6 +334,10 @@ div.middle {
 
 div.middle-right {
   width:710px;
+}
+
+div.middle-right.space {
+  padding-top:45px;
 }
 
 div.right {

@@ -178,7 +178,7 @@ function lotusPD_uc_catalog_product_grid($array) {
       $product_table .= "</div><div class='product-row clearfix'>";
     }
 
-    $titlelink = l($product->title, "node/$nid", array('html' => TRUE));
+    $titlelink = l($product->model, "node/$nid", array('html' => TRUE));
     if (module_exists('imagecache') && ($field = variable_get('uc_image_'. $product->type, '')) && isset($product->$field) && file_exists($product->{$field}[0]['filepath'])) {
       $imagelink = l(theme('imagecache', 'product_list', $product->{$field}[0]['filepath'], $product->title, $product->title), "node/$nid", array('html' => TRUE));
     }
