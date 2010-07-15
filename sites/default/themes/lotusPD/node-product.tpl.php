@@ -1,9 +1,11 @@
 <?php
-//echo "<pre>";
-//var_dump($node);
-//echo "</pre>";
+$base_category = get_category_data($node->taxonomy);
 $category_key = array_shift(array_keys($node->taxonomy));
 $category = $node->taxonomy[$category_key]->name;
+
+//echo "<pre>";
+//print_r($node->taxonomy[$category_key]);
+//echo "</pre>";
 ?>
 			  <div class="content-filters clearfix">
   	      <form>
@@ -28,7 +30,8 @@ $category = $node->taxonomy[$category_key]->name;
   	    <div class="full-content clearfix">
   	      <div class="column left">
   	       <div class="column-header dark">
-  	         <span class="colorblock" style="background:#<?php print random_hex_color(); ?>">&nbsp;</span><span class="title"><?php print $category; ?></span>
+  	         <span class="colorblock" style="background:#<?php print $base_category->hexcolor; ?>">&nbsp;</span>
+  	         <span class="title"><?php print l($category,"catalog/".$node->taxonomy[$category_key]->tid); ?></span>
   	       </div>
               <h2 class="product-title"><?php print $node->title;?></h2>
   	      </div>

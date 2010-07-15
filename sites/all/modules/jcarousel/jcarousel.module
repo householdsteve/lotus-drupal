@@ -113,7 +113,9 @@ function jcarousel_add($selector = NULL, $options = array(), $skin = 'tango', $s
     else {
       drupal_add_js($jcarousel .'/jcarousel/lib/jquery.jcarousel.js');
     }
-
+    
+    drupal_add_js($jcarousel .'/jcarousel/lib/jquery.prettyPhoto.js');
+    drupal_add_css($jcarousel .'/jcarousel/css/prettyPhoto.css');
     // Add the related jCarousel stylesheets.
     drupal_add_css($jcarousel .'/jcarousel/lib/jquery.jcarousel.css');
     drupal_add_css($jcarousel .'/jcarousel.css');

@@ -109,6 +109,16 @@ function lotusPD_preprocess_page(&$vars, $hook) {
   $vars['primary_links'] = $tO;
 }
 
+
+function get_category_data($tax){
+  
+  $key = array_shift(array_keys($tax));
+  
+  return uc_catalog_image_load($tax[$key]->tid);
+  
+}
+
+
 function learn_taxonomy_ancestry($tid){
   
   $p = taxonomy_get_parents($tid);
@@ -135,14 +145,17 @@ function random_hex_color(){
 function lotusPD_uc_catalog_product_grid($array) {
   global $pager_total_items;
   
+  
+	
   $products = $array["products"];
   $catalog = $array["catalog"];
+ 
   //learn_taxonomy_ancestry($catalog->tid);
   $product_table = '<div class="full-content clearfix">';
   
   $product_table .= '<div class="column left">';
   $product_table .= ' <div class="column-header light">';
-  $product_table .= '   <span class="colorblock" style="background:#'.random_hex_color().'">&nbsp;</span><span class="title">'.$catalog->name.'</span>';
+  $product_table .= '   <span class="colorblock" style="background:#'.$catalog->image['hex'].';">&nbsp;</span><span class="title">'.l($catalog->name,"catalog/".$catalog->tid).'</span>';
   $product_table .= ' </div>';
 
   $product_table .= '</div>';
@@ -152,7 +165,8 @@ function lotusPD_uc_catalog_product_grid($array) {
   $product_table .= '  <div class="clearfix">';
   $product_table .= '    <div class="filter middle">';
     $product_table .= ' <div class="column-header dark info">';
-      $product_table .= "(<span>".variable_get('uc_product_nodes_per_page', 12)."</span> prodotti di <span>".$pager_total_items[0]."</span> totale)";
+    $on_page = variable_get('uc_product_nodes_per_page', 12);
+      $product_table .= "(<span>".($pager_total_items[0] > $on_page ? $on_page : $pager_total_items[0])."</span> prodotti di <span>".$pager_total_items[0]."</span> totale)";
     $product_table .= '  </div>';
   $product_table .= '  </div>';
   $product_table .= '  <div class="filter right">';

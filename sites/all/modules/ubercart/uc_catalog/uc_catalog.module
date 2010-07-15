@@ -670,6 +670,7 @@ function uc_catalog_get_page($tid) {
     $info = image_get_info($file->filepath);
     $catalog->image = $info;
     $catalog->image['filepath'] = $file->filepath;
+    $catalog->image['hex'] = $file->hexcolor;
   }
   $types = uc_product_types();
   $links = array();

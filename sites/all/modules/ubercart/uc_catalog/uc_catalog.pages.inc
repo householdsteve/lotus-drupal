@@ -187,7 +187,7 @@ function theme_uc_catalog_browse($tid = 0) {
     $output .= '<div class="column left">';
     if($catalog->name != 'Catalog'){
       $output .= ' <div class="column-header light">';
-      $output .= '   <span class="colorblock" style="background:#000;">&nbsp;</span><span class="title">'.$catalog->name.'</span>';
+      $output .= '   <span class="colorblock" style="background:#'.$catalog->image['hex'].';">&nbsp;</span><span class="title">'.$catalog->name.'</span>';
       $output .= ' </div>';
     }
 

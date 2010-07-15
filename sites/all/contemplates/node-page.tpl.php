@@ -3,6 +3,7 @@ $imgs = array();
 $options = array(
     //'buttonNextEvent' => 'mouseover',
     //'buttonPrevEvent' => 'mouseover',
+    //'itemLoadCallback' => '{onBeforeAnimation: mycarousel_itemLoadCallback}',
 	'wrap' => 'both',
   );
 

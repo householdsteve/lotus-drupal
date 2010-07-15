@@ -1,4 +1,8 @@
 <?php
+
+define("XML_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/test.xml");
+
+
 function xml_import_menu(){
   $items = array();
 
@@ -194,7 +198,7 @@ function xml_import_test($name) {
   node_save($node);
   */
   
-  $response = xml_import_get_xml_data("http://localhost/lotuspd.com_prep/xml/test.xml");
+  $response = xml_import_get_xml_data(XML_IMPORT_LINK);
 
 	echo "<pre>";
 	//var_dump($response);
@@ -286,7 +290,7 @@ function xml_import_product_load($model) {
 
 function xml_import_products($name) {
 	
-	$response = xml_import_get_xml_data("http://localhost/lotuspd.com_prep/xml/test.xml");
+	$response = xml_import_get_xml_data(XML_IMPORT_LINK);
 
 	$countParent = 0;
 	$countChild = 0;
@@ -357,6 +361,8 @@ function xml_import_products($name) {
 	  $node->active = 1;
 		$node->body = $val[description];
 		$node->teaser = $val[description];
+		
+		$node->field_product_color_code[0]['value'] = $val[color][id];
 		$node->field_dimensions[0]['value'] = $val[misure];
 		$node->field_imballo[0]['value'] = $val[imballo];
 		$node->field_arrivo_1[0]['value'] = number_format($val[arrivo_1],0);
@@ -368,11 +374,22 @@ function xml_import_products($name) {
 		$node->field_offerta[0]['value'] = $val[offerta];
 		$node->field_esclusiva[0]['value'] = $val[esclusiva];
 		
+	  /*
 	  $img_path = import_image_move($product_code);
 	  if($img_path){
       $node->field_image_cache = array();
       $node->field_image_cache[] = drupal_add_existing_file($img_path);
     }
+    // LETS GET THIS IN HERE FOR OTHER IAMGE VERSIONS. ALSO NOTE THAT WE NEED TO REPLACE SPECIFIC IMAGES ON UPDATE FIND IT WITH ARRAY KEY
+    for($x = 1; $x < 7; $x++){
+	    $image_code = $product_code.".0".$x; 
+	    echo $image_code."<br>";
+	    $img_path = import_image_move($image_code);
+	    echo "the image path: ".$img_path."<br>";
+	  }
+    
+    
+    */
  
 		
 		$node->sell_price = $price;
@@ -462,12 +479,16 @@ function xml_import_products($name) {
 }
 
 
+function removePeriodDivider($s){
+  $n = explode(".",$s);
+  return $n[0];
+}
 
 
 
 function xml_import_catalog($name) {
 	//$URL = 'http://pofd.com/projects/lotus/xml/test.xml';
-	$response = xml_import_get_xml_data("http://localhost/lotuspd.com_prep/xml/test.xml");
+	$response = xml_import_get_xml_data(XML_IMPORT_LINK);
 	
 	$catList = array();
 
@@ -495,14 +516,54 @@ function xml_import_catalog($name) {
 	
 	foreach($catList as $k => $v){
 		
-		db_query("INSERT INTO {term_data} (vid, name, weight, description) VALUES (%d, '%s', '%d','%s')", 1, $v, 0,"autoImported");
-		$updateid = db_result(db_query("SELECT LAST_INSERT_ID()"));
+		$term_parent = 3; // 3 = standard / 4 = outlet
 		
-		db_query("INSERT INTO {term_hierarchy} (tid, parent) VALUES (%d, '%d')", $updateid, 3); //3 is the standard category
+		$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$k));
 		
-		db_query("INSERT INTO {xml_import_temp_cats} (tid, cid) VALUES (%d, '%d')", $updateid, $k); //add a temp table to hold references for product import
+		$hexResult = db_fetch_object(db_query("SELECT * FROM {stock_category_colors} WHERE used_by_tid = '0' ORDER BY RAND() LIMIT 1"));
+	
 		
-		$output .= $v;
+		if($result->tid){
+		  //found a match, now update it clean up stupid characters and periods and stuff.
+		  $v = removePeriodDivider($v);
+		  db_query("UPDATE {term_data} SET name = '%s' WHERE tid = '%d'",$v,$result->tid);
+		  
+		  // if cat doesnt have a color give it one
+		  $resultImage = db_fetch_object(db_query("SELECT * FROM {uc_catalog_images} WHERE tid = '%d'",$result->tid));
+		    if(!$resultImage->hexcolor){
+	    	  db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$result->tid,$hexResult->scid);
+    		  db_query("UPDATE {uc_catalog_images} SET hexcolor = '%s' WHERE tid = '%d'",$hexResult->hex,$result->tid);
+  		  }
+		  
+		}else{
+		
+		
+		
+		  if(strstr($v,"OUTLET")){
+		    $term_parent = 4; // check if category is an outlet. if so change the term parent
+		    $v = removePeriodDivider($v);
+		  }
+		
+    
+	
+	      	db_query("INSERT INTO {term_data} (vid, name, weight, description) VALUES (%d, '%s', '%d','%s')", 1, $v, 0,"autoImported");
+      		$updateid = db_result(db_query("SELECT LAST_INSERT_ID()"));
+		
+      		db_query("INSERT INTO {term_hierarchy} (tid, parent) VALUES (%d, '%d')", $updateid, $term_parent); //3 is the standard category
+		
+      		db_query("INSERT INTO {xml_import_temp_cats} (tid, cid) VALUES (%d, '%d')", $updateid, $k); //add a temp table to hold references for product import
+		
+		
+      		// we are faking an image on the category to allow addition of color
+      		db_query("INSERT INTO {uc_catalog_images} (fid,tid, filename,filepath,filemime,filesize,hexcolor) 
+      		        VALUES (%d, '%d', '%s', '%s', '%s', '%d', '%s')", '1553',$updateid,'image-missing.png','sites/default/files/image-missing.png','image/png','65969',$hexResult->hex); 
+		
+      		// this adds an id to the stock color to not allow it to be chosen again
+      		db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$updateid,$hexResult->scid);
+	
+	    }
+		
+		$output .= $v." | ".$result->tid." : ".$result->cid;
 		$output .= "<br>";
 		
 	}
@@ -516,8 +577,8 @@ function remove_temp_cats(){
 
 function xml_import_delete_all_products($name){
 	
-	$result = db_query("SELECT * FROM {node} WHERE type = '%s'", "product");
-	//$result = db_query("SELECT * FROM {node} WHERE type = '%s' || type = '%s'", "product", "product_kit");
+	//$result = db_query("SELECT * FROM {node} WHERE type = '%s'", "product");
+	$result = db_query("SELECT * FROM {node} WHERE type = '%s' || type = '%s'", "product", "product_kit");
 	$output = "";
 
     while ($p = db_fetch_object($result)) {

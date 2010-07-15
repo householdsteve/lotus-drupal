@@ -471,6 +471,20 @@ div.column-header span.title {
   font: 18px/20px 'BebasRegular', Helvetica, sans-serif;
 }
 
+div.column-header.dark span.title a {
+  color:#fff;
+}
+div.column-header.dark span.title a:hover {
+  color:#737373;
+}
+
+div.column-header.light span.title a {
+  color:#000;
+}
+div.column-header.light span.title a:hover {
+  color:#737373;
+}
+
 h2.product-title {
   width:197px;
   background:#fff;
