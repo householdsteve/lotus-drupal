@@ -238,3 +238,5 @@ ini_set('url_rewriter.tags',        '');
 #   'forum'      => 'Discussion board',
 #   '@count min' => '@count minutes',
 # );
+error_reporting(E_ALL);
+ini_set('display_errors', '1');

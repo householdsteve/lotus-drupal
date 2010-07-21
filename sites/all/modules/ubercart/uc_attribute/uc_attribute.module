@@ -331,6 +331,10 @@ function uc_attribute_uc_form_alter(&$form, &$form_state, $form_id) {
       }
     }
   }
+  
+  //echo "<pre>";
+	//print_r($form);
+	//echo "</pre>";
 }
 
 /**

@@ -243,3 +243,18 @@ function lotus_user_link(){
     return l("Area Riservata","user/login");
   }
 }
+
+// code added begin
+  /**
+   * Add uc_advanced_catalog override.
+   */
+   /*
+  function phptemplate_uc_catalog_browse($tid = 0) {
+    if (variable_get('uc_advanced_catalog', FALSE) && module_exists('uc_advanced_catalog')) {
+      return uc_advanced_catalog_browse($tid);
+    }
+    // default is ubercart handler
+    return theme_uc_catalog_browse($tid);
+  }*/
+  // end of the code
+  

@@ -1,0 +1,724 @@
+a:63:{s:6:"thmr_1";a:2:{s:9:"variables";a:1:{s:7:"element";a:4:{s:7:"#weight";s:1:"0";s:6:"#value";s:31:"<p>intro animazione qui...</p>
+";s:6:"#title";N;s:12:"#description";N;}}s:4:"type";s:4:"func";}s:6:"thmr_5";a:2:{s:9:"variables";a:1:{s:7:"element";a:7:{s:11:"#pre_render";a:1:{i:0;s:27:"content_alter_extra_weights";}s:4:"body";a:5:{s:7:"#weight";s:1:"0";s:6:"#value";s:31:"<p>intro animazione qui...</p>
+";s:6:"#title";N;s:12:"#description";N;s:8:"#printed";b:1;}s:21:"#content_extra_fields";a:6:{s:5:"title";a:3:{s:5:"label";s:6:"Titolo";s:11:"description";s:17:"Node module form.";s:6:"weight";s:2:"-5";}s:10:"body_field";a:4:{s:5:"label";s:5:"Corpo";s:11:"description";s:17:"Node module form.";s:6:"weight";s:1:"0";s:4:"view";s:4:"body";}s:20:"revision_information";a:3:{s:5:"label";s:28:"Informazione sulla revisione";s:11:"description";s:17:"Node module form.";s:6:"weight";s:2:"20";}s:16:"comment_settings";a:3:{s:5:"label";s:21:"Impostazioni commento";s:11:"description";s:20:"Comment module form.";s:6:"weight";s:2:"30";}s:4:"menu";a:3:{s:5:"label";s:22:"Impostazioni del menù";s:11:"description";s:17:"Menu module form.";s:6:"weight";s:2:"-2";}s:4:"path";a:3:{s:5:"label";s:13:"Path settings";s:11:"description";s:17:"Path module form.";s:6:"weight";s:2:"30";}}s:17:"field_page_images";a:9:{s:10:"#type_name";s:4:"page";s:8:"#context";s:4:"full";s:11:"#field_name";s:17:"field_page_images";s:12:"#post_render";a:1:{i:0;s:33:"content_field_wrapper_post_render";}s:7:"#weight";s:2:"31";s:5:"field";a:17:{s:12:"#description";N;s:5:"items";a:3:{s:6:"#title";N;s:12:"#description";N;s:8:"#printed";b:1;}s:7:"#single";b:1;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:8:"#parents";a:0:{}s:5:"#tree";b:0;s:8:"#context";s:4:"full";s:5:"#page";b:1;s:11:"#field_name";s:17:"field_page_images";s:6:"#title";s:8:"Immagini";s:7:"#access";b:1;s:14:"#label_display";s:6:"hidden";s:7:"#teaser";b:0;s:5:"#node";O:8:"stdClass":32:{s:3:"nid";s:2:"12";s:4:"type";s:4:"page";s:8:"language";s:2:"it";s:3:"uid";s:1:"1";s:6:"status";s:1:"1";s:7:"created";s:10:"1272623160";s:7:"changed";s:10:"1272623160";s:7:"comment";s:1:"0";s:7:"promote";s:1:"0";s:8:"moderate";s:1:"0";s:6:"sticky";s:1:"0";s:4:"tnid";s:1:"0";s:9:"translate";s:1:"0";s:3:"vid";s:2:"12";s:12:"revision_uid";s:1:"1";s:5:"title";s:5:"intro";s:4:"body";s:32:"<p>intro animazione qui...</p>
+
+";s:3:"log";s:0:"";s:18:"revision_timestamp";s:10:"1272623160";s:6:"format";s:1:"1";s:4:"name";s:9:"stevepofd";s:7:"picture";s:0:"";s:4:"data";s:101:"a:2:{s:17:"mimemail_textonly";i:0;s:13:"form_build_id";s:37:"form-2add5c56ef8c68c9334a2b108ff2c9f3";}";s:4:"path";s:5:"intro";s:22:"last_comment_timestamp";s:10:"1272623160";s:17:"last_comment_name";N;s:13:"comment_count";s:1:"0";s:8:"taxonomy";a:0:{}s:10:"build_mode";i:0;s:8:"readmore";b:0;s:7:"content";a:8:{s:11:"#pre_render";a:1:{i:0;s:27:"content_alter_extra_weights";}s:4:"body";a:5:{s:7:"#weight";s:1:"0";s:6:"#value";s:31:"<p>intro animazione qui...</p>
+";s:6:"#title";N;s:12:"#description";N;s:8:"#printed";b:1;}s:21:"#content_extra_fields";a:6:{s:5:"title";a:3:{s:5:"label";s:6:"Titolo";s:11:"description";s:17:"Node module form.";s:6:"weight";s:2:"-5";}s:10:"body_field";a:4:{s:5:"label";s:5:"Corpo";s:11:"description";s:17:"Node module form.";s:6:"weight";s:1:"0";s:4:"view";s:4:"body";}s:20:"revision_information";a:3:{s:5:"label";s:28:"Informazione sulla revisione";s:11:"description";s:17:"Node module form.";s:6:"weight";s:2:"20";}s:16:"comment_settings";a:3:{s:5:"label";s:21:"Impostazioni commento";s:11:"description";s:20:"Comment module form.";s:6:"weight";s:2:"30";}s:4:"menu";a:3:{s:5:"label";s:22:"Impostazioni del menù";s:11:"description";s:17:"Menu module form.";s:6:"weight";s:2:"-2";}s:4:"path";a:3:{s:5:"label";s:13:"Path settings";s:11:"description";s:17:"Path module form.";s:6:"weight";s:2:"30";}}s:17:"field_page_images";a:9:{s:10:"#type_name";s:4:"page";s:8:"#context";s:4:"full";s:11:"#field_name";s:17:"field_page_images";s:12:"#post_render";a:1:{i:0;s:33:"content_field_wrapper_post_render";}s:7:"#weight";s:2:"31";s:5:"field";a:17:{s:12:"#description";N;s:5:"items";a:3:{s:6:"#title";N;s:12:"#description";N;s:8:"#printed";b:1;}s:7:"#single";b:1;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:8:"#parents";a:0:{}s:5:"#tree";b:0;s:8:"#context";s:4:"full";s:5:"#page";b:1;s:11:"#field_name";s:17:"field_page_images";s:6:"#title";s:8:"Immagini";s:7:"#access";b:1;s:14:"#label_display";s:6:"hidden";s:7:"#teaser";b:0;s:5:"#node";r:72;s:5:"#type";s:13:"content_field";s:8:"#printed";b:1;}s:6:"#title";N;s:12:"#description";N;s:8:"#printed";b:1;}s:6:"#title";N;s:12:"#description";N;s:9:"#children";s:79:"<span id="thmr_1" class="thmr_call">
+  <p>intro animazione qui...</p>
+</span>
+
+";s:8:"#printed";b:1;}s:5:"links";a:0:{}}s:5:"#type";s:13:"content_field";s:8:"#printed";b:1;}s:6:"#title";N;s:12:"#description";N;s:8:"#printed";b:1;}s:6:"#title";N;s:12:"#description";N;s:9:"#children";s:79:"<span id="thmr_1" class="thmr_call">
+  <p>intro animazione qui...</p>
+</span>
+
+";}}s:4:"type";s:4:"func";}s:6:"thmr_7";a:2:{s:9:"variables";a:1:{s:6:"object";r:72;}s:4:"type";s:4:"func";}s:6:"thmr_6";a:2:{s:9:"variables";a:50:{s:3:"nid";s:2:"12";s:4:"type";s:4:"page";s:8:"language";s:2:"it";s:3:"uid";s:1:"1";s:6:"status";s:1:"1";s:7:"created";s:10:"1272623160";s:7:"changed";s:10:"1272623160";s:7:"comment";s:1:"0";s:7:"promote";s:1:"0";s:8:"moderate";s:1:"0";s:6:"sticky";s:1:"0";s:4:"tnid";s:1:"0";s:9:"translate";s:1:"0";s:3:"vid";s:2:"12";s:12:"revision_uid";s:1:"1";s:5:"title";s:5:"intro";s:4:"body";s:32:"<p>intro animazione qui...</p>
+
+";s:3:"log";s:0:"";s:18:"revision_timestamp";s:10:"1272623160";s:6:"format";s:1:"1";s:4:"name";s:134:"<span id="thmr_7" class="thmr_call">
+  <a href="/lotuspd.com/users/stevepofd" title="Mostra il profilo utente.">stevepofd</a></span>
+
+";s:7:"picture";s:0:"";s:4:"data";s:101:"a:2:{s:17:"mimemail_textonly";i:0;s:13:"form_build_id";s:37:"form-2add5c56ef8c68c9334a2b108ff2c9f3";}";s:4:"path";s:5:"intro";s:22:"last_comment_timestamp";s:10:"1272623160";s:17:"last_comment_name";N;s:13:"comment_count";s:1:"0";s:8:"taxonomy";a:0:{}s:10:"build_mode";i:0;s:8:"readmore";b:0;s:7:"content";s:32:"<p>intro animazione qui...</p>
+
+";s:5:"links";s:0:"";s:14:"template_files";a:1:{i:0;s:9:"node-page";}s:4:"node";r:72;s:6:"teaser";b:0;s:4:"page";b:1;s:5:"zebra";s:3:"odd";s:2:"id";i:1;s:9:"directory";s:28:"sites/default/themes/lotusPD";s:8:"is_admin";b:1;s:8:"is_front";b:1;s:9:"logged_in";b:1;s:12:"db_is_active";b:1;s:4:"user";O:8:"stdClass":28:{s:3:"uid";s:1:"1";s:4:"name";s:9:"stevepofd";s:4:"pass";s:32:"9a1f30943126974075dbd4d13c8018ac";s:4:"mail";s:14:"steve@pofd.com";s:4:"mode";s:1:"0";s:4:"sort";s:1:"0";s:9:"threshold";s:1:"0";s:5:"theme";s:0:"";s:9:"signature";s:0:"";s:16:"signature_format";s:1:"0";s:7:"created";s:10:"1272558469";s:6:"access";s:10:"1279697032";s:5:"login";s:10:"1279117539";s:6:"status";s:1:"1";s:8:"timezone";s:4:"7200";s:8:"language";s:2:"en";s:7:"picture";s:0:"";s:4:"init";s:14:"steve@pofd.com";s:4:"data";s:101:"a:2:{s:17:"mimemail_textonly";i:0;s:13:"form_build_id";s:37:"form-2add5c56ef8c68c9334a2b108ff2c9f3";}";s:13:"timezone_name";s:11:"Europe/Rome";s:3:"sid";s:32:"531ca1b1e1b456cd5d90e17cd1c21df4";s:8:"hostname";s:9:"127.0.0.1";s:9:"timestamp";s:10:"1279697032";s:5:"cache";s:1:"0";s:7:"session";s:285:"uc_cart_id|s:32:"5e3bfc6a0758e2e1cfafe58da84463c7";node_overview_filter|a:1:{i:0;a:2:{i:0;s:4:"type";i:1;s:7:"product";}}dblog_overview_filter|a:0:{}uc_referer_uri|s:51:"http://localhost/lotuspd.com/admin_menu/flush-cache";messages|a:1:{s:6:"status";a:1:{i:0;s:16:"Cache eliminate.";}}";s:17:"mimemail_textonly";i:0;s:13:"form_build_id";s:37:"form-2add5c56ef8c68c9334a2b108ff2c9f3";s:5:"roles";a:1:{i:2;s:18:"authenticated user";}}s:4:"date";s:21:"Ven, 2010-04-30 12:26";s:8:"node_url";s:18:"/lotuspd.com/intro";s:5:"terms";s:0:"";s:9:"submitted";s:0:"";s:26:"field_page_images_rendered";s:0:"";s:15:"content_profile";O:31:"content_profile_theme_variables":2:{s:3:"uid";s:1:"1";s:6:"_cache";a:0:{}}}s:4:"type";s:3:"tpl";}s:7:"thmr_11";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";a:1:{i:1;s:22:"user_uid_optional_load";}s:16:"to_arg_functions";s:42:"a:1:{i:1;s:24:"user_uid_optional_to_arg";}";s:15:"access_callback";s:16:"user_view_access";s:16:"access_arguments";s:14:"a:1:{i:0;i:1;}";s:13:"page_callback";s:9:"user_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:5:"title";s:14:"Profilo utente";s:14:"title_callback";s:15:"user_page_title";s:15:"title_arguments";s:14:"a:1:{i:0;i:1;}";s:4:"type";s:1:"6";s:11:"description";s:0:"";s:9:"menu_name";s:10:"navigation";s:4:"mlid";s:2:"21";s:4:"plid";s:1:"0";s:9:"link_path";s:6:"user/%";s:11:"router_path";s:6:"user/%";s:10:"link_title";s:10:"My account";s:7:"options";a:0:{}s:6:"module";s:6:"system";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:1:"0";s:5:"depth";s:1:"1";s:10:"customized";s:1:"0";s:2:"p1";s:2:"21";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:6:"user/1";s:6:"access";b:1;s:17:"localized_options";a:0:{}}}s:4:"type";s:4:"func";}s:7:"thmr_12";a:2:{s:9:"variables";a:5:{s:4:"link";s:106:"<span id="thmr_11" class="thmr_call">
+  <a href="/lotuspd.com/users/stevepofd">Profilo utente</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:5:"first";}s:4:"type";s:4:"func";}s:7:"thmr_13";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:0:"";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:16:"_node_add_access";s:16:"access_arguments";s:6:"a:0:{}";s:13:"page_callback";s:13:"node_add_page";s:14:"page_arguments";s:6:"a:0:{}";s:5:"title";s:14:"Crea contenuto";s:14:"title_callback";s:1:"t";s:15:"title_arguments";s:0:"";s:4:"type";s:1:"6";s:11:"description";s:0:"";s:9:"menu_name";s:10:"navigation";s:4:"mlid";s:2:"11";s:4:"plid";s:1:"0";s:9:"link_path";s:8:"node/add";s:11:"router_path";s:8:"node/add";s:10:"link_title";s:14:"Create content";s:7:"options";a:0:{}s:6:"module";s:6:"system";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"1";s:8:"expanded";s:1:"0";s:6:"weight";s:1:"1";s:5:"depth";s:1:"1";s:10:"customized";s:1:"0";s:2:"p1";s:2:"11";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:8:"node/add";s:6:"access";b:1;s:17:"localized_options";a:0:{}}}s:4:"type";s:4:"func";}s:7:"thmr_14";a:2:{s:9:"variables";a:5:{s:4:"link";s:99:"<span id="thmr_13" class="thmr_call">
+  <a href="/lotuspd.com/node/add">Crea contenuto</a></span>
+
+";s:12:"has_children";s:1:"1";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:0:"";}s:4:"type";s:4:"func";}s:7:"thmr_15";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:0:"";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"user_access";s:16:"access_arguments";s:45:"a:1:{i:0;s:27:"access administration pages";}";s:13:"page_callback";s:22:"system_main_admin_page";s:14:"page_arguments";s:6:"a:0:{}";s:5:"title";s:10:"Amministra";s:14:"title_callback";s:1:"t";s:15:"title_arguments";s:0:"";s:4:"type";s:1:"6";s:11:"description";s:0:"";s:9:"menu_name";s:10:"navigation";s:4:"mlid";s:1:"2";s:4:"plid";s:1:"0";s:9:"link_path";s:5:"admin";s:11:"router_path";s:5:"admin";s:10:"link_title";s:10:"Administer";s:7:"options";a:0:{}s:6:"module";s:6:"system";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"1";s:8:"expanded";s:1:"0";s:6:"weight";s:1:"9";s:5:"depth";s:1:"1";s:10:"customized";s:1:"0";s:2:"p1";s:1:"2";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:5:"admin";s:6:"access";b:1;s:17:"localized_options";a:0:{}}}s:4:"type";s:4:"func";}s:7:"thmr_16";a:2:{s:9:"variables";a:5:{s:4:"link";s:92:"<span id="thmr_15" class="thmr_call">
+  <a href="/lotuspd.com/admin">Amministra</a></span>
+
+";s:12:"has_children";s:1:"1";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:0:"";}s:4:"type";s:4:"func";}s:7:"thmr_17";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:0:"";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:17:"user_is_logged_in";s:16:"access_arguments";s:6:"a:0:{}";s:13:"page_callback";s:11:"user_logout";s:14:"page_arguments";s:6:"a:0:{}";s:5:"title";s:4:"Esci";s:14:"title_callback";s:1:"t";s:15:"title_arguments";s:0:"";s:4:"type";s:1:"6";s:11:"description";s:0:"";s:9:"menu_name";s:10:"navigation";s:4:"mlid";s:1:"4";s:4:"plid";s:1:"0";s:9:"link_path";s:6:"logout";s:11:"router_path";s:6:"logout";s:10:"link_title";s:7:"Log out";s:7:"options";a:0:{}s:6:"module";s:6:"system";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:2:"10";s:5:"depth";s:1:"1";s:10:"customized";s:1:"0";s:2:"p1";s:1:"4";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:6:"logout";s:6:"access";b:1;s:17:"localized_options";a:0:{}}}s:4:"type";s:4:"func";}s:7:"thmr_18";a:2:{s:9:"variables";a:5:{s:4:"link";s:87:"<span id="thmr_17" class="thmr_call">
+  <a href="/lotuspd.com/logout">Esci</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:4:"last";}s:4:"type";s:4:"func";}s:7:"thmr_19";a:2:{s:9:"variables";a:1:{s:4:"tree";s:693:"<span id="thmr_12" class="thmr_call">
+  <li class="leaf first"><span id="thmr_11" class="thmr_call">
+  <a href="/lotuspd.com/users/stevepofd">Profilo utente</a></span>
+
+</li>
+</span>
+
+<span id="thmr_14" class="thmr_call">
+  <li class="collapsed"><span id="thmr_13" class="thmr_call">
+  <a href="/lotuspd.com/node/add">Crea contenuto</a></span>
+
+</li>
+</span>
+
+<span id="thmr_16" class="thmr_call">
+  <li class="collapsed"><span id="thmr_15" class="thmr_call">
+  <a href="/lotuspd.com/admin">Amministra</a></span>
+
+</li>
+</span>
+
+<span id="thmr_18" class="thmr_call">
+  <li class="leaf last"><span id="thmr_17" class="thmr_call">
+  <a href="/lotuspd.com/logout">Esci</a></span>
+
+</li>
+</span>
+
+";}s:4:"type";s:4:"func";}s:7:"thmr_20";a:2:{s:9:"variables";a:12:{s:14:"template_files";a:3:{i:0;s:10:"block-left";i:1;s:10:"block-user";i:2;s:12:"block-user-1";}s:5:"block";O:8:"stdClass":17:{s:3:"bid";s:1:"6";s:6:"module";s:4:"user";s:5:"delta";s:1:"1";s:5:"theme";s:7:"lotusPD";s:6:"status";s:1:"1";s:6:"weight";s:1:"0";s:6:"region";s:4:"left";s:6:"custom";s:1:"0";s:8:"throttle";s:1:"0";s:10:"visibility";s:1:"0";s:5:"pages";s:0:"";s:5:"title";s:0:"";s:5:"cache";s:2:"-1";s:7:"enabled";b:1;s:10:"page_match";b:1;s:7:"subject";s:9:"stevepofd";s:7:"content";s:773:"<span id="thmr_19" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_12" class="thmr_call">
+  <li class="leaf first"><span id="thmr_11" class="thmr_call">
+  <a href="/lotuspd.com/users/stevepofd">Profilo utente</a></span>
+
+</li>
+</span>
+
+<span id="thmr_14" class="thmr_call">
+  <li class="collapsed"><span id="thmr_13" class="thmr_call">
+  <a href="/lotuspd.com/node/add">Crea contenuto</a></span>
+
+</li>
+</span>
+
+<span id="thmr_16" class="thmr_call">
+  <li class="collapsed"><span id="thmr_15" class="thmr_call">
+  <a href="/lotuspd.com/admin">Amministra</a></span>
+
+</li>
+</span>
+
+<span id="thmr_18" class="thmr_call">
+  <li class="leaf last"><span id="thmr_17" class="thmr_call">
+  <a href="/lotuspd.com/logout">Esci</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+";}s:5:"zebra";s:3:"odd";s:2:"id";i:1;s:9:"directory";s:14:"modules/system";s:8:"is_admin";b:1;s:8:"is_front";b:1;s:9:"logged_in";b:1;s:12:"db_is_active";b:1;s:4:"user";r:233;s:11:"block_zebra";s:3:"odd";s:8:"block_id";i:1;}s:4:"type";s:3:"tpl";}s:7:"thmr_10";a:2:{s:9:"variables";a:1:{s:6:"region";s:4:"left";}s:4:"type";s:4:"func";}s:7:"thmr_26";a:2:{s:9:"variables";a:3:{s:4:"path";s:27:"misc/powered-blue-80x15.png";s:3:"alt";s:75:"Realizzato con Drupal, un sistema open source per la gestione dei contenuti";s:5:"title";s:75:"Realizzato con Drupal, un sistema open source per la gestione dei contenuti";}s:4:"type";s:4:"func";}s:7:"thmr_25";a:2:{s:9:"variables";a:1:{s:10:"image_path";s:27:"misc/powered-blue-80x15.png";}s:4:"type";s:4:"func";}s:7:"thmr_27";a:2:{s:9:"variables";a:12:{s:14:"template_files";a:3:{i:0;s:12:"block-footer";i:1;s:12:"block-system";i:2;s:14:"block-system-0";}s:5:"block";O:8:"stdClass":17:{s:3:"bid";s:1:"4";s:6:"module";s:6:"system";s:5:"delta";s:1:"0";s:5:"theme";s:7:"lotusPD";s:6:"status";s:1:"1";s:6:"weight";s:2:"10";s:6:"region";s:6:"footer";s:6:"custom";s:1:"0";s:8:"throttle";s:1:"0";s:10:"visibility";s:1:"0";s:5:"pages";s:0:"";s:5:"title";s:0:"";s:5:"cache";s:2:"-1";s:7:"enabled";b:1;s:10:"page_match";b:1;s:7:"subject";s:0:"";s:7:"content";s:373:"<span id="thmr_25" class="thmr_call">
+  <a href="http://drupal.org"><span id="thmr_26" class="thmr_call">
+  <img src="/lotuspd.com/misc/powered-blue-80x15.png" alt="Realizzato con Drupal, un sistema open source per la gestione dei contenuti" title="Realizzato con Drupal, un sistema open source per la gestione dei contenuti" width="80" height="15" /></span>
+
+</a></span>
+
+";}s:5:"zebra";s:4:"even";s:2:"id";i:2;s:9:"directory";s:14:"modules/system";s:8:"is_admin";b:1;s:8:"is_front";b:1;s:9:"logged_in";b:1;s:12:"db_is_active";b:1;s:4:"user";r:233;s:11:"block_zebra";s:3:"odd";s:8:"block_id";i:1;}s:4:"type";s:3:"tpl";}s:7:"thmr_24";a:2:{s:9:"variables";a:1:{s:6:"region";s:6:"footer";}s:4:"type";s:4:"func";}s:7:"thmr_30";a:2:{s:9:"variables";a:1:{s:4:"link";a:24:{s:4:"href";s:7:"node/12";s:4:"path";s:11:"node/%/view";s:14:"load_functions";a:1:{i:1;s:9:"node_load";}s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:29:"a:2:{i:0;s:4:"view";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:3:"fit";s:1:"5";s:12:"number_parts";s:1:"3";s:10:"tab_parent";s:6:"node/%";s:8:"tab_root";s:6:"node/%";s:5:"title";s:6:"Mostra";s:14:"title_callback";s:1:"t";s:15:"title_arguments";s:0:"";s:4:"type";s:3:"136";s:14:"block_callback";s:0:"";s:11:"description";s:0:"";s:8:"position";s:0:"";s:6:"weight";s:3:"-10";s:4:"file";s:0:"";s:7:"options";a:0:{}s:6:"access";b:1;s:17:"localized_options";a:0:{}}}s:4:"type";s:4:"func";}s:7:"thmr_31";a:2:{s:9:"variables";a:2:{s:4:"link";s:103:"<span id="thmr_30" class="thmr_call">
+  <a href="/lotuspd.com/intro" class="active">Mostra</a></span>
+
+";s:6:"active";b:1;}s:4:"type";s:4:"func";}s:7:"thmr_32";a:2:{s:9:"variables";a:1:{s:4:"link";a:24:{s:4:"path";s:11:"node/%/edit";s:14:"load_functions";a:1:{i:1;s:9:"node_load";}s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:31:"a:2:{i:0;s:6:"update";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_edit";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:3:"fit";s:1:"5";s:12:"number_parts";s:1:"3";s:10:"tab_parent";s:6:"node/%";s:8:"tab_root";s:6:"node/%";s:5:"title";s:8:"Modifica";s:14:"title_callback";s:1:"t";s:15:"title_arguments";s:0:"";s:4:"type";s:3:"128";s:14:"block_callback";s:0:"";s:11:"description";s:0:"";s:8:"position";s:0:"";s:6:"weight";s:1:"1";s:4:"file";s:27:"modules/node/node.pages.inc";s:4:"href";s:12:"node/12/edit";s:7:"options";a:0:{}s:6:"access";b:1;s:17:"localized_options";a:0:{}}}s:4:"type";s:4:"func";}s:7:"thmr_33";a:2:{s:9:"variables";a:1:{s:4:"link";s:97:"<span id="thmr_32" class="thmr_call">
+  <a href="/lotuspd.com/node/12/edit">Modifica</a></span>
+
+";}s:4:"type";s:4:"func";}s:7:"thmr_34";a:2:{s:9:"variables";a:1:{s:4:"link";a:24:{s:4:"path";s:12:"node/%/devel";s:14:"load_functions";a:1:{i:1;s:9:"node_load";}s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"user_access";s:16:"access_arguments";s:42:"a:1:{i:0;s:24:"access devel information";}";s:13:"page_callback";s:17:"devel_load_object";s:14:"page_arguments";s:29:"a:2:{i:0;i:1;i:1;s:4:"node";}";s:3:"fit";s:1:"5";s:12:"number_parts";s:1:"3";s:10:"tab_parent";s:6:"node/%";s:8:"tab_root";s:6:"node/%";s:5:"title";s:5:"Devel";s:14:"title_callback";s:1:"t";s:15:"title_arguments";s:0:"";s:4:"type";s:3:"128";s:14:"block_callback";s:0:"";s:11:"description";s:0:"";s:8:"position";s:0:"";s:6:"weight";s:3:"100";s:4:"file";s:0:"";s:4:"href";s:13:"node/12/devel";s:7:"options";a:0:{}s:6:"access";b:1;s:17:"localized_options";a:0:{}}}s:4:"type";s:4:"func";}s:7:"thmr_35";a:2:{s:9:"variables";a:1:{s:4:"link";s:95:"<span id="thmr_34" class="thmr_call">
+  <a href="/lotuspd.com/node/12/devel">Devel</a></span>
+
+";}s:4:"type";s:4:"func";}s:7:"thmr_36";a:2:{s:9:"variables";a:0:{}s:4:"type";s:4:"func";}s:7:"thmr_39";a:2:{s:9:"variables";a:1:{s:7:"element";a:23:{s:6:"#title";s:14:"Cerca nel sito";s:5:"#type";s:9:"textfield";s:5:"#size";i:15;s:14:"#default_value";s:0:"";s:11:"#attributes";a:1:{s:5:"title";s:30:"Inserire i termini da cercare.";}s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:17:"search_theme_form";}s:14:"#array_parents";a:1:{i:0;s:17:"search_theme_form";}s:7:"#weight";i:0;s:10:"#processed";b:1;s:12:"#description";N;s:9:"#required";b:0;s:6:"#input";b:1;s:10:"#maxlength";i:128;s:18:"#autocomplete_path";b:0;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:5:"#name";s:17:"search_theme_form";s:3:"#id";s:24:"edit-search-theme-form-1";s:6:"#value";s:0:"";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;}}s:4:"type";s:4:"func";}s:7:"thmr_42";a:2:{s:9:"variables";a:1:{s:7:"element";a:21:{s:5:"#type";s:6:"submit";s:6:"#value";s:7:"Ricerca";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:6:"submit";}s:14:"#array_parents";a:1:{i:0;s:6:"submit";}s:7:"#weight";d:0.001000000000000000020816681711721685132943093776702880859375;s:10:"#processed";b:1;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:5:"#name";s:2:"op";s:12:"#button_type";s:6:"submit";s:25:"#executes_submit_callback";b:1;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:3:"#id";s:11:"edit-submit";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;}}s:4:"type";s:4:"func";}s:7:"thmr_41";a:2:{s:9:"variables";a:1:{s:7:"element";a:21:{s:5:"#type";s:6:"submit";s:6:"#value";s:7:"Ricerca";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:6:"submit";}s:14:"#array_parents";a:1:{i:0;s:6:"submit";}s:7:"#weight";d:0.001000000000000000020816681711721685132943093776702880859375;s:10:"#processed";b:1;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:5:"#name";s:2:"op";s:12:"#button_type";s:6:"submit";s:25:"#executes_submit_callback";b:1;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:3:"#id";s:11:"edit-submit";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;}}s:4:"type";s:4:"func";}s:7:"thmr_44";a:2:{s:9:"variables";a:1:{s:7:"element";a:19:{s:3:"#id";s:33:"edit-search-theme-form-form-token";s:5:"#type";s:5:"token";s:14:"#default_value";s:32:"0e63e8da9ef05cac082f576f93afc4c8";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:10:"form_token";}s:14:"#array_parents";a:1:{i:0;s:10:"form_token";}s:7:"#weight";d:0.003000000000000000062450045135165055398829281330108642578125;s:10:"#processed";b:0;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:5:"#name";s:10:"form_token";s:6:"#value";s:32:"0e63e8da9ef05cac082f576f93afc4c8";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;}}s:4:"type";s:4:"func";}s:7:"thmr_37";a:2:{s:9:"variables";a:12:{s:14:"template_files";a:0:{}s:4:"form";a:28:{s:26:"versions_colors_attributes";a:12:{s:7:"#weight";i:-10;s:5:"#tree";b:1;s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:8:"#parents";a:1:{i:0;s:26:"versions_colors_attributes";}s:14:"#array_parents";a:1:{i:0;s:26:"versions_colors_attributes";}s:10:"#processed";b:0;s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;s:12:"#description";N;s:8:"#printed";b:1;}s:8:"#parents";a:0:{}s:5:"#tree";b:0;s:9:"#required";b:0;s:11:"#attributes";a:0:{}s:7:"#method";s:4:"post";s:7:"#action";s:13:"/lotuspd.com/";s:16:"#defaults_loaded";b:1;s:10:"#processed";b:0;s:5:"#post";a:0:{}s:17:"search_theme_form";a:24:{s:6:"#title";s:14:"Cerca nel sito";s:5:"#type";s:9:"textfield";s:5:"#size";i:15;s:14:"#default_value";s:0:"";s:11:"#attributes";a:1:{s:5:"title";s:30:"Inserire i termini da cercare.";}s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:17:"search_theme_form";}s:14:"#array_parents";a:1:{i:0;s:17:"search_theme_form";}s:7:"#weight";i:0;s:10:"#processed";b:1;s:12:"#description";N;s:9:"#required";b:0;s:6:"#input";b:1;s:10:"#maxlength";i:128;s:18:"#autocomplete_path";b:0;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:5:"#name";s:17:"search_theme_form";s:3:"#id";s:24:"edit-search-theme-form-1";s:6:"#value";s:0:"";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:8:"#printed";b:1;}s:6:"#theme";s:17:"search_theme_form";s:12:"#description";N;s:5:"#type";s:6:"markup";s:9:"#build_id";s:37:"form-94283fdf1bda8e1964513fd6bb62a72b";s:11:"#parameters";a:2:{i:0;s:17:"search_theme_form";i:1;a:3:{s:7:"storage";N;s:9:"submitted";b:0;s:4:"post";a:0:{}}}s:7:"#submit";a:1:{i:0;s:22:"search_box_form_submit";}s:3:"#id";s:17:"search-theme-form";s:11:"#programmed";b:0;s:6:"#token";s:17:"search_theme_form";s:6:"submit";a:22:{s:5:"#type";s:6:"submit";s:6:"#value";s:7:"Ricerca";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:6:"submit";}s:14:"#array_parents";a:1:{i:0;s:6:"submit";}s:7:"#weight";d:0.001000000000000000020816681711721685132943093776702880859375;s:10:"#processed";b:1;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:5:"#name";s:2:"op";s:12:"#button_type";s:6:"submit";s:25:"#executes_submit_callback";b:1;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:3:"#id";s:11:"edit-submit";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;s:8:"#printed";b:1;}s:13:"form_build_id";a:20:{s:5:"#type";s:6:"hidden";s:6:"#value";s:37:"form-94283fdf1bda8e1964513fd6bb62a72b";s:3:"#id";s:37:"form-94283fdf1bda8e1964513fd6bb62a72b";s:5:"#name";s:13:"form_build_id";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:13:"form_build_id";}s:14:"#array_parents";a:1:{i:0;s:13:"form_build_id";}s:7:"#weight";d:0.00200000000000000004163336342344337026588618755340576171875;s:10:"#processed";b:1;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;s:8:"#printed";b:1;}s:10:"form_token";a:20:{s:3:"#id";s:33:"edit-search-theme-form-form-token";s:5:"#type";s:5:"token";s:14:"#default_value";s:32:"0e63e8da9ef05cac082f576f93afc4c8";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:10:"form_token";}s:14:"#array_parents";a:1:{i:0;s:10:"form_token";}s:7:"#weight";d:0.003000000000000000062450045135165055398829281330108642578125;s:10:"#processed";b:0;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:5:"#name";s:10:"form_token";s:6:"#value";s:32:"0e63e8da9ef05cac082f576f93afc4c8";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;s:8:"#printed";b:1;}s:7:"form_id";a:20:{s:5:"#type";s:6:"hidden";s:6:"#value";s:17:"search_theme_form";s:3:"#id";s:22:"edit-search-theme-form";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:7:"form_id";}s:14:"#array_parents";a:1:{i:0;s:7:"form_id";}s:7:"#weight";d:0.0040000000000000000832667268468867405317723751068115234375;s:10:"#processed";b:1;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:5:"#name";s:7:"form_id";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;s:8:"#printed";b:1;}s:4:"node";a:13:{s:6:"#value";N;s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:4:"node";}s:14:"#array_parents";a:1:{i:0;s:4:"node";}s:7:"#weight";d:0.005000000000000000104083408558608425664715468883514404296875;s:10:"#processed";b:0;s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;s:6:"#title";N;s:12:"#description";N;s:8:"#printed";b:1;}s:6:"#title";N;s:11:"#theme_used";b:1;s:6:"#value";s:0:"";}s:5:"zebra";s:3:"odd";s:2:"id";i:1;s:9:"directory";s:14:"modules/search";s:8:"is_admin";b:1;s:8:"is_front";b:1;s:9:"logged_in";b:1;s:12:"db_is_active";b:1;s:4:"user";r:233;s:6:"search";a:5:{s:26:"versions_colors_attributes";N;s:17:"search_theme_form";s:352:"<span id="thmr_39" class="thmr_call">
+  <div class="form-item" id="edit-search-theme-form-1-wrapper">
+ <label for="edit-search-theme-form-1">Cerca nel sito: </label>
+ <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Inserire i termini da cercare." class="form-text" />
+</div>
+</span>
+
+";s:6:"submit";s:186:"<span id="thmr_41" class="thmr_call">
+  <span id="thmr_42" class="thmr_call">
+  <input type="submit" name="op" id="edit-submit" value="Ricerca"  class="form-submit" />
+</span>
+
+</span>
+
+";s:4:"node";N;s:6:"hidden";s:401:"<input type="hidden" name="form_build_id" id="form-94283fdf1bda8e1964513fd6bb62a72b" value="form-94283fdf1bda8e1964513fd6bb62a72b"  />
+<span id="thmr_44" class="thmr_call">
+  <input type="hidden" name="form_token" id="edit-search-theme-form-form-token" value="0e63e8da9ef05cac082f576f93afc4c8"  />
+</span>
+
+<input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
+";}s:11:"search_form";s:939:"<span id="thmr_39" class="thmr_call">
+  <div class="form-item" id="edit-search-theme-form-1-wrapper">
+ <label for="edit-search-theme-form-1">Cerca nel sito: </label>
+ <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Inserire i termini da cercare." class="form-text" />
+</div>
+</span>
+
+<span id="thmr_41" class="thmr_call">
+  <span id="thmr_42" class="thmr_call">
+  <input type="submit" name="op" id="edit-submit" value="Ricerca"  class="form-submit" />
+</span>
+
+</span>
+
+<input type="hidden" name="form_build_id" id="form-94283fdf1bda8e1964513fd6bb62a72b" value="form-94283fdf1bda8e1964513fd6bb62a72b"  />
+<span id="thmr_44" class="thmr_call">
+  <input type="hidden" name="form_token" id="edit-search-theme-form-form-token" value="0e63e8da9ef05cac082f576f93afc4c8"  />
+</span>
+
+<input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
+";}s:4:"type";s:3:"tpl";}s:7:"thmr_48";a:2:{s:9:"variables";a:1:{s:7:"element";a:31:{s:26:"versions_colors_attributes";a:9:{s:7:"#weight";i:-10;s:5:"#tree";b:1;s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:8:"#parents";a:1:{i:0;s:26:"versions_colors_attributes";}s:14:"#array_parents";a:1:{i:0;s:26:"versions_colors_attributes";}s:10:"#processed";b:0;s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;}s:8:"#parents";a:0:{}s:5:"#tree";b:0;s:9:"#required";b:0;s:11:"#attributes";a:0:{}s:7:"#method";s:4:"post";s:7:"#action";s:13:"/lotuspd.com/";s:16:"#defaults_loaded";b:1;s:10:"#processed";b:0;s:5:"#post";a:0:{}s:17:"search_theme_form";a:23:{s:6:"#title";s:14:"Cerca nel sito";s:5:"#type";s:9:"textfield";s:5:"#size";i:15;s:14:"#default_value";s:0:"";s:11:"#attributes";a:1:{s:5:"title";s:30:"Inserire i termini da cercare.";}s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:17:"search_theme_form";}s:14:"#array_parents";a:1:{i:0;s:17:"search_theme_form";}s:7:"#weight";i:0;s:10:"#processed";b:1;s:12:"#description";N;s:9:"#required";b:0;s:6:"#input";b:1;s:10:"#maxlength";i:128;s:18:"#autocomplete_path";b:0;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:5:"#name";s:17:"search_theme_form";s:3:"#id";s:24:"edit-search-theme-form-1";s:6:"#value";s:0:"";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;}s:6:"#theme";s:17:"search_theme_form";s:12:"#description";N;s:5:"#type";s:4:"form";s:9:"#build_id";s:37:"form-94283fdf1bda8e1964513fd6bb62a72b";s:11:"#parameters";a:2:{i:0;s:17:"search_theme_form";i:1;a:3:{s:7:"storage";N;s:9:"submitted";b:0;s:4:"post";a:0:{}}}s:7:"#submit";a:1:{i:0;s:22:"search_box_form_submit";}s:3:"#id";s:17:"search-theme-form";s:11:"#programmed";b:0;s:6:"#token";s:17:"search_theme_form";s:6:"submit";a:20:{s:5:"#type";s:6:"submit";s:6:"#value";s:7:"Ricerca";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:6:"submit";}s:14:"#array_parents";a:1:{i:0;s:6:"submit";}s:7:"#weight";d:0.001000000000000000020816681711721685132943093776702880859375;s:10:"#processed";b:1;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:5:"#name";s:2:"op";s:12:"#button_type";s:6:"submit";s:25:"#executes_submit_callback";b:1;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:3:"#id";s:11:"edit-submit";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;}s:13:"form_build_id";a:18:{s:5:"#type";s:6:"hidden";s:6:"#value";s:37:"form-94283fdf1bda8e1964513fd6bb62a72b";s:3:"#id";s:37:"form-94283fdf1bda8e1964513fd6bb62a72b";s:5:"#name";s:13:"form_build_id";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:13:"form_build_id";}s:14:"#array_parents";a:1:{i:0;s:13:"form_build_id";}s:7:"#weight";d:0.00200000000000000004163336342344337026588618755340576171875;s:10:"#processed";b:1;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;}s:10:"form_token";a:18:{s:3:"#id";s:33:"edit-search-theme-form-form-token";s:5:"#type";s:5:"token";s:14:"#default_value";s:32:"0e63e8da9ef05cac082f576f93afc4c8";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:10:"form_token";}s:14:"#array_parents";a:1:{i:0;s:10:"form_token";}s:7:"#weight";d:0.003000000000000000062450045135165055398829281330108642578125;s:10:"#processed";b:0;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:5:"#name";s:10:"form_token";s:6:"#value";s:32:"0e63e8da9ef05cac082f576f93afc4c8";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;}s:7:"form_id";a:18:{s:5:"#type";s:6:"hidden";s:6:"#value";s:17:"search_theme_form";s:3:"#id";s:22:"edit-search-theme-form";s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:7:"form_id";}s:14:"#array_parents";a:1:{i:0;s:7:"form_id";}s:7:"#weight";d:0.0040000000000000000832667268468867405317723751068115234375;s:10:"#processed";b:1;s:12:"#description";N;s:11:"#attributes";a:0:{}s:9:"#required";b:0;s:6:"#input";b:1;s:8:"#process";a:1:{i:0;s:16:"form_expand_ahah";}s:5:"#name";s:7:"form_id";s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;}s:4:"node";a:10:{s:6:"#value";N;s:5:"#post";a:0:{}s:11:"#programmed";b:0;s:5:"#tree";b:0;s:8:"#parents";a:1:{i:0;s:4:"node";}s:14:"#array_parents";a:1:{i:0;s:4:"node";}s:7:"#weight";d:0.005000000000000000104083408558608425664715468883514404296875;s:10:"#processed";b:0;s:16:"#defaults_loaded";b:1;s:7:"#sorted";b:1;}s:6:"#title";N;s:11:"#theme_used";b:1;s:6:"#value";N;s:7:"#prefix";N;s:7:"#suffix";N;s:9:"#children";s:1040:"<span id="thmr_37" class="thmr_call">
+  <div id="search" class="container-inline">
+  <span id="thmr_39" class="thmr_call">
+  <div class="form-item" id="edit-search-theme-form-1-wrapper">
+ <label for="edit-search-theme-form-1">Cerca nel sito: </label>
+ <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Inserire i termini da cercare." class="form-text" />
+</div>
+</span>
+
+<span id="thmr_41" class="thmr_call">
+  <span id="thmr_42" class="thmr_call">
+  <input type="submit" name="op" id="edit-submit" value="Ricerca"  class="form-submit" />
+</span>
+
+</span>
+
+<input type="hidden" name="form_build_id" id="form-94283fdf1bda8e1964513fd6bb62a72b" value="form-94283fdf1bda8e1964513fd6bb62a72b"  />
+<span id="thmr_44" class="thmr_call">
+  <input type="hidden" name="form_token" id="edit-search-theme-form-form-token" value="0e63e8da9ef05cac082f576f93afc4c8"  />
+</span>
+
+<input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
+</div>
+</span>
+
+";}}s:4:"type";s:4:"func";}s:7:"thmr_49";a:2:{s:9:"variables";a:0:{}s:4:"type";s:4:"func";}s:7:"thmr_51";a:2:{s:9:"variables";a:0:{}s:4:"type";s:4:"func";}s:7:"thmr_50";a:2:{s:9:"variables";a:0:{}s:4:"type";s:4:"func";}s:7:"thmr_52";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:26:"a:1:{i:1;s:9:"node_load";}";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:29:"a:2:{i:0;s:4:"view";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:5:"title";s:7:"AZIENDA";s:14:"title_callback";s:15:"node_page_title";s:15:"title_arguments";s:14:"a:1:{i:0;i:1;}";s:4:"type";s:1:"4";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"614";s:4:"plid";s:1:"0";s:9:"link_path";s:6:"node/1";s:11:"router_path";s:6:"node/%";s:10:"link_title";s:7:"AZIENDA";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:7:"Azienda";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"1";s:8:"expanded";s:1:"0";s:6:"weight";s:3:"-50";s:5:"depth";s:1:"1";s:10:"customized";s:1:"1";s:2:"p1";s:3:"614";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:6:"access";b:1;s:4:"href";s:6:"node/1";s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:7:"Azienda";}}}}s:4:"type";s:4:"func";}s:7:"thmr_53";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:26:"a:1:{i:1;s:9:"node_load";}";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:29:"a:2:{i:0;s:4:"view";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:5:"title";s:14:"ORGANIZZAZIONE";s:14:"title_callback";s:15:"node_page_title";s:15:"title_arguments";s:14:"a:1:{i:0;i:1;}";s:4:"type";s:1:"4";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"616";s:4:"plid";s:3:"614";s:9:"link_path";s:6:"node/2";s:11:"router_path";s:6:"node/%";s:10:"link_title";s:14:"ORGANIZZAZIONE";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:14:"Organizzazione";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:1:"0";s:5:"depth";s:1:"2";s:10:"customized";s:1:"0";s:2:"p1";s:3:"614";s:2:"p2";s:3:"616";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:6:"access";b:1;s:4:"href";s:6:"node/2";s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:14:"Organizzazione";}}}}s:4:"type";s:4:"func";}s:7:"thmr_54";a:2:{s:9:"variables";a:5:{s:4:"link";s:128:"<span id="thmr_53" class="thmr_call">
+  <a href="/lotuspd.com/organizzazione" title="Organizzazione">ORGANIZZAZIONE</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:5:"first";}s:4:"type";s:4:"func";}s:7:"thmr_55";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:26:"a:1:{i:1;s:9:"node_load";}";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:29:"a:2:{i:0;s:4:"view";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:5:"title";s:10:"DOVE SIAMO";s:14:"title_callback";s:15:"node_page_title";s:15:"title_arguments";s:14:"a:1:{i:0;i:1;}";s:4:"type";s:1:"4";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"619";s:4:"plid";s:3:"614";s:9:"link_path";s:6:"node/4";s:11:"router_path";s:6:"node/%";s:10:"link_title";s:10:"DOVE SIAMO";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:10:"DOVE SIAMO";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:1:"1";s:5:"depth";s:1:"2";s:10:"customized";s:1:"0";s:2:"p1";s:3:"614";s:2:"p2";s:3:"619";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:6:"access";b:1;s:4:"href";s:6:"node/4";s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:10:"DOVE SIAMO";}}}}s:4:"type";s:4:"func";}s:7:"thmr_56";a:2:{s:9:"variables";a:5:{s:4:"link";s:116:"<span id="thmr_55" class="thmr_call">
+  <a href="/lotuspd.com/dove-siamo" title="DOVE SIAMO">DOVE SIAMO</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:0:"";}s:4:"type";s:4:"func";}s:7:"thmr_57";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:26:"a:1:{i:1;s:9:"node_load";}";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:29:"a:2:{i:0;s:4:"view";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:5:"title";s:16:"SERVIZIO GLOBALE";s:14:"title_callback";s:15:"node_page_title";s:15:"title_arguments";s:14:"a:1:{i:0;i:1;}";s:4:"type";s:1:"4";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"618";s:4:"plid";s:3:"614";s:9:"link_path";s:6:"node/3";s:11:"router_path";s:6:"node/%";s:10:"link_title";s:16:"SERVIZIO GLOBALE";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:16:"SERVIZIO GLOBALE";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:1:"2";s:5:"depth";s:1:"2";s:10:"customized";s:1:"0";s:2:"p1";s:3:"614";s:2:"p2";s:3:"618";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:6:"access";b:1;s:4:"href";s:6:"node/3";s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:16:"SERVIZIO GLOBALE";}}}}s:4:"type";s:4:"func";}s:7:"thmr_58";a:2:{s:9:"variables";a:5:{s:4:"link";s:134:"<span id="thmr_57" class="thmr_call">
+  <a href="/lotuspd.com/servizio-globale" title="SERVIZIO GLOBALE">SERVIZIO GLOBALE</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:4:"last";}s:4:"type";s:4:"func";}s:7:"thmr_59";a:2:{s:9:"variables";a:1:{s:4:"tree";s:605:"<span id="thmr_54" class="thmr_call">
+  <li class="leaf first"><span id="thmr_53" class="thmr_call">
+  <a href="/lotuspd.com/organizzazione" title="Organizzazione">ORGANIZZAZIONE</a></span>
+
+</li>
+</span>
+
+<span id="thmr_56" class="thmr_call">
+  <li class="leaf"><span id="thmr_55" class="thmr_call">
+  <a href="/lotuspd.com/dove-siamo" title="DOVE SIAMO">DOVE SIAMO</a></span>
+
+</li>
+</span>
+
+<span id="thmr_58" class="thmr_call">
+  <li class="leaf last"><span id="thmr_57" class="thmr_call">
+  <a href="/lotuspd.com/servizio-globale" title="SERVIZIO GLOBALE">SERVIZIO GLOBALE</a></span>
+
+</li>
+</span>
+
+";}s:4:"type";s:4:"func";}s:7:"thmr_60";a:2:{s:9:"variables";a:5:{s:4:"link";s:107:"<span id="thmr_52" class="thmr_call">
+  <a href="/lotuspd.com/azienda" title="Azienda">AZIENDA</a></span>
+
+";s:12:"has_children";s:1:"1";s:4:"menu";s:685:"<span id="thmr_59" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_54" class="thmr_call">
+  <li class="leaf first"><span id="thmr_53" class="thmr_call">
+  <a href="/lotuspd.com/organizzazione" title="Organizzazione">ORGANIZZAZIONE</a></span>
+
+</li>
+</span>
+
+<span id="thmr_56" class="thmr_call">
+  <li class="leaf"><span id="thmr_55" class="thmr_call">
+  <a href="/lotuspd.com/dove-siamo" title="DOVE SIAMO">DOVE SIAMO</a></span>
+
+</li>
+</span>
+
+<span id="thmr_58" class="thmr_call">
+  <li class="leaf last"><span id="thmr_57" class="thmr_call">
+  <a href="/lotuspd.com/servizio-globale" title="SERVIZIO GLOBALE">SERVIZIO GLOBALE</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+";s:15:"in_active_trail";b:0;s:11:"extra_class";s:5:"first";}s:4:"type";s:4:"func";}s:7:"thmr_61";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:0:"";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"user_access";s:16:"access_arguments";s:30:"a:1:{i:0;s:12:"view catalog";}";s:13:"page_callback";s:5:"theme";s:14:"page_arguments";s:35:"a:1:{i:0;s:17:"uc_catalog_browse";}";s:5:"title";s:9:"CATALOGHI";s:14:"title_callback";s:12:"variable_get";s:15:"title_arguments";s:51:"a:2:{i:0;s:15:"uc_catalog_name";i:1;s:7:"Catalog";}";s:4:"type";s:2:"20";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"620";s:4:"plid";s:1:"0";s:9:"link_path";s:7:"catalog";s:11:"router_path";s:7:"catalog";s:10:"link_title";s:9:"CATALOGHI";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:9:"CATALOGHI";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"1";s:8:"expanded";s:1:"0";s:6:"weight";s:3:"-49";s:5:"depth";s:1:"1";s:10:"customized";s:1:"1";s:2:"p1";s:3:"620";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:7:"catalog";s:6:"access";b:1;s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:9:"CATALOGHI";}}}}s:4:"type";s:4:"func";}s:7:"thmr_62";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:0:"";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"user_access";s:16:"access_arguments";s:30:"a:1:{i:0;s:12:"view catalog";}";s:13:"page_callback";s:5:"theme";s:14:"page_arguments";s:35:"a:1:{i:0;s:17:"uc_catalog_browse";}";s:5:"title";s:8:"standard";s:14:"title_callback";s:12:"variable_get";s:15:"title_arguments";s:51:"a:2:{i:0;s:15:"uc_catalog_name";i:1;s:7:"Catalog";}";s:4:"type";s:2:"20";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"621";s:4:"plid";s:3:"620";s:9:"link_path";s:9:"catalog/3";s:11:"router_path";s:7:"catalog";s:10:"link_title";s:8:"standard";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:8:"standard";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:1:"0";s:5:"depth";s:1:"2";s:10:"customized";s:1:"1";s:2:"p1";s:3:"620";s:2:"p2";s:3:"621";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:9:"catalog/3";s:6:"access";b:1;s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:8:"standard";}}}}s:4:"type";s:4:"func";}s:7:"thmr_63";a:2:{s:9:"variables";a:5:{s:4:"link";s:118:"<span id="thmr_62" class="thmr_call">
+  <a href="/lotuspd.com/catalog/standard" title="standard">standard</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:5:"first";}s:4:"type";s:4:"func";}s:7:"thmr_64";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:0:"";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"user_access";s:16:"access_arguments";s:30:"a:1:{i:0;s:12:"view catalog";}";s:13:"page_callback";s:5:"theme";s:14:"page_arguments";s:35:"a:1:{i:0;s:17:"uc_catalog_browse";}";s:5:"title";s:6:"outlet";s:14:"title_callback";s:12:"variable_get";s:15:"title_arguments";s:51:"a:2:{i:0;s:15:"uc_catalog_name";i:1;s:7:"Catalog";}";s:4:"type";s:2:"20";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"622";s:4:"plid";s:3:"620";s:9:"link_path";s:9:"catalog/4";s:11:"router_path";s:7:"catalog";s:10:"link_title";s:6:"outlet";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:6:"outlet";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:2:"11";s:5:"depth";s:1:"2";s:10:"customized";s:1:"1";s:2:"p1";s:3:"620";s:2:"p2";s:3:"622";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:9:"catalog/4";s:6:"access";b:1;s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:6:"outlet";}}}}s:4:"type";s:4:"func";}s:7:"thmr_65";a:2:{s:9:"variables";a:5:{s:4:"link";s:112:"<span id="thmr_64" class="thmr_call">
+  <a href="/lotuspd.com/catalog/outlet" title="outlet">outlet</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:4:"last";}s:4:"type";s:4:"func";}s:7:"thmr_66";a:2:{s:9:"variables";a:1:{s:4:"tree";s:385:"<span id="thmr_63" class="thmr_call">
+  <li class="leaf first"><span id="thmr_62" class="thmr_call">
+  <a href="/lotuspd.com/catalog/standard" title="standard">standard</a></span>
+
+</li>
+</span>
+
+<span id="thmr_65" class="thmr_call">
+  <li class="leaf last"><span id="thmr_64" class="thmr_call">
+  <a href="/lotuspd.com/catalog/outlet" title="outlet">outlet</a></span>
+
+</li>
+</span>
+
+";}s:4:"type";s:4:"func";}s:7:"thmr_67";a:2:{s:9:"variables";a:5:{s:4:"link";s:111:"<span id="thmr_61" class="thmr_call">
+  <a href="/lotuspd.com/catalog" title="CATALOGHI">CATALOGHI</a></span>
+
+";s:12:"has_children";s:1:"1";s:4:"menu";s:465:"<span id="thmr_66" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_63" class="thmr_call">
+  <li class="leaf first"><span id="thmr_62" class="thmr_call">
+  <a href="/lotuspd.com/catalog/standard" title="standard">standard</a></span>
+
+</li>
+</span>
+
+<span id="thmr_65" class="thmr_call">
+  <li class="leaf last"><span id="thmr_64" class="thmr_call">
+  <a href="/lotuspd.com/catalog/outlet" title="outlet">outlet</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+";s:15:"in_active_trail";b:0;s:11:"extra_class";s:0:"";}s:4:"type";s:4:"func";}s:7:"thmr_68";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:0:"";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"user_access";s:16:"access_arguments";s:30:"a:1:{i:0;s:12:"view catalog";}";s:13:"page_callback";s:5:"theme";s:14:"page_arguments";s:35:"a:1:{i:0;s:17:"uc_catalog_browse";}";s:5:"title";s:7:"NOVITA'";s:14:"title_callback";s:12:"variable_get";s:15:"title_arguments";s:51:"a:2:{i:0;s:15:"uc_catalog_name";i:1;s:7:"Catalog";}";s:4:"type";s:2:"20";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"786";s:4:"plid";s:1:"0";s:9:"link_path";s:9:"catalog/7";s:11:"router_path";s:7:"catalog";s:10:"link_title";s:7:"NOVITA'";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:0:"";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:3:"-48";s:5:"depth";s:1:"1";s:10:"customized";s:1:"1";s:2:"p1";s:3:"786";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:9:"catalog/7";s:6:"access";b:1;s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:0:"";}}}}s:4:"type";s:4:"func";}s:7:"thmr_69";a:2:{s:9:"variables";a:5:{s:4:"link";s:112:"<span id="thmr_68" class="thmr_call">
+  <a href="/lotuspd.com/catalog/novita" title="">NOVITA&#039;</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:0:"";}s:4:"type";s:4:"func";}s:7:"thmr_70";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:0:"";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"user_access";s:16:"access_arguments";s:30:"a:1:{i:0;s:12:"view catalog";}";s:13:"page_callback";s:5:"theme";s:14:"page_arguments";s:35:"a:1:{i:0;s:17:"uc_catalog_browse";}";s:5:"title";s:7:"Offerte";s:14:"title_callback";s:12:"variable_get";s:15:"title_arguments";s:51:"a:2:{i:0;s:15:"uc_catalog_name";i:1;s:7:"Catalog";}";s:4:"type";s:2:"20";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"617";s:4:"plid";s:1:"0";s:9:"link_path";s:10:"catalog/29";s:11:"router_path";s:7:"catalog";s:10:"link_title";s:7:"Offerte";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:0:"";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:3:"-47";s:5:"depth";s:1:"1";s:10:"customized";s:1:"1";s:2:"p1";s:3:"617";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:4:"href";s:10:"catalog/29";s:6:"access";b:1;s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:0:"";}}}}s:4:"type";s:4:"func";}s:7:"thmr_71";a:2:{s:9:"variables";a:5:{s:4:"link";s:108:"<span id="thmr_70" class="thmr_call">
+  <a href="/lotuspd.com/catalog/offerte" title="">Offerte</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:0:"";}s:4:"type";s:4:"func";}s:7:"thmr_72";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:26:"a:1:{i:1;s:9:"node_load";}";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:29:"a:2:{i:0;s:4:"view";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:5:"title";s:11:"TAILOR MADE";s:14:"title_callback";s:15:"node_page_title";s:15:"title_arguments";s:14:"a:1:{i:0;i:1;}";s:4:"type";s:1:"4";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"624";s:4:"plid";s:1:"0";s:9:"link_path";s:6:"node/9";s:11:"router_path";s:6:"node/%";s:10:"link_title";s:11:"TAILOR MADE";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:11:"Tailor Made";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:3:"-47";s:5:"depth";s:1:"1";s:10:"customized";s:1:"1";s:2:"p1";s:3:"624";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:6:"access";b:1;s:4:"href";s:6:"node/9";s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:11:"Tailor Made";}}}}s:4:"type";s:4:"func";}s:7:"thmr_73";a:2:{s:9:"variables";a:5:{s:4:"link";s:119:"<span id="thmr_72" class="thmr_call">
+  <a href="/lotuspd.com/tailor-made" title="Tailor Made">TAILOR MADE</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:0:"";}s:4:"type";s:4:"func";}s:7:"thmr_74";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:26:"a:1:{i:1;s:9:"node_load";}";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:29:"a:2:{i:0;s:4:"view";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:5:"title";s:8:"PARTNERS";s:14:"title_callback";s:15:"node_page_title";s:15:"title_arguments";s:14:"a:1:{i:0;i:1;}";s:4:"type";s:1:"4";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"625";s:4:"plid";s:1:"0";s:9:"link_path";s:7:"node/10";s:11:"router_path";s:6:"node/%";s:10:"link_title";s:8:"PARTNERS";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:8:"Partners";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:3:"-46";s:5:"depth";s:1:"1";s:10:"customized";s:1:"1";s:2:"p1";s:3:"625";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:6:"access";b:1;s:4:"href";s:7:"node/10";s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:8:"Partners";}}}}s:4:"type";s:4:"func";}s:7:"thmr_75";a:2:{s:9:"variables";a:5:{s:4:"link";s:110:"<span id="thmr_74" class="thmr_call">
+  <a href="/lotuspd.com/partners" title="Partners">PARTNERS</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:0:"";}s:4:"type";s:4:"func";}s:7:"thmr_76";a:2:{s:9:"variables";a:1:{s:4:"link";a:40:{s:14:"load_functions";s:26:"a:1:{i:1;s:9:"node_load";}";s:16:"to_arg_functions";s:0:"";s:15:"access_callback";s:11:"node_access";s:16:"access_arguments";s:29:"a:2:{i:0;s:4:"view";i:1;i:1;}";s:13:"page_callback";s:14:"node_page_view";s:14:"page_arguments";s:14:"a:1:{i:0;i:1;}";s:5:"title";s:8:"Contatti";s:14:"title_callback";s:15:"node_page_title";s:15:"title_arguments";s:14:"a:1:{i:0;i:1;}";s:4:"type";s:1:"4";s:11:"description";s:0:"";s:9:"menu_name";s:13:"primary-links";s:4:"mlid";s:3:"626";s:4:"plid";s:1:"0";s:9:"link_path";s:7:"node/11";s:11:"router_path";s:6:"node/%";s:10:"link_title";s:8:"Contatti";s:7:"options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:8:"Contatti";}}s:6:"module";s:4:"menu";s:6:"hidden";s:1:"0";s:8:"external";s:1:"0";s:12:"has_children";s:1:"0";s:8:"expanded";s:1:"0";s:6:"weight";s:3:"-45";s:5:"depth";s:1:"1";s:10:"customized";s:1:"1";s:2:"p1";s:3:"626";s:2:"p2";s:1:"0";s:2:"p3";s:1:"0";s:2:"p4";s:1:"0";s:2:"p5";s:1:"0";s:2:"p6";s:1:"0";s:2:"p7";s:1:"0";s:2:"p8";s:1:"0";s:2:"p9";s:1:"0";s:7:"updated";s:1:"0";s:15:"in_active_trail";b:0;s:6:"access";b:1;s:4:"href";s:7:"node/11";s:17:"localized_options";a:1:{s:10:"attributes";a:1:{s:5:"title";s:8:"Contatti";}}}}s:4:"type";s:4:"func";}s:7:"thmr_77";a:2:{s:9:"variables";a:5:{s:4:"link";s:110:"<span id="thmr_76" class="thmr_call">
+  <a href="/lotuspd.com/contatti" title="Contatti">Contatti</a></span>
+
+";s:12:"has_children";s:1:"0";s:4:"menu";s:0:"";s:15:"in_active_trail";b:0;s:11:"extra_class";s:4:"last";}s:4:"type";s:4:"func";}s:7:"thmr_78";a:2:{s:9:"variables";a:1:{s:4:"tree";s:2450:"<span id="thmr_60" class="thmr_call">
+  <li class="expanded first"><span id="thmr_52" class="thmr_call">
+  <a href="/lotuspd.com/azienda" title="Azienda">AZIENDA</a></span>
+
+<span id="thmr_59" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_54" class="thmr_call">
+  <li class="leaf first"><span id="thmr_53" class="thmr_call">
+  <a href="/lotuspd.com/organizzazione" title="Organizzazione">ORGANIZZAZIONE</a></span>
+
+</li>
+</span>
+
+<span id="thmr_56" class="thmr_call">
+  <li class="leaf"><span id="thmr_55" class="thmr_call">
+  <a href="/lotuspd.com/dove-siamo" title="DOVE SIAMO">DOVE SIAMO</a></span>
+
+</li>
+</span>
+
+<span id="thmr_58" class="thmr_call">
+  <li class="leaf last"><span id="thmr_57" class="thmr_call">
+  <a href="/lotuspd.com/servizio-globale" title="SERVIZIO GLOBALE">SERVIZIO GLOBALE</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+</li>
+</span>
+
+<span id="thmr_67" class="thmr_call">
+  <li class="expanded"><span id="thmr_61" class="thmr_call">
+  <a href="/lotuspd.com/catalog" title="CATALOGHI">CATALOGHI</a></span>
+
+<span id="thmr_66" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_63" class="thmr_call">
+  <li class="leaf first"><span id="thmr_62" class="thmr_call">
+  <a href="/lotuspd.com/catalog/standard" title="standard">standard</a></span>
+
+</li>
+</span>
+
+<span id="thmr_65" class="thmr_call">
+  <li class="leaf last"><span id="thmr_64" class="thmr_call">
+  <a href="/lotuspd.com/catalog/outlet" title="outlet">outlet</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+</li>
+</span>
+
+<span id="thmr_69" class="thmr_call">
+  <li class="leaf"><span id="thmr_68" class="thmr_call">
+  <a href="/lotuspd.com/catalog/novita" title="">NOVITA&#039;</a></span>
+
+</li>
+</span>
+
+<span id="thmr_71" class="thmr_call">
+  <li class="leaf"><span id="thmr_70" class="thmr_call">
+  <a href="/lotuspd.com/catalog/offerte" title="">Offerte</a></span>
+
+</li>
+</span>
+
+<span id="thmr_73" class="thmr_call">
+  <li class="leaf"><span id="thmr_72" class="thmr_call">
+  <a href="/lotuspd.com/tailor-made" title="Tailor Made">TAILOR MADE</a></span>
+
+</li>
+</span>
+
+<span id="thmr_75" class="thmr_call">
+  <li class="leaf"><span id="thmr_74" class="thmr_call">
+  <a href="/lotuspd.com/partners" title="Partners">PARTNERS</a></span>
+
+</li>
+</span>
+
+<span id="thmr_77" class="thmr_call">
+  <li class="leaf last"><span id="thmr_76" class="thmr_call">
+  <a href="/lotuspd.com/contatti" title="Contatti">Contatti</a></span>
+
+</li>
+</span>
+
+";}s:4:"type";s:4:"func";}s:6:"thmr_9";a:2:{s:9:"variables";a:43:{s:14:"template_files";a:3:{i:0;s:9:"page-node";i:1;s:12:"page-node-12";i:2;s:10:"page-front";}s:7:"content";s:209:"<span id="thmr_6" class="thmr_call">
+  <div id="node-12" class="node clear-block">
+
+
+
+  <div class="meta">
+  
+    </div>
+
+  <div class="content">
+    <p>intro animazione qui...</p>
+
+  </div>
+
+  </div></span>
+
+";s:11:"show_blocks";b:1;s:13:"show_messages";b:1;s:5:"zebra";s:3:"odd";s:2:"id";i:1;s:9:"directory";s:28:"sites/default/themes/lotusPD";s:8:"is_admin";b:1;s:8:"is_front";b:1;s:9:"logged_in";b:1;s:12:"db_is_active";b:1;s:4:"user";r:233;s:4:"left";s:986:"<span id="thmr_10" class="thmr_call">
+  <span id="thmr_20" class="thmr_call">
+  <div id="block-user-1" class="block block-user">
+  <h2>stevepofd</h2>
+
+  <div class="content">
+    <span id="thmr_19" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_12" class="thmr_call">
+  <li class="leaf first"><span id="thmr_11" class="thmr_call">
+  <a href="/lotuspd.com/users/stevepofd">Profilo utente</a></span>
+
+</li>
+</span>
+
+<span id="thmr_14" class="thmr_call">
+  <li class="collapsed"><span id="thmr_13" class="thmr_call">
+  <a href="/lotuspd.com/node/add">Crea contenuto</a></span>
+
+</li>
+</span>
+
+<span id="thmr_16" class="thmr_call">
+  <li class="collapsed"><span id="thmr_15" class="thmr_call">
+  <a href="/lotuspd.com/admin">Amministra</a></span>
+
+</li>
+</span>
+
+<span id="thmr_18" class="thmr_call">
+  <li class="leaf last"><span id="thmr_17" class="thmr_call">
+  <a href="/lotuspd.com/logout">Esci</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+  </div>
+</div>
+</span>
+
+</span>
+
+";s:5:"right";s:0:"";s:6:"header";s:0:"";s:6:"footer";s:569:"<span id="thmr_24" class="thmr_call">
+  <span id="thmr_27" class="thmr_call">
+  <div id="block-system-0" class="block block-system">
+
+  <div class="content">
+    <span id="thmr_25" class="thmr_call">
+  <a href="http://drupal.org"><span id="thmr_26" class="thmr_call">
+  <img src="/lotuspd.com/misc/powered-blue-80x15.png" alt="Realizzato con Drupal, un sistema open source per la gestione dei contenuti" title="Realizzato con Drupal, un sistema open source per la gestione dei contenuti" width="80" height="15" /></span>
+
+</a></span>
+
+  </div>
+</div>
+</span>
+
+</span>
+
+";s:6:"layout";s:4:"left";s:10:"head_title";s:13:"intro | Lotus";s:9:"base_path";s:13:"/lotuspd.com/";s:10:"front_page";s:13:"/lotuspd.com/";s:10:"breadcrumb";N;s:10:"feed_icons";s:0:"";s:14:"footer_message";s:0:"";s:4:"head";s:343:"<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--[if IE]>
+    <link href="/lotuspd.com/sites/all/modules/devel_themer/devel_themer_ie_fix.css" rel="stylesheet" type="text/css" media="screen" />
+<![endif]-->
+<link rel="shortcut icon" href="/lotuspd.com/sites/default/files/lotusPD_favicon_0.ico" type="image/x-icon" />
+";s:4:"help";N;s:8:"language";O:8:"stdClass":12:{s:8:"language";s:2:"it";s:4:"name";s:7:"Italian";s:6:"native";s:8:"Italiano";s:9:"direction";s:1:"0";s:7:"enabled";s:1:"1";s:7:"plurals";s:1:"2";s:7:"formula";s:7:"($n!=1)";s:6:"domain";s:0:"";s:6:"prefix";s:2:"it";s:6:"weight";s:1:"0";s:10:"javascript";s:32:"80995b9e9e80d014d30923d6ccc619d2";s:3:"dir";s:3:"ltr";}s:4:"logo";N;s:8:"messages";s:102:"<span id="thmr_36" class="thmr_call">
+  <div class="messages status">
+Cache eliminate.</div>
+</span>
+
+";s:7:"mission";s:0:"";s:13:"primary_links";s:2530:"<span id="thmr_78" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_60" class="thmr_call">
+  <li class="expanded first"><span id="thmr_52" class="thmr_call">
+  <a href="/lotuspd.com/azienda" title="Azienda">AZIENDA</a></span>
+
+<span id="thmr_59" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_54" class="thmr_call">
+  <li class="leaf first"><span id="thmr_53" class="thmr_call">
+  <a href="/lotuspd.com/organizzazione" title="Organizzazione">ORGANIZZAZIONE</a></span>
+
+</li>
+</span>
+
+<span id="thmr_56" class="thmr_call">
+  <li class="leaf"><span id="thmr_55" class="thmr_call">
+  <a href="/lotuspd.com/dove-siamo" title="DOVE SIAMO">DOVE SIAMO</a></span>
+
+</li>
+</span>
+
+<span id="thmr_58" class="thmr_call">
+  <li class="leaf last"><span id="thmr_57" class="thmr_call">
+  <a href="/lotuspd.com/servizio-globale" title="SERVIZIO GLOBALE">SERVIZIO GLOBALE</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+</li>
+</span>
+
+<span id="thmr_67" class="thmr_call">
+  <li class="expanded"><span id="thmr_61" class="thmr_call">
+  <a href="/lotuspd.com/catalog" title="CATALOGHI">CATALOGHI</a></span>
+
+<span id="thmr_66" class="thmr_call">
+  <ul class="menu clearfix"><span id="thmr_63" class="thmr_call">
+  <li class="leaf first"><span id="thmr_62" class="thmr_call">
+  <a href="/lotuspd.com/catalog/standard" title="standard">standard</a></span>
+
+</li>
+</span>
+
+<span id="thmr_65" class="thmr_call">
+  <li class="leaf last"><span id="thmr_64" class="thmr_call">
+  <a href="/lotuspd.com/catalog/outlet" title="outlet">outlet</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+</li>
+</span>
+
+<span id="thmr_69" class="thmr_call">
+  <li class="leaf"><span id="thmr_68" class="thmr_call">
+  <a href="/lotuspd.com/catalog/novita" title="">NOVITA&#039;</a></span>
+
+</li>
+</span>
+
+<span id="thmr_71" class="thmr_call">
+  <li class="leaf"><span id="thmr_70" class="thmr_call">
+  <a href="/lotuspd.com/catalog/offerte" title="">Offerte</a></span>
+
+</li>
+</span>
+
+<span id="thmr_73" class="thmr_call">
+  <li class="leaf"><span id="thmr_72" class="thmr_call">
+  <a href="/lotuspd.com/tailor-made" title="Tailor Made">TAILOR MADE</a></span>
+
+</li>
+</span>
+
+<span id="thmr_75" class="thmr_call">
+  <li class="leaf"><span id="thmr_74" class="thmr_call">
+  <a href="/lotuspd.com/partners" title="Partners">PARTNERS</a></span>
+
+</li>
+</span>
+
+<span id="thmr_77" class="thmr_call">
+  <li class="leaf last"><span id="thmr_76" class="thmr_call">
+  <a href="/lotuspd.com/contatti" title="Contatti">Contatti</a></span>
+
+</li>
+</span>
+
+</ul></span>
+
+";s:15:"secondary_links";a:0:{}s:10:"search_box";s:1200:"<span id="thmr_48" class="thmr_call">
+  <form action="/lotuspd.com/"  accept-charset="UTF-8" method="post" id="search-theme-form">
+<div><span id="thmr_37" class="thmr_call">
+  <div id="search" class="container-inline">
+  <span id="thmr_39" class="thmr_call">
+  <div class="form-item" id="edit-search-theme-form-1-wrapper">
+ <label for="edit-search-theme-form-1">Cerca nel sito: </label>
+ <input type="text" maxlength="128" name="search_theme_form" id="edit-search-theme-form-1" size="15" value="" title="Inserire i termini da cercare." class="form-text" />
+</div>
+</span>
+
+<span id="thmr_41" class="thmr_call">
+  <span id="thmr_42" class="thmr_call">
+  <input type="submit" name="op" id="edit-submit" value="Ricerca"  class="form-submit" />
+</span>
+
+</span>
+
+<input type="hidden" name="form_build_id" id="form-94283fdf1bda8e1964513fd6bb62a72b" value="form-94283fdf1bda8e1964513fd6bb62a72b"  />
+<span id="thmr_44" class="thmr_call">
+  <input type="hidden" name="form_token" id="edit-search-theme-form-form-token" value="0e63e8da9ef05cac082f576f93afc4c8"  />
+</span>
+
+<input type="hidden" name="form_id" id="edit-search-theme-form" value="search_theme_form"  />
+</div>
+</span>
+
+
+</div></form>
+</span>
+
+";s:9:"site_name";s:0:"";s:11:"site_slogan";s:0:"";s:3:"css";a:1:{s:3:"all";a:2:{s:6:"module";a:25:{s:21:"modules/node/node.css";b:1;s:27:"modules/system/defaults.css";b:1;s:25:"modules/system/system.css";b:1;s:31:"modules/system/system-menus.css";b:1;s:21:"modules/user/user.css";b:1;s:43:"sites/all/modules/admin_menu/admin_menu.css";b:0;s:46:"sites/all/modules/cck/theme/content-module.css";b:1;s:39:"sites/all/modules/ctools/css/ctools.css";b:1;s:31:"sites/all/modules/date/date.css";b:1;s:55:"sites/all/modules/date/date_popup/themes/datepicker.css";b:1;s:54:"sites/all/modules/date/date_popup/themes/timeentry.css";b:1;s:52:"sites/all/modules/devel/krumo/skins/default/skin.css";b:1;s:47:"sites/all/modules/devel_themer/devel_themer.css";b:1;s:41:"sites/all/modules/filefield/filefield.css";b:1;s:49:"sites/all/modules/logintoboggan/logintoboggan.css";b:1;s:43:"sites/all/modules/nice_menus/nice_menus.css";b:1;s:51:"sites/all/modules/nice_menus/nice_menus_default.css";b:1;s:39:"sites/all/modules/panels/css/panels.css";b:1;s:39:"sites/all/modules/thickbox/thickbox.css";b:1;s:42:"sites/all/modules/thickbox/thickbox_ie.css";b:1;s:56:"sites/all/modules/ubercart/uc_attribute/uc_attribute.css";b:1;s:48:"sites/all/modules/ubercart/uc_order/uc_order.css";b:1;s:52:"sites/all/modules/ubercart/uc_product/uc_product.css";b:1;s:48:"sites/all/modules/ubercart/uc_store/uc_store.css";b:1;s:55:"sites/all/modules/cck/modules/fieldgroup/fieldgroup.css";b:1;}s:5:"theme";a:1:{s:38:"sites/default/themes/lotusPD/style.css";b:1;}}}s:6:"styles";s:3095:"<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/admin_menu/admin_menu.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/modules/node/node.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/modules/system/defaults.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/modules/system/system.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/modules/system/system-menus.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/modules/user/user.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/cck/theme/content-module.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/ctools/css/ctools.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/date/date.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/date/date_popup/themes/datepicker.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/date/date_popup/themes/timeentry.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/devel/krumo/skins/default/skin.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/devel_themer/devel_themer.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/filefield/filefield.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/logintoboggan/logintoboggan.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/nice_menus/nice_menus.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/nice_menus/nice_menus_default.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/panels/css/panels.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/thickbox/thickbox.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/thickbox/thickbox_ie.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/ubercart/uc_attribute/uc_attribute.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/ubercart/uc_order/uc_order.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/ubercart/uc_product/uc_product.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/ubercart/uc_store/uc_store.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/all/modules/cck/modules/fieldgroup/fieldgroup.css?c" />
+<link type="text/css" rel="stylesheet" media="all" href="/lotuspd.com/sites/default/themes/lotusPD/style.css?c" />
+";s:7:"scripts";s:3789:"<script type="text/javascript" src="/lotuspd.com/sites/all/modules/jquery_update/replace/jquery.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/misc/drupal.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/default/files/languages/it_80995b9e9e80d014d30923d6ccc619d2.js?c"></script>
+<script type="text/javascript" defer="defer" src="/lotuspd.com/sites/all/modules/admin_menu/admin_menu.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/all/modules/devel/krumo/krumo.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/all/modules/devel_themer/devel_themer.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/all/modules/devel/ui.mouse.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/all/modules/devel/ui.draggable.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/all/modules/nice_menus/nice_menus.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/all/modules/panels/js/panels.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/all/modules/thickbox/thickbox.js?c"></script>
+<script type="text/javascript" src="/lotuspd.com/sites/default/themes/lotusPD/js/ui_scripts.js?c"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/lotuspd.com/", "admin_menu": { "margin_top": 1 }, "thmrStrings": { "themer_info": "Themer info", "toggle_throbber": " \x3cimg src=\"/lotuspd.com/sites/all/modules/devel/loader-little.gif\" alt=\"loading\" class=\"throbber\" width=\"16\" height=\"16\" style=\"display:none\" /\x3e", "parents": "Parents: ", "function_called": "Function called: ", "template_called": "Template called: ", "candidate_files": "Candidate template files: ", "preprocessors": "Preprocess functions: ", "candidate_functions": "Candidate function names: ", "drupal_api_docs": "link to Drupal API documentation", "source_link_title": "link to source code", "function_arguments": "Function Arguments", "template_variables": "Template Variables", "file_used": "File used: ", "duration": "Duration: ", "api_site": "http://api.drupal.org/", "drupal_version": "6", "source_link": "/lotuspd.com/devel/source?file=" }, "thmr_popup": "  \x3cdiv id=\"themer-fixeder\"\x3e\n  \x3cdiv id=\"themer-relativer\"\x3e\n  \x3cdiv id=\"themer-popup\"\x3e\n      \x3cdiv class=\"topper\"\x3e\n        \x3cspan class=\"close\"\x3eX\x3c/span\x3e Drupal Themer Information\n      \x3c/div\x3e\n      \x3cdiv id=\"parents\" class=\"row\"\x3e\n\n      \x3c/div\x3e\n      \x3cdiv class=\"info row\"\x3e\n        \x3cdiv class=\"starter\"\x3eClick on any element to see information about the Drupal theme function or template that created it.\x3c/div\x3e\n        \x3cdl\x3e\n          \x3cdt class=\"key-type\"\x3e\n\n          \x3c/dt\x3e\n          \x3cdd class=\"key\"\x3e\n\n          \x3c/dd\x3e\n          \x3cdiv class=\"used\"\x3e\n          \x3c/div\x3e\n          \x3cdt class=\"candidates-type\"\x3e\n\n          \x3c/dt\x3e\n          \x3cdd class=\"candidates\"\x3e\n\n          \x3c/dd\x3e\n          \n          \x3cdt class=\"preprocessors-type\"\x3e\n\n          \x3c/dt\x3e\n          \x3cdd class=\"preprocessors\"\x3e\n\n          \x3c/dd\x3e\n          \n          \x3cdiv class=\"duration\"\x3e\x3c/div\x3e\n        \x3c/dl\x3e\n      \x3c/div\x3e\x3c!-- /info --\x3e\n      \x3cdiv class=\"attributes row\"\x3e\n\n      \x3c/div\x3e\x3c!-- /attributes --\x3e\n    \x3c/div\x3e\x3c!-- /themer-popup --\x3e\n    \x3c/div\x3e\n    \x3c/div\x3e", "thickbox": { "close": "Close", "next": "Next \x3e", "prev": "\x3c Prev", "esc_key": "or Esc Key", "next_close": "Next / Close on last", "image_count": "Image !current of !total" } });
+//--><!]]>
+</script>
+";s:4:"tabs";s:571:"<span id="thmr_49" class="thmr_call">
+  <ul class="tabs primary">
+<span id="thmr_31" class="thmr_call">
+  <li class="active" ><span id="thmr_30" class="thmr_call">
+  <a href="/lotuspd.com/intro" class="active">Mostra</a></span>
+
+</li>
+</span>
+
+<span id="thmr_33" class="thmr_call">
+  <li ><span id="thmr_32" class="thmr_call">
+  <a href="/lotuspd.com/node/12/edit">Modifica</a></span>
+
+</li>
+</span>
+
+<span id="thmr_35" class="thmr_call">
+  <li ><span id="thmr_34" class="thmr_call">
+  <a href="/lotuspd.com/node/12/devel">Devel</a></span>
+
+</li>
+</span>
+
+</ul>
+</span>
+
+";s:5:"title";s:5:"intro";s:7:"closure";s:21692:"<span id="thmr_50" class="thmr_call">
+  <div id="admin-menu">
+<ul><li class=" admin-menu-icon"><a href="/lotuspd.com/"><span id="thmr_51" class="thmr_call">
+  <img class="admin-menu-icon" src="/lotuspd.com/sites/default/files/lotusPD_favicon_0.ico" width="16" height="16" alt="Home" /></span>
+
+</a></li><li class=" admin-menu-action admin-menu-logout"><a href="/lotuspd.com/logout">Log out stevepofd</a></li><li class=" admin-menu-action admin-menu-icon admin-menu-users"><a href="/lotuspd.com/admin/user/user">1 / 1 <img src="/lotuspd.com/sites/all/modules/admin_menu/images/icon_users.png" width="16" height="15" alt="Current anonymous / authenticated users" title="Current anonymous / authenticated users" /></a></li><li class="expandable"><a href="/lotuspd.com/admin/build">Costruzione del sito</a>
+<ul><li class="expandable"><a href="/lotuspd.com/admin/build/path">Alias URL</a>
+<ul><li><a href="/lotuspd.com/admin/build/path/list">Elenco</a></li><li><a href="/lotuspd.com/admin/build/path/add">Aggiungi alias</a></li><li><a href="/lotuspd.com/admin/build/path/delete_bulk">Delete aliases</a></li><li><a href="/lotuspd.com/admin/build/path/pathauto">Automated alias settings</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/block">Blocchi</a>
+<ul><li class="expandable"><a href="/lotuspd.com/admin/build/block/list">Elenco</a>
+<ul><li><a href="/lotuspd.com/admin/build/block/list/lotusPD">lotusPD</a></li><li><a href="/lotuspd.com/admin/build/block/list/bluemarine">Blu marino</a></li><li><a href="/lotuspd.com/admin/build/block/list/chameleon">Chameleon</a></li><li><a href="/lotuspd.com/admin/build/block/list/garland">Garland</a></li><li><a href="/lotuspd.com/admin/build/block/list/marvin">Marvin</a></li><li><a href="/lotuspd.com/admin/build/block/list/minnelli">Minnelli</a></li><li><a href="/lotuspd.com/admin/build/block/list/pushbutton">Pushbutton</a></li><li><a href="/lotuspd.com/admin/build/block/list/zen">Zen</a></li></ul></li><li><a href="/lotuspd.com/admin/build/block/add">Aggiungi blocco</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/imagecache">ImageCache</a>
+<ul><li><a href="/lotuspd.com/admin/build/imagecache/list">Elenco</a></li><li><a href="/lotuspd.com/admin/build/imagecache/add">Add new preset</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/menu">Menù</a>
+<ul><li><a href="/lotuspd.com/admin/build/menu/list">Elenca menu</a></li><li><a href="/lotuspd.com/admin/build/menu/add">Aggiungi menù</a></li><li><a href="/lotuspd.com/admin/build/menu/settings">Impostazioni</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/panel-mini">Mini panels</a>
+<ul><li><a href="/lotuspd.com/admin/build/panel-mini/list">Elenco</a></li><li><a href="/lotuspd.com/admin/build/panel-mini/add">Aggiungi</a></li><li><a href="/lotuspd.com/admin/build/panel-mini/import">Importa</a></li><li><a href="/lotuspd.com/admin/build/panel-mini/settings">Impostazioni</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/modules">Moduli</a>
+<ul><li><a href="/lotuspd.com/admin/build/modules/uninstall">Disinstalla</a></li><li><a href="/lotuspd.com/admin/build/modules/list">Elenco</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/pages">Pagine</a>
+<ul><li><a href="/lotuspd.com/admin/build/pages/list">Elenco</a></li><li><a href="/lotuspd.com/admin/build/pages/add">Add custom page</a></li><li><a href="/lotuspd.com/admin/build/pages/import">Import page</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/panels">Panels</a>
+<ul><li><a href="/lotuspd.com/admin/build/panels/dashboard">Dashboard</a></li><li class="expandable"><a href="/lotuspd.com/admin/build/panels/settings">Impostazioni</a>
+<ul><li><a href="/lotuspd.com/admin/build/panels/settings/general">General</a></li><li><a href="/lotuspd.com/admin/build/panels/settings/panel-page">Panel pages</a></li><li><a href="/lotuspd.com/admin/build/panels/settings/panels-mini">Mini panels</a></li><li><a href="/lotuspd.com/admin/build/panels/settings/panel-node">Panel nodes</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/themes">Temi</a>
+<ul><li><a href="/lotuspd.com/admin/build/themes/select">Elenco</a></li><li class="expandable"><a href="/lotuspd.com/admin/build/themes/settings">Configura</a>
+<ul><li><a href="/lotuspd.com/admin/build/themes/settings/global">Impostazioni globali</a></li><li><a href="/lotuspd.com/admin/build/themes/settings/bluemarine">Blu marino</a></li><li><a href="/lotuspd.com/admin/build/themes/settings/chameleon">Chameleon</a></li><li><a href="/lotuspd.com/admin/build/themes/settings/garland">Garland</a></li><li><a href="/lotuspd.com/admin/build/themes/settings/marvin">Marvin</a></li><li><a href="/lotuspd.com/admin/build/themes/settings/minnelli">Minnelli</a></li><li><a href="/lotuspd.com/admin/build/themes/settings/pushbutton">Pushbutton</a></li><li><a href="/lotuspd.com/admin/build/themes/settings/zen">Zen</a></li><li><a href="/lotuspd.com/admin/build/themes/settings/lotusPD">lotusPD</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/translate">Traduci interfaccia</a>
+<ul><li><a href="/lotuspd.com/admin/build/translate/overview">Panoramica</a></li><li><a href="/lotuspd.com/admin/build/translate/search">Ricerca</a></li><li><a href="/lotuspd.com/admin/build/translate/import">Importa</a></li><li><a href="/lotuspd.com/admin/build/translate/export">Esporta</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/build/views">Viste</a>
+<ul><li><a href="/lotuspd.com/admin/build/views/list">Elenco</a></li><li><a href="/lotuspd.com/admin/build/views/add">Aggiungi</a></li><li><a href="/lotuspd.com/admin/build/views/import">Importa</a></li><li class="expandable"><a href="/lotuspd.com/admin/build/views/tools">Tools</a>
+<ul><li><a href="/lotuspd.com/admin/build/views/tools/basic">Basic</a></li><li><a href="/lotuspd.com/admin/build/views/tools/export">Bulk export</a></li><li><a href="/lotuspd.com/admin/build/views/tools/convert">Converti</a></li></ul></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/content">Gestione dei contenuti</a>
+<ul><li class="expandable"><a href="/lotuspd.com/admin/content/comment">Commenti</a>
+<ul><li><a href="/lotuspd.com/admin/content/comment/new">Commenti pubblicati</a></li><li><a href="/lotuspd.com/admin/content/comment/approval">Coda di approvazione</a></li></ul></li><li><a href="/lotuspd.com/admin/content/templates">Content Templates</a></li><li class="expandable"><a href="/lotuspd.com/admin/content/node">Contenuto</a>
+<ul><li><a href="/lotuspd.com/admin/content/node/overview">Elenco</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/content/image">Gallerie di Immagini</a>
+<ul><li><a href="/lotuspd.com/admin/content/image/list">Elenco</a></li><li><a href="/lotuspd.com/admin/content/image/add">Add gallery</a></li></ul></li><li><a href="/lotuspd.com/admin/content/node-settings">Impostazioni dei contenuti</a></li><li class="expandable"><a href="/lotuspd.com/admin/content/nodequeue">Nodequeue</a>
+<ul><li><a href="/lotuspd.com/admin/content/nodequeue/list">Elenco</a></li><li><a href="/lotuspd.com/admin/content/nodequeue/add/nodequeue">Aggiungi nodequeue</a></li><li><a href="/lotuspd.com/admin/content/nodequeue/settings">Impostazioni</a></li></ul></li><li><a href="/lotuspd.com/admin/content/rss-publishing">Pubblicazione RSS</a></li><li class="expandable"><a href="/lotuspd.com/admin/content/taxonomy">Taxonomy</a>
+<ul><li><a href="/lotuspd.com/admin/content/taxonomy/list">Elenco</a></li><li><a href="/lotuspd.com/admin/content/taxonomy/add/vocabulary">Aggiungi vocabolario</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/content/types">Tipi di contenuto</a>
+<ul><li><a href="/lotuspd.com/admin/content/types/list">Elenco</a></li><li><a href="/lotuspd.com/admin/content/types/add">Aggiungi tipo di contenuto</a></li><li><a href="/lotuspd.com/admin/content/types/fields">Campi</a></li><li><a href="/lotuspd.com/admin/content/types/export">Esporta</a></li><li><a href="/lotuspd.com/admin/content/types/import">Importa</a></li><li><a href="/lotuspd.com/admin/content/types/templates">Content Templates</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/settings">Configurazione del sito</a>
+<ul><li><a href="/lotuspd.com/admin/settings/admin_menu">Administration menu</a></li><li><a href="/lotuspd.com/admin/settings/error-reporting">Avvisi di errore</a></li><li class="expandable"><a href="/lotuspd.com/admin/settings/actions">Azioni</a>
+<ul><li><a href="/lotuspd.com/admin/settings/actions/manage">Gestisci azioni</a></li></ul></li><li><a href="/lotuspd.com/admin/settings/email">CCK Email Contact Form Settings</a></li><li><a href="/lotuspd.com/admin/settings/contemplate">Content Template Settings</a></li><li class="expandable"><a href="/lotuspd.com/admin/settings/date-time">Data e ora</a>
+<ul><li><a href="/lotuspd.com/admin/settings/date-time/configure">Data e ora</a></li><li class="expandable"><a href="/lotuspd.com/admin/settings/date-time/formats">Formati</a>
+<ul><li><a href="/lotuspd.com/admin/settings/date-time/formats/configure">Configura</a></li><li><a href="/lotuspd.com/admin/settings/date-time/formats/custom">Custom formats</a></li><li><a href="/lotuspd.com/admin/settings/date-time/formats/add">Aggiungi formato</a></li></ul></li></ul></li><li><a href="/lotuspd.com/admin/settings/date_popup">Date Popup Configuration</a></li><li><a href="/lotuspd.com/admin/settings/devel">Devel settings</a></li><li><a href="/lotuspd.com/admin/settings/drush_terminal">Drush Terminal</a></li><li><a href="/lotuspd.com/admin/settings/file-system">File system</a></li><li class="expandable"><a href="/lotuspd.com/admin/settings/filters">Formati di input</a>
+<ul><li><a href="/lotuspd.com/admin/settings/filters/list">Elenco</a></li><li><a href="/lotuspd.com/admin/settings/filters/add">Aggiungi un formato di input</a></li></ul></li><li><a href="/lotuspd.com/admin/settings/googleanalytics">Google Analytics</a></li><li class="expandable"><a href="/lotuspd.com/admin/settings/imageapi">ImageAPI</a>
+<ul><li><a href="/lotuspd.com/admin/settings/imageapi/list">Elenco</a></li><li class="expandable"><a href="/lotuspd.com/admin/settings/imageapi/config">Configura</a>
+<ul><li><a href="/lotuspd.com/admin/settings/imageapi/config/imageapi_gd">ImageAPI GD2</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/settings/image">Images</a>
+<ul><li><a href="/lotuspd.com/admin/settings/image/nodes">Files and sizes</a></li><li><a href="/lotuspd.com/admin/settings/image/image_gallery">Galleria immagini</a></li><li><a href="/lotuspd.com/admin/settings/image/image_attach">Image attach</a></li></ul></li><li><a href="/lotuspd.com/admin/settings/search">Impostazioni di ricerca</a></li><li><a href="/lotuspd.com/admin/settings/site-information">Informazioni sul sito</a></li><li class="expandable"><a href="/lotuspd.com/admin/settings/language">Lingue</a>
+<ul><li><a href="/lotuspd.com/admin/settings/language/overview">Elenco</a></li><li><a href="/lotuspd.com/admin/settings/language/add">Aggiungi lingua</a></li><li><a href="/lotuspd.com/admin/settings/language/configure">Configura</a></li></ul></li><li><a href="/lotuspd.com/admin/settings/site-maintenance">Manutenzione del sito</a></li><li><a href="/lotuspd.com/admin/settings/mimemail">Mime Mail</a></li><li><a href="/lotuspd.com/admin/settings/nice_menus">Nice Menus</a></li><li><a href="/lotuspd.com/admin/settings/performance">Prestazioni</a></li><li class="expandable"><a href="/lotuspd.com/admin/settings/logging">Registro degli eventi e avvisi</a>
+<ul><li><a href="/lotuspd.com/admin/settings/logging/dblog">Registro eventi (log) su database</a></li></ul></li><li><a href="/lotuspd.com/admin/settings/admin">Tema amministrazione</a></li><li><a href="/lotuspd.com/admin/settings/devel_themer">Theme Developer</a></li><li><a href="/lotuspd.com/admin/settings/thickbox">Thickbox</a></li><li><a href="/lotuspd.com/admin/settings/image-toolkit">Toolkit per le immagini</a></li><li><a href="/lotuspd.com/admin/settings/clean-urls">URL semplificati</a></li><li><a href="/lotuspd.com/admin/settings/vertical-tabs">Vertical Tabs</a></li><li><a href="/lotuspd.com/admin/settings/jquery_update">jQuery Update</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/user">Gestione utente</a>
+<ul><li><a href="/lotuspd.com/admin/user/settings">Impostazioni utente</a></li><li><a href="/lotuspd.com/admin/user/logintoboggan">LoginToboggan</a></li><li><a href="/lotuspd.com/admin/user/permissions">Permessi</a></li><li><a href="/lotuspd.com/admin/user/profile">Profili</a></li><li class="expandable"><a href="/lotuspd.com/admin/user/rules">Regole di accesso</a>
+<ul><li><a href="/lotuspd.com/admin/user/rules/list">Elenco</a></li><li><a href="/lotuspd.com/admin/user/rules/add">Aggiungi regola</a></li><li><a href="/lotuspd.com/admin/user/rules/check">Controlla regole</a></li></ul></li><li><a href="/lotuspd.com/admin/user/roles">Ruoli</a></li><li class="expandable"><a href="/lotuspd.com/admin/user/user">Utenti</a>
+<ul><li><a href="/lotuspd.com/admin/user/user/list">Elenco</a></li><li><a href="/lotuspd.com/admin/user/user/create">Aggiungi utente</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store">Store administration</a>
+<ul><li class="expandable"><a href="/lotuspd.com/admin/store/orders">Orders</a>
+<ul><li><a href="/lotuspd.com/admin/store/orders/view">View orders</a></li><li><a href="/lotuspd.com/admin/store/orders/create">Create order</a></li><li><a href="/lotuspd.com/admin/store/orders/search">Search orders</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/customers">Customers</a>
+<ul><li><a href="/lotuspd.com/admin/store/customers/view">View customers</a></li><li><a href="/lotuspd.com/admin/store/customers/search">Search customers</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/products">Products</a>
+<ul><li><a href="/lotuspd.com/admin/store/products/view">View products</a></li><li><a href="/lotuspd.com/admin/store/products/orphans">Find orphaned products</a></li><li><a href="/lotuspd.com/admin/store/products/classes">Manage classes</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/attributes">Attributes</a>
+<ul><li><a href="/lotuspd.com/admin/store/attributes/overview">Panoramica</a></li><li><a href="/lotuspd.com/admin/store/attributes/add">Add an attribute</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/reports">Rapporti</a>
+<ul><li><a href="/lotuspd.com/admin/store/reports/customers">Customer reports</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/reports/products">Product reports</a>
+<ul><li><a href="/lotuspd.com/admin/store/reports/products/summary">Product report</a></li><li><a href="/lotuspd.com/admin/store/reports/products/custom">Custom product report</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/reports/sales">Sales reports</a>
+<ul><li><a href="/lotuspd.com/admin/store/reports/sales/summary">Sales summary</a></li><li><a href="/lotuspd.com/admin/store/reports/sales/year">Sales per year</a></li><li><a href="/lotuspd.com/admin/store/reports/sales/custom">Custom sales summary</a></li></ul></li><li><a href="/lotuspd.com/admin/store/reports/stock">Stock reports</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/ca">Conditional actions</a>
+<ul><li class="expandable"><a href="/lotuspd.com/admin/store/ca/overview">Panoramica</a>
+<ul><li><a href="/lotuspd.com/admin/store/ca/overview/trigger">By trigger</a></li><li><a href="/lotuspd.com/admin/store/ca/overview/class">By class</a></li></ul></li><li><a href="/lotuspd.com/admin/store/ca/add">Add a predicate</a></li><li><a href="/lotuspd.com/admin/store/ca/convert">Convert configurations</a></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings">Configuration</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/attributes">Attribute settings</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/cart">Cart settings</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/cart/overview">Panoramica</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/cart/edit">Modifica</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/cart/edit/basic">Cart settings</a></li><li><a href="/lotuspd.com/admin/store/settings/cart/edit/panes">Cart panes</a></li><li><a href="/lotuspd.com/admin/store/settings/cart/edit/block">Cart block</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/catalog">Catalog settings</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/catalog/overview">Panoramica</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/catalog/edit">Modifica</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/catalog/edit/catalog">Catalog settings</a></li><li><a href="/lotuspd.com/admin/store/settings/catalog/edit/grid">Product grid settings</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/checkout">Checkout settings</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/checkout/overview">Panoramica</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/checkout/edit">Modifica</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/checkout/edit/basic">Checkout settings</a></li><li><a href="/lotuspd.com/admin/store/settings/checkout/edit/panes">Checkout panes</a></li><li><a href="/lotuspd.com/admin/store/settings/checkout/edit/messages">Checkout messages</a></li><li><a href="/lotuspd.com/admin/store/settings/checkout/edit/fields">Address fields</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/countries">Country settings</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/countries/overview">Panoramica</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/countries/edit">Modifica</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/countries/edit/import">Import countries</a></li><li><a href="/lotuspd.com/admin/store/settings/countries/edit/formats">Country formats</a></li></ul></li></ul></li><li><a href="/lotuspd.com/admin/store/settings/multi_stock">Multi Stock Settings</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/orders">Order settings</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/orders/overview">Panoramica</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/orders/edit">Modifica</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/orders/edit/basic">Order settings</a></li><li><a href="/lotuspd.com/admin/store/settings/orders/edit/workflow">Order workflow</a></li><li><a href="/lotuspd.com/admin/store/settings/orders/edit/panes">Order panes</a></li></ul></li></ul></li><li><a href="/lotuspd.com/admin/store/settings/price-handlers">Price handler settings</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/products">Product settings</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/products/overview">Panoramica</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/products/edit">Modifica</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/products/edit/general">Product settings</a></li><li><a href="/lotuspd.com/admin/store/settings/products/edit/fields">Product fields</a></li><li><a href="/lotuspd.com/admin/store/settings/products/edit/features">Product features</a></li><li><a href="/lotuspd.com/admin/store/settings/products/edit/product-kits">Product kits</a></li></ul></li></ul></li><li><a href="/lotuspd.com/admin/store/settings/reports">Report settings</a></li><li><a href="/lotuspd.com/admin/store/settings/stock">Stock settings</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/store">Store settings</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/store/overview">Panoramica</a></li><li class="expandable"><a href="/lotuspd.com/admin/store/settings/store/edit">Modifica</a>
+<ul><li><a href="/lotuspd.com/admin/store/settings/store/edit/contact">Contact settings</a></li><li><a href="/lotuspd.com/admin/store/settings/store/edit/display">Display settings</a></li><li><a href="/lotuspd.com/admin/store/settings/store/edit/format">Format settings</a></li></ul></li><li><a href="/lotuspd.com/admin/store/settings/store/initials">User initials</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/store/help">Aiuto</a>
+<ul><li><a href="/lotuspd.com/admin/store/help/tokens">Using tokens</a></li></ul></li></ul></li><li class="expandable"><a href="/lotuspd.com/admin/reports">Rapporti</a>
+<ul><li><a href="/lotuspd.com/admin/reports/dblog">Log recenti</a></li><li><a href="/lotuspd.com/admin/reports/access-denied">Errori &#039;accesso negato&#039; più frequenti</a></li><li><a href="/lotuspd.com/admin/reports/page-not-found">Errori &#039;pagina non trovata&#039; più frequenti</a></li><li><a href="/lotuspd.com/admin/reports/search">Espressioni di ricerca maggiormente utilizzate</a></li><li class="expandable"><a href="/lotuspd.com/admin/reports/updates">Aggiornamenti disponibili</a>
+<ul><li><a href="/lotuspd.com/admin/reports/updates/list">Elenco</a></li><li><a href="/lotuspd.com/admin/reports/updates/settings">Impostazioni</a></li></ul></li><li><a href="/lotuspd.com/admin/reports/status">Rapporto stato</a></li></ul></li><li><a href="/lotuspd.com/admin/help">Aiuto</a></li></ul></div></span>
+
+";s:4:"node";r:72;s:12:"body_classes";s:65:"front logged-in page-node node-type-page one-sidebar sidebar-left";s:15:"content_profile";O:31:"content_profile_theme_variables":2:{s:3:"uid";s:1:"1";s:6:"_cache";a:0:{}}}s:4:"type";s:3:"tpl";}}

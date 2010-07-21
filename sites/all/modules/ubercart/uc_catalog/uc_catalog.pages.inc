@@ -29,8 +29,9 @@ function theme_uc_catalog_browse($tid = 0) {
   $types = uc_product_types();
   $links = array();
   $child_list = array();
-	// get rid of last item in array (novita') if its the main gallery page //
+	// get rid of last two items in array (novita') if its the main gallery page //
 	if($catalog->name == 'Catalog'){
+		array_pop($catalog->children);
 		array_pop($catalog->children);
 	}
 	//echo "<pre>";
@@ -221,7 +222,7 @@ if($catalog->name != 'Catalog'){
         $output .= "</div><div class='product-row clearfix'>";
       }
 
-      $output .= '<div class="product-column">';
+      $output .= '<div class="product-column category">';
       $output .= $product;
       $output .= '</div>';
 

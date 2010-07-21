@@ -1,0 +1,11 @@
+name = stock manager with attributes
+description = stock manager for ubercart, taking into account the product attributes.
+dependencies[] =  uc_stock
+package = Ubercart - extra
+core = 6.x
+; Information added by drupal.org packaging script on 2010-07-11
+version = "6.x-1.x-dev"
+core = "6.x"
+project = "uc_multi_stock"
+datestamp = "1278836103"
+

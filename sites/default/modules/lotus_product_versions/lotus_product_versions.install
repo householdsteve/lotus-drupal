@@ -1,0 +1,110 @@
+<?php
+// $Id: uc_stock.install,v 1.6.2.8 2009/07/21 14:37:17 islandusurper Exp $
+
+/**
+ * @file
+ * The installation file
+ */
+
+/**
+ * Implementation of hook_schema().
+ */
+function lotus_product_versions_schema() {
+  $schema = array();
+
+  $schema['product_versions'] = array(
+    'description' => t('versions for lotus products'),
+    'fields' => array(
+      'sku' => array(
+        'description' => t('SKU of a product'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'nid' => array(
+        'description' => t('Node ID of a product'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'imballo' => array(
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'dimensions' => array(
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'arrivo_1' => array(
+        'type' => 'int',
+        'size' => 'medium',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'data_arrivo_1' => array(
+        'type' => 'varchar',
+        'length' => '20',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'arrivo_2' => array(
+        'type' => 'int',
+        'size' => 'medium',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'data_arrivo_2' => array(
+        'type' => 'varchar',
+        'length' => '20',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'disponibile_descr' => array(
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'novita' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'offerta' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'esclusiva' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array('nid'),
+    ),
+    'primary key' => array('sku'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function lotus_product_versions_install() {
+  drupal_install_schema('lotus_product_versions');
+}

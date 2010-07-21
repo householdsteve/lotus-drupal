@@ -999,6 +999,10 @@ function uc_cart_view_form($form_state, $items = NULL) {
       '#submit' => array('uc_cart_view_form_submit'),
     );
   }
+  
+  //echo "<pre>";
+	//print_r($form);
+	//echo "</pre>";
 
   return $form;
 }

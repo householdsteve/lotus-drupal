@@ -1,0 +1,296 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+// $Id: uc_stock.module,v 1.12.2.19 2009/09/23 19:50:45 islandusurper Exp $
+
+/**
+ * @file
+ * Allow ubercart products to have stock levels associated with their SKU
+ *
+ * uc_stock enables ubercart to manage stock for products. Store admins can set
+ * the stock levels on a product edit page and a threshold for each SKU value
+ * When that threshold is reached admins can be optionally notified about the
+ * current stock level. Store admins can view all stock levels in the reports
+ * section of Ubercart.
+ *
+ * Development sponsored by the Ubercart project. http://www.ubercart.org
+ */
+
+
+
+/******************************************************************************
+ *  Hook Functions (Drupal)                                                   *
+ ******************************************************************************/
+
+/**
+ * Implementation of hook_menu().
+ */
+function lotus_product_versions_menu() {
+  $items = array();
+
+  $items['node/%node/edit/product-versions'] = array(
+    'title' => 'Product versions',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('lotus_product_versions_edit_form', 1),
+    'access callback' => 'lotus_product_versions_product_access',
+    'access arguments' => array(1),
+    'weight' => 10,
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'lotus_product_versions.admin.inc',
+  );
+  /*
+  $items['fuck-shit'] = array(
+    'access arguments' => array('access content'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('lotus_product_versions_cart_form', 1),
+    'type' => MENU_CALLBACK,
+  );*/
+  
+  return $items;
+}
+
+/**
+ * Access callback for node/%node/edit/stock.
+ */
+function lotus_product_versions_product_access($node) {
+  if ($node->type == 'product_kit') {
+    return FALSE;
+  }
+
+  return uc_product_is_product($node) && node_access('update', $node) && user_access('administer product stock');
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function lotus_product_versions_perm() {
+  return array('administer product versions');
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function lotus_product_versions_theme() {
+  return array(
+    'lotus_product_versions_edit_form' => array(
+      'arguments' => array('content' => NULL),
+      'file' => 'lotus_product_versions.admin.inc',
+    ),
+    'lotus_product_versions_cart_row' => array(
+      'arguments' => array('form' => NULL, 'node' => NULL),
+    ),
+      'lotus_product_versions_cart_form' => array(
+        'arguments' => array('form' => NULL,'node'=>NULL),
+      )
+  );
+}
+
+function _lotus_product_versions_load_versions($nid){
+  $versions = array();
+
+  $result = db_query("SELECT * FROM {product_versions} WHERE nid = %d", $nid);
+
+  while ($version = db_fetch_object($result)) {
+   $versions[$version->sku] = $version;
+
+  }
+  return $versions;
+}
+
+function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL) {
+  if (uc_product_is_product($node->type)) {
+    switch ($op) {
+      case 'load':  
+        // Load option images
+        // Keep in mind the file 'filename' is a mash of nid/aid/oid
+        //$node->product_versions = array();
+        $node->product_versions = _lotus_product_versions_load_versions($node->nid);
+        
+        $skus = uc_product_get_models($node);
+        
+        if(count($node->attributes)){
+          $node->attribute_id = array_keys($node->attributes[array_shift(array_keys($node->attributes))]->options);
+        
+          foreach($node->attribute_id as $oid){
+            $color = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE oid = %d", $oid));
+            $node->attribute_option_hex_colors[$oid] = $color['hex'];
+          }
+      }
+       
+          
+    
+/*
+        if (count($node->attributes)) {
+               
+          foreach($node->attributes AS $attribute) {
+            if (count($attribute->options)) {
+              foreach($attribute->options AS $option) {
+                $file = uc_option_image_load($node->nid, $attribute->aid, $option->oid);
+                if ($file && $file->filepath) {
+                  $node->option_images[] = $file;
+                  // Load imagecached option images
+                  if ($page_size != '_original') {
+                    $node->option_images_cached[$option->oid] = imagecache_create_url($page_size, $file->filepath);
+                  }
+                  else {
+                    $node->option_images_cached[$option->oid] = $file->filepath;
+                  }
+                }
+              }
+            }           
+          }
+        }*/
+        break;
+
+      case 'view':
+        // @todo issue being invoked so many times?
+        // @todo refactor
+        /*if (isset($node->content['add_to_cart'])){ 
+          if (user_access('view option images')){
+            if (count($node->attributes)){ 
+              $attributes = $node->attributes;          
+              $first_attribute = array_shift($node->attributes);  
+              array_unshift($node->attributes, $first_attribute);
+              $page_size = variable_get('uc_option_image_page_size', 'preview');  
+              $teaser_size = variable_get('uc_option_image_teaser_size', 'thumbnail'); 
+              $size = $a4 ? $page_size : $teaser_size;
+
+              // Pass attributes to uc_option_image to populate JS settings
+              if ($a4){
+                uc_option_image($node, $attributes, $size); 
+              }
+
+              // Determine if we have a default option using
+              // the first attribute's default option
+              if ($first_attribute->default_option){
+                $default_option = $first_attribute->default_option;
+              }
+
+              // Load the default image file
+              $file = uc_option_image_load($node->nid, $first_attribute->aid, $default_option);
+
+              // Display the image based on teaser/page view
+              // Ensure that original file exists
+              if ($file->filepath && file_exists($file->filepath)){
+                $image = theme('uc_option_image', $file, $size);  
+              }
+              else {   
+                $image = theme('uc_option_image_no_image', $node, $size);
+              }
+
+              // Preload images
+              if ($a4){
+                $preloaded_images = theme('uc_option_image_preloaded', $node, $size); 
+              }
+
+              $node->content['option_image'] = array(
+                  '#value' => $image . $preloaded_images,
+                  '#access' => user_access('view option images'),
+                  '#weight' => (int) variable_get('uc_option_image_node_weight', '10'),
+                );      
+            }
+          }
+        }*/
+        // If the product doesn't have attributes, return the form as it is.
+      
+            //echo "<pre>";
+             //print_r($node);
+             //echo "</pre>";
+       
+
+        break;
+    }
+    }
+  }
+  
+  function lotus_product_versions_form_alter(&$form, &$form_state, $form_id) {
+    //echo $form_id;
+    if(strpos($form_id, 'add_product_form') !== 0){
+        
+        $node =& $form['node']['#value'];
+        
+        if(count($node->attributes)){
+        foreach ($node->attributes as $attribute) {
+          
+          foreach ($attribute->options as $option) {
+            
+           $color_markup = '<span style="display:inline-block; background:#'.$node->attribute_option_hex_colors[$option->oid].'; width:20px; height:20px;">&nbsp;</span>';
+                       
+            $form['versions_colors_attributes'][$option->oid]['item'] = array(
+              '#type' => 'textfield',
+              '#title' => $option->name,
+              '#size' => 5,
+              '#weight' => -10,
+              '#description' => $color_markup,
+              // we got the color value from the nodapi load of the product attributes
+              '#theme' => 'lotus_product_versions_cart_row',
+            );
+            
+          }
+          
+        }
+      
+        
+        $form['versions_colors_attributes']["#weight"] = -10;
+        $form['versions_colors_attributes']["#tree"] = TRUE;
+        //$form['versions_colors_attributes']['#theme'] = 'lotus_product_versions_cart_row';
+        
+        
+        //unset($form['attributes']);
+       } 
+      	
+     }    
+    
+  }
+  
+
+  function theme_lotus_product_versions_cart_row($form,$node=null) {
+  
+    //echo "<pre>";
+  	//print_r($form);
+  	//echo "</pre>";
+  	
+    $output = '<div class="uc-option-image-preloaded">';
+    
+      foreach($form as $key => $attr){
+        
+        
+        
+      }
+    
+
+    
+    
+    //$output .= drupal_render($form);
+    $output .= theme('textfield',$form);
+    $output .= '</div>';
+
+    return $output;
+  }
+  
+  
+  function lotus_product_versions_cart_form($form_id,$form_state = NULL) {
+    $form = array();
+    $form['#submit'][] = 'uc_catalog_buy_it_now_form_submit';
+    $form['nid'] = array('#type' => 'hidden', '#value' => $node->nid);
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' =>  'fuck shit like this',
+      '#id' => 'new-submit-'. $node->nid,
+      '#attributes' => array(
+        'class' => 'list-add-to-cart',
+      ),
+    );
+
+    //uc_form_alter($form, $form_state, __FUNCTION__);
+
+    return $form;
+  }
+  
+  function theme_lotus_product_versions_cart_form($form){
+   
+  }
+  
+  function lotus_product_versions_cart_form_submit($form, &$form_state) {
+    drupal_set_message('<pre>'. print_r($form_state['values'], TRUE) .'</pre>');
+  }
