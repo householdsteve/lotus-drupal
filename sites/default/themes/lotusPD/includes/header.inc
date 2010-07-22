@@ -19,10 +19,10 @@
 				<a id="site_logo" href="<?php print $base_path ?>" title="<?php print t('Home') ?>"><img src="<?php print $base_path . $directory ?>/images/louts-logo.png" width="264" height="50" alt="Louts Logo" /></a>
 				
 				<div id="social">
-						<span>FOLLOW US ON</span>
-						<a href="#"><img src="<?php print $base_path . $directory ?>/images/fb.png" width="41" height="41" alt="Fb" /></a>
-						<a href="#"><img src="<?php print $base_path . $directory ?>/images/t.png" width="41" height="41" alt="T" /></a>
-						<a href="#"><img src="<?php print $base_path . $directory ?>/images/x.png" width="41" height="41" alt="X" /></a>
+						<img src="<?php print $base_path . $directory ?>/images/temp-player.png" width="321" height="32" alt="Temp Player"/>
+						<a href="#"><img src="<?php print $base_path . $directory ?>/images/fb.png" width="28" height="28" alt="Fb" /></a>
+						<a href="#"><img src="<?php print $base_path . $directory ?>/images/t.png" width="28" height="28" alt="T" /></a>
+						<a href="#"><img src="<?php print $base_path . $directory ?>/images/x.png" width="28" height="28" alt="X" /></a>
 				</div>
 				<div id="area-riservata">
 				  <?php print lotus_user_link(); ?>

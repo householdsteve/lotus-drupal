@@ -70,13 +70,18 @@ div#footer h4 {
 
 div#primary {
 	position:relative;
-	height:50px;
+	height:80px;
 	padding:15px 0 15px 10px;
+}
+
+a#site_logo {
+  position:relative;
+  top:20px;
 }
 
 div#social {
 	position:absolute;
-	right:0;
+	right:10px;
 	top:10px;
 	color:#b4b4b0;
 	font: 33px/33px 'BebasRegular', Helvetica, sans-serif;
@@ -97,12 +102,13 @@ div#social a:hover {
 
 div#area-riservata {
   position:absolute;
-	right:0;
-	bottom:4px;
-	font-size:11px;
+	right:10px;
+	bottom:15px;
+	font: 30px/30px 'BebasRegular', Helvetica, sans-serif;
+	color:#fff;
 }
 div#area-riservata a {
-  color:#000;
+  color:#737373;
 }
 div#area-riservata a:hover {
   color:#fff;
@@ -218,6 +224,66 @@ div#content h2 {
 	margin:55px auto 0 auto;
 }
 
+
+
+div.map-holder {
+  border-top:2px solid #3E3E3E;
+  border-bottom:2px solid #3E3E3E;
+  padding:10px 0;
+  margin:40px 0 20px 0;
+  position:relative;
+}
+
+div#lotus-map-expand {
+  position:absolute;
+  bottom:10px;
+  left:0;
+  font: 28px/28px 'BebasRegular', Helvetica, sans-serif;
+  background: url('images/50percent-grey.png') top left repeat;
+  padding:10px;
+  vertical-align:middle;
+  width:300px;
+  cursor:pointer;
+}
+
+div#lotus-map-expand span {
+  display:inline-block;
+  margin:0 0 0 10px;
+}
+
+div.page-top-images {
+  border-top:2px solid #3E3E3E;
+  padding:10px 0;
+  margin:40px 0 0 0;
+}
+
+div.page-top-images a {
+  margin:0 0 0 10px;
+  width:303px;
+  height:219px;
+  position:relative;
+  display:inline-block;
+  overflow:hidden;
+}
+
+div.page-top-images a:first-child {
+  margin:0 0 0 0;
+}
+
+div.page-top-images a div {
+  font: 28px/28px 'BebasRegular', Helvetica, sans-serif;
+  background: url('images/50percent-grey.png') top left repeat;
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:303px;
+  padding:5px 0;
+}
+
+div.page-top-images a div span {
+  background: url('images/zoom-icon.gif') 5px 5px no-repeat;
+  padding:0 0 0 40px;
+}
 
 
 /* -----  OVERRIDE STORESETTINGS CSS ----------*/
@@ -581,16 +647,21 @@ div.available-title {
 }
 
 div.color-row {
-  
+  line-height:14px;
+  padding:3px 0;
 }
-div.color-row.selected {
-  border:dashed 1px #3e3e3e;
+div.color-row.selected span.color-swatch {
+  border:solid 1px #fff;
 }
 
 span.color-swatch {
   display:inline-block;
   width:10px;
   height:10px;
+}
+
+div.color-row.selected span.color-name {
+  font-weight:bold;
 }
 
 span.color-name {
@@ -613,4 +684,5 @@ div.additional-info {
 div.product-body {
   color:#666;
   font-size:14px;
+  margin:0 0 10px 0;
 }

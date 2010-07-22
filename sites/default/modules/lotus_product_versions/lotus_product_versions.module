@@ -64,7 +64,7 @@ function lotus_product_versions_product_access($node) {
  * Implementation of hook_perm().
  */
 function lotus_product_versions_perm() {
-  return array('administer product versions');
+  return array('administer product versions','view product version');
 }
 
 /**

@@ -6,3 +6,6 @@ version = 1.0
 core = 6.x
 engine = phptemplate
 scripts[] = js/ui_scripts.js
+scripts[] = js/jquery.prettyPhoto.js
+stylesheets[all][] = style.css
+stylesheets[all][] = css/prettyPhoto.css

@@ -238,7 +238,7 @@ function lotusPD_uc_catalog_product_grid($array) {
 
 function lotus_user_link(){
   if(user_is_logged_in()){
-    return l("My Account","user")." / ".l("Logout","logout");
+    return l("Downloads","user")." / ".l("My Account","user")." / ".l("Logout","logout");
   }else{
     return l("Area Riservata","user/login");
   }
@@ -257,4 +257,12 @@ function lotus_user_link(){
     return theme_uc_catalog_browse($tid);
   }*/
   // end of the code
+  
+function loadPrettyPhotoHelpers(){
+  drupal_add_js(path_to_theme().'/js/pretty-photo-helper.js');
+}
+function simpleGmap(){
+  drupal_add_js(path_to_theme().'/js/map-controls.js');
+  return gmap_simple_map("45.3972948", "11.9538438","", "",'14', '930px', '210px');
+}
   

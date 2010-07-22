@@ -40,7 +40,7 @@ $category = $node->taxonomy[$category_key]->name;
   	          
   	          <?php // here we will render the contact form
   	           if(user_access('administer product versions')){
-                   print drupal_get_form('lotus_product_versions_cart_form'); 
+                   //print drupal_get_form('lotus_product_versions_cart_form'); 
                 }
                 
                 $default_id = $node->attributes[array_shift(array_keys($node->attributes))]->default_option;
@@ -89,7 +89,9 @@ $category = $node->taxonomy[$category_key]->name;
   	              </div>
   	              
   	              <div class="product-detail-right">
-  	                <?php print $node->content["display_price"]['#value']; ?>
+  	                <?php if(user_access('view product version')):?>
+  	                  <?php print $node->content["display_price"]['#value']; ?>
+  	                <?php endif ?>
   	              </div>
   	            
   	            </div>
@@ -100,12 +102,14 @@ $category = $node->taxonomy[$category_key]->name;
   	                 <?php print $node->content['body']['#value']; ?>
 
            	        <div class="generic-row">imballo: <?php print $default_product->imballo; ?> </div>
-
+                    
+                  <?php if(user_access('view product version')):?>
            	        <div class="generic-row">arrivo: <?php print $default_product->arrivo_1; ?> </div>
            	        <div class="generic-row">data_arrivo_1: <?php print $default_product->data_arrivo_1; ?> </div>
            	        <div class="generic-row">arrivo: <?php print $default_product->arrivo_2; ?> </div>
            	        <div class="generic-row">data_arrivo_2: <?php print $default_product->data_arrivo_2; ?> </div>
            	        <div class="generic-row"><?php print $default_product->disponibile_descr; ?> </div>
+           	      <?php endif ?>
   	            </div>
   	            
   	            <?php //print $node->content["add_to_cart"]['#value']; ?>
