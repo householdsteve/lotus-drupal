@@ -9,7 +9,7 @@
 /**
  * Implementation of hook_views_data().
  */
-function uc_stock_views_data() {
+function lotus_product_versions_views_data() {
   $data['uc_product_stock']['table']['group'] = t('Stock');
 
   $data['uc_product_stock']['table']['join'] = array(
@@ -83,7 +83,7 @@ function uc_stock_views_data() {
     'title' => t('Is Below Threshold'),
     'help' => t('Filter the node based on whether its stock level is below the threshold for the SKU.'),
     'filter' => array(
-      'handler' => 'uc_stock_views_handler_filter_below_threshold',
+      'handler' => 'lotus_product_versions_views_handler_filter_below_threshold',
       'label' => t('Is Below Threshold'),
       'type' => 'yes-no',
     ),
@@ -95,13 +95,13 @@ function uc_stock_views_data() {
 /**
  * Implementation of hook_views_handlers().
  */
-function uc_stock_views_handlers() {
+function lotus_product_versions_views_handlers() {
   return array(
     'info' => array(
       'path' => drupal_get_path('module', 'uc_stock') .'/views',
     ),
     'handlers' => array(
-      'uc_stock_views_handler_filter_below_threshold' => array(
+      'lotus_product_versions_views_handler_filter_below_threshold' => array(
         'parent' => 'views_handler_filter_boolean_operator',
       ),
     ),

@@ -687,6 +687,7 @@ function uc_catalog_get_page($tid) {
       $info = image_get_info($file->filepath);
       $child->image = $info;
       $child->image['filepath'] = $file->filepath;
+      $child->image['hex'] = $file->hexcolor;
     }
     // Display list of child category's children categories.
     // If more than $max_gc_display, show "More..." link to child.

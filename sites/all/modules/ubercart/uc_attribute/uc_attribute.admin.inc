@@ -798,7 +798,7 @@ function uc_object_options_form($form_state, $object, $type) {
           '#default_value' => isset($attribute->options[$oid]) ? TRUE : FALSE,
           '#title' => check_plain($option->name),
         );
-        /*$form['attributes'][$aid]['options'][$oid]['cost'] = array(
+        $form['attributes'][$aid]['options'][$oid]['cost'] = array(
           '#type' => 'textfield',
           '#default_value' => uc_store_format_price_field_value(is_null($option->cost) ? $option->default_cost : $option->cost),
           '#size' => 6,
@@ -812,7 +812,7 @@ function uc_object_options_form($form_state, $object, $type) {
           '#type' => 'textfield',
           '#default_value' => is_null($option->weight) ? $option->default_weight : $option->weight,
           '#size' => 5,
-        );*/
+        );
         $form['attributes'][$aid]['options'][$oid]['ordering'] = array(
           '#type' => 'weight',
           '#delta' => 50,

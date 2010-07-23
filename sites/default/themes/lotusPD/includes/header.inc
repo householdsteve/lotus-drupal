@@ -11,7 +11,8 @@
 </head>
 
 <body>
-	
+ <div id="page-wrapper">
+	 
 	<div id="container">
 		
 		<div id="header">

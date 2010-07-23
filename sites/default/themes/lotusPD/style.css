@@ -6,7 +6,7 @@
 	src: local('☺'), url('fonts/BEBAS___.ttf') format('truetype'), url('fonts/BEBAS___.svg#webfont') format('svg');
 }
 
-html, body  {
+html  {
 	font: 11px Helvetica, sans-serif;
 	background: #fff;
 	padding: 0;
@@ -17,6 +17,12 @@ html, body  {
 	font-size:14px;
 	background: #e4e3de url('images/grad_bg.png') top left repeat-x;
 	
+}
+
+body {
+  background:url('images/flower-bg.png') repeat;
+  padding:0;
+  margin:0;
 }
 
 a {
@@ -58,7 +64,7 @@ a:hover {
 
 div#footer {
 	text-align:center;
-	margin:20px 0;
+	padding:20px 0;
 	color:#3e3e3e;
 }
 
@@ -336,7 +342,42 @@ img.imagecache-uc_category_large {
   float:left;
   background:#fff;
   padding:0;
+  position:relative;
 }
+
+div.product-column.category div.category-label {
+  position:absolute;
+  bottom:0;
+  left:0;
+  font: 24px/24px 'BebasRegular', Helvetica, sans-serif;
+  background: url('images/50percent-grey.png') top left repeat;
+  position:absolute;
+  width:220px;
+  padding:5px 0 0 0;
+}
+
+div.product-column.category div.category-label a {
+  color:#fff;
+}
+
+div.product-column.category div.category-label a:hover {
+  color:#000;
+}
+
+div.product-column.category div.category-label span.colorblock {
+  width:24px;
+  height:24px;
+  background:#e1e1e1;
+  margin:0 6px 0 6px;
+  display:inline-block;
+  vertical-align:top;
+}
+
+div.product-column.category div.category-label span.title {
+  display:inline-block;
+  vertical-align:top;
+}
+
 
 .category-grid-products .catalog-grid-title {
   text-align:left;
@@ -685,4 +726,10 @@ div.product-body {
   color:#666;
   font-size:14px;
   margin:0 0 10px 0;
+}
+
+.full-content table tbody {
+  color:#000;
+}
+  
 }

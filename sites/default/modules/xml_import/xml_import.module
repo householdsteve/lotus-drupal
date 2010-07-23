@@ -757,9 +757,7 @@ function xml_import_uc_catalog_form_alter(&$form, &$form_state, $form_id) {
 	$form['identification']['hexcolor']['#description'] = t('A color that will highlight the category aroudn the site.');
 
   }
-}*/
-
-//---- end of changes ---//
+}
 
 function xml_import_form_alter(&$form, &$form_state, $form_id){ 
   switch($form_id){
@@ -853,6 +851,8 @@ function phptemplate_uc_object_options_form($form) {
 
   return $output;
 }
+*/
 
+//---- end of changes ---//
 
 ?>

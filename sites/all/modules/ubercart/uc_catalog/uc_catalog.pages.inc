@@ -85,7 +85,9 @@ function theme_uc_catalog_browse($tid = 0) {
       if (variable_get('uc_catalog_show_subcategories', TRUE)) {
         $cell_link .= "<br/><span>". implode(', ', $grandchildren) ."</span>\n";
       }
-      $child_list[] = $cell_link;
+      $child_list[$child->tid]['image'] = $image;
+      $child_list[$child->tid]['text'] = l($child->name, uc_catalog_path($child));
+      $child_list[$child->tid]['hex'] = $child->image['hex'];
     }
   }
   if (!empty($catalog->image)) {
@@ -212,8 +214,13 @@ if($catalog->name != 'Catalog'){
     $output .= '<div class="category-grid-products">';
     $count = 0;
     
+    //echo "<pre>";
+  	//print_r($child_list);
+  	//echo "</pre>";
+    
     foreach ($child_list as $product) {
-      
+    //$p = (object) $product;
+     
 
       if ($count == 0) {
         $output .= "<div class='product-row clearfix'>";
@@ -223,7 +230,10 @@ if($catalog->name != 'Catalog'){
       }
 
       $output .= '<div class="product-column category">';
-      $output .= $product;
+      $output .= $product['image'];
+           $output .= '<div class="category-label">';
+            $output .= '<span class="colorblock" style="background:#'.$product['hex'].';">&nbsp;</span><span class="title">'.$product['text'].'</span>';
+           $output .= '</div>';
       $output .= '</div>';
 
       $count++;

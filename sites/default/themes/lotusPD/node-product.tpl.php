@@ -39,10 +39,7 @@ $category = $node->taxonomy[$category_key]->name;
   	      <div class="column middle-right space clearfix">
   	          
   	          <?php // here we will render the contact form
-  	           if(user_access('administer product versions')){
-                   //print drupal_get_form('lotus_product_versions_cart_form'); 
-                }
-                
+  	                          
                 $default_id = $node->attributes[array_shift(array_keys($node->attributes))]->default_option;
                 
                 $default_product = $node->product_versions[$node->model.".".$default_id]; // this is an object, treat it like one.
@@ -115,7 +112,20 @@ $category = $node->taxonomy[$category_key]->name;
   	            <?php //print $node->content["add_to_cart"]['#value']; ?>
       	        
       	    </div>
+      	    
+      	    <div class="column middle-right space clearfix">
+      	    <?php
+  	         if(user_access('view product version')){
+                 print drupal_get_form('lotus_product_versions_cart_form',$node); 
+              }
+  	        ?>
+  	        </div>
+  	        <!-- end of middle right div holder -->
+      	    
   	      </div>
-  	    </div>
+  	    
+  	    
+  	    
+  	  </div>
   	    
   	    

@@ -193,9 +193,7 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
         }*/
         // If the product doesn't have attributes, return the form as it is.
       
-            //echo "<pre>";
-             //print_r($node);
-             //echo "</pre>";
+            
        
 
         break;
@@ -269,26 +267,92 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
   }
   
   
-  function lotus_product_versions_cart_form($form_id,$form_state = NULL) {
+  function lotus_product_versions_cart_form($form_id,$node = NULL) {
+
     $form = array();
     $form['#submit'][] = 'uc_catalog_buy_it_now_form_submit';
     $form['nid'] = array('#type' => 'hidden', '#value' => $node->nid);
+    
+    if(count($node->attributes)){
+    foreach ($node->attributes as $attribute) {
+      
+      foreach ($attribute->options as $option) {
+        
+        //$default_product = $node->product_versions[$node->model.".".$default_id]; // this is an object, treat it like one.
+                   
+        $form['versions_quantities'][$option->oid] = array(
+          '#type' => 'textfield',
+          //'#default_value' => $option->name,  // make this default to the total of this option in the cart. cool huh?
+          '#size' => 5,
+          '#weight' => -10,
+        );
+        
+      }
+      
+    }
+  }
+  
+    
+    $form['versions_quantities']["#weight"] = -10;
+    $form['versions_quantities']["#tree"] = TRUE;
+    
+    
     $form['submit'] = array(
       '#type' => 'submit',
-      '#value' =>  'fuck shit like this',
+      '#value' =>  'Aggiungi al Carello',
       '#id' => 'new-submit-'. $node->nid,
       '#attributes' => array(
         'class' => 'list-add-to-cart',
       ),
     );
 
-    //uc_form_alter($form, $form_state, __FUNCTION__);
+   
 
     return $form;
   }
   
   function theme_lotus_product_versions_cart_form($form){
-   
+  	//$oot = '<div class="test-theories">';
+  	
+  	//$oot .= drupal_render($form['submit']);
+  	//$oot .= '</div>';
+  	//return $oot;
+  	
+  	//echo "<pre>";
+    $node_data = $form['#parameters'][2]; // object like normal node object.
+    //echo "</pre>";
+  	
+  	$header = array(
+      array('data' => t('SKU')),
+      array('data' => t('Colore')),
+      array('data' => t('Imballo')),
+      array('data' => t('Dimensions')),
+      array('data' => t('Arrivo 1')),
+      array('data' => t('Data arrivo 1')),
+      array('data' => t('Arrivo 2')),
+      array('data' => t('Data arrivo 2')),
+      array('data' => t('Disponibilità')),
+      array('data' => t('Qty')),
+    );
+
+    foreach (element_children($form['versions_quantities']) as $id) {
+      $version_data = $node_data->product_versions[$node_data->model.'.'.$id]; // object of item
+      $color_markup = '<span style="display:inline-block; background:#'.$node_data->attribute_option_hex_colors[$id].'; width:20px; height:20px;">&nbsp;</span>';
+      $rows[] = array(
+        array('data' => $version_data->sku),
+        array('data' => $color_markup),
+        array('data' => $version_data->imballo),
+        array('data' => $version_data->dimensions),
+        array('data' => $version_data->arrivo_1),
+        array('data' => $version_data->data_arrivo_1),
+        array('data' => $version_data->arrivo_2),
+        array('data' => $version_data->data_arrivo_2),
+        array('data' => $version_data->disponibile_descr),
+        array('data' => drupal_render($form['versions_quantities'][$id])),
+      );
+    }
+
+    return theme('table', $header, $rows) . drupal_render($form);
   }
   
   function lotus_product_versions_cart_form_submit($form, &$form_state) {
