@@ -107,6 +107,11 @@ function lotusPD_preprocess_page(&$vars, $hook) {
   //$tree = menu_tree_all_data($menu_l);
   $tO = menu_tree_output($menu_l);
   $vars['primary_links'] = $tO;
+  
+  $theme_settings = array('themePath' => get_full_path_to_theme());
+	drupal_add_js(array('theme' => $theme_settings), "setting");
+	
+	
 }
 
 
@@ -125,12 +130,32 @@ function learn_taxonomy_ancestry($tid){
   
   $key = array_shift(array_keys($p));
   
-  $c = taxonomy_get_tree($p[$key]->vid,$p[$key]->tid);
+  $c = taxonomy_get_tree($p[$key]->vid);
+  
+  $t_p = array();
+    
+  // sort the objects into families
+  foreach($c as $parents){
+    if($parents->parents[0] == 0){
+      $t_p[$parents->tid] = (array) $parents;
+    }else{
+      $t_p[$parents->parents[0]]['children'][] = (array) $parents;
+    }
+  }
   
   $output = '<select id="fast-cat-change">';
-  foreach($c as $item){
-    $link = base_path().drupal_get_path_alias("catalog/".$item->tid);
-    $output .= '<option value="'.$link.'">'.$item->name.'</option>';
+  foreach($t_p as $item){
+    if(isset($item['children'])){
+      $output .= '<optgroup label="'.$item['name'].'">';
+        foreach($item['children'] as $child){
+          $link = base_path().drupal_get_path_alias("catalog/".$child['tid']);
+          $output .= '<option value="'.$link.'">'.$child['name'].'</option>';
+        }
+      $output .= '</optgroup>';
+    }else{
+      $link = base_path().drupal_get_path_alias("catalog/".$item['tid']);
+      $output .= '<option value="'.$link.'">'.$item['name'].'</option>';
+    }
   }
   $output .= "</select>";
   
@@ -162,7 +187,7 @@ function lotusPD_uc_catalog_product_grid($array) {
   
   $product_table .= '<div class="column middle-right">';
     
-  $product_table .= '  <div class="clearfix">';
+  $product_table .= '  <div class="filter-holder clearfix">';
   $product_table .= '    <div class="filter middle">';
     $product_table .= ' <div class="column-header dark info">';
     $on_page = variable_get('uc_product_nodes_per_page', 12);
@@ -237,11 +262,13 @@ function lotusPD_uc_catalog_product_grid($array) {
 }
 
 function lotus_user_link(){
-  if(user_is_logged_in()){
-    return l("Downloads","user")." / ".l("My Account","user")." / ".l("Logout","logout");
+  /*if(user_is_logged_in()){
+    return l("Downloads","downloads-browser")." / ".l("My Account","user")." / ".l("Logout","logout");
   }else{
     return l("Area Riservata","user/login");
-  }
+  }*/
+
+  return menu_tree('menu-area-riservata');
 }
 
 // code added begin

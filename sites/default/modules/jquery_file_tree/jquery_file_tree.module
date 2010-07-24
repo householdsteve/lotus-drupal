@@ -1,0 +1,81 @@
+<?php
+/******************************************************************************
+ *  Hook Functions (Drupal)                                                   *
+ ******************************************************************************/
+
+/**
+ * Implementation of hook_menu().
+ */
+function jquery_file_tree_menu() {
+  $items = array();
+
+  /*$items['node/%node/edit/product-versions'] = array(
+    'title' => 'Product versions',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('jquery_file_tree_edit_form', 1),
+    'access callback' => 'jquery_file_tree_product_access',
+    'access arguments' => array(1),
+    'weight' => 10,
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'jquery_file_tree.admin.inc',
+  );*/
+ 
+  $items['downloads-browser'] = array(
+    'title' => t('Download Browser'),
+    'access arguments' => array('access content'),
+    'page callback' => '_present_contents',
+    'page arguments' => array(1),
+    'type' => MENU_CALLBACK,
+  );
+  
+  return $items;
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function jquery_file_tree_perm() {
+  return array('view download browser');
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function jquery_file_tree_theme() {
+  return array(
+    'jquery_file_tree_present_contents' => array(
+      'arguments' => array('content' => NULL),
+      //'file' => 'jquery_file_tree.admin.inc',
+    )
+  );
+}
+
+
+function theme_jquery_file_tree_present_contents($content=NULL) {
+  
+  $output = '<div class="download-header">';
+  $output .= 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. ';
+  $output .= '</div>';
+
+  $output .= '<div class="download-section-holder clearfix">';
+  $output .= '<div class="download-column"><h2>Communicati Stampa</h2><div id="dl-col-1" class="column-child"></div></div>';
+  $output .= '<div class="download-column"><h2>Prodotti in alta risoluzione</h2><div id="dl-col-2" class="column-child"></div></div>';
+  $output .= '<div class="download-column"><h2>Documenti Importanti</h2><div id="dl-col-3" class="column-child"></div></div>';
+  $output .= '</div>';
+  
+  return $output;
+}
+
+function _present_contents($arg) {
+  
+  $jqtFP = drupal_get_path('module', 'jquery_file_tree');
+  drupal_add_css($jqtFP.'/css/jqueryFileTree.css');
+  drupal_add_js($jqtFP .'/js/jqueryFileTree.js');
+  drupal_add_js($jqtFP .'/js/jquery_tree_settings.js');
+  
+  $tree_settings = array('treePath' => $jqtFP,'fileDirectory' => file_directory_path());
+	drupal_add_js(array('jqueryTree' => $tree_settings), "setting");
+  
+  return theme('jquery_file_tree_present_contents',$output);
+  
+}

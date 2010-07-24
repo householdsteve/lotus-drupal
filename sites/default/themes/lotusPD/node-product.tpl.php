@@ -97,23 +97,23 @@ $category = $node->taxonomy[$category_key]->name;
   	             <h3 class="dettagli"><?php print t('Informazione Aggiuntive')?>:</h3>
   	             
   	                 <?php print $node->content['body']['#value']; ?>
-
-           	        <div class="generic-row">imballo: <?php print $default_product->imballo; ?> </div>
                     
-                  <?php if(user_access('view product version')):?>
-           	        <div class="generic-row">arrivo: <?php print $default_product->arrivo_1; ?> </div>
-           	        <div class="generic-row">data_arrivo_1: <?php print $default_product->data_arrivo_1; ?> </div>
-           	        <div class="generic-row">arrivo: <?php print $default_product->arrivo_2; ?> </div>
-           	        <div class="generic-row">data_arrivo_2: <?php print $default_product->data_arrivo_2; ?> </div>
-           	        <div class="generic-row"><?php print $default_product->disponibile_descr; ?> </div>
-           	      <?php endif ?>
+                    <?php if(!user_access('view product version')):?>
+           	          <div class="generic-row">imballo: <?php print $default_product->imballo; ?> </div>
+           	        <?php elseif(1 == 2): ?>
+           	          <div class="generic-row">arrivo: <?php print $default_product->arrivo_1; ?> </div>
+             	        <div class="generic-row">data_arrivo_1: <?php print $default_product->data_arrivo_1; ?> </div>
+             	        <div class="generic-row">arrivo: <?php print $default_product->arrivo_2; ?> </div>
+             	        <div class="generic-row">data_arrivo_2: <?php print $default_product->data_arrivo_2; ?> </div>
+             	        <div class="generic-row"><?php print $default_product->disponibile_descr; ?> </div>
+           	        <?php endif ?>
   	            </div>
   	            
   	            <?php //print $node->content["add_to_cart"]['#value']; ?>
       	        
       	    </div>
       	    
-      	    <div class="column middle-right space clearfix">
+      	    <div class="column middle-right table clearfix">
       	    <?php
   	         if(user_access('view product version')){
                  print drupal_get_form('lotus_product_versions_cart_form',$node); 

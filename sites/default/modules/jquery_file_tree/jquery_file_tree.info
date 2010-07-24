@@ -1,0 +1,5 @@
+name = Jquery File Tree
+description = Creates a page to view the jquery file tree.
+dependencies[] = jquery_update
+package = "File Managment"
+core = 6.x

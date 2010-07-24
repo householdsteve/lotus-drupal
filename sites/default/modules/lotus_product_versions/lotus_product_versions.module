@@ -88,8 +88,8 @@ function lotus_product_versions_theme() {
 function _lotus_product_versions_load_versions($nid){
   $versions = array();
 
+  //$result = db_query("SELECT * FROM {product_versions} WHERE nid = %d AND published = %d", $nid,1);
   $result = db_query("SELECT * FROM {product_versions} WHERE nid = %d", $nid);
-
   while ($version = db_fetch_object($result)) {
    $versions[$version->sku] = $version;
 
@@ -268,9 +268,22 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
   
   
   function lotus_product_versions_cart_form($form_id,$node = NULL) {
+    
 
+  $current_cart = uc_cart_get_contents();
+    
+  $applicable_items = array(); 
+   	
+   foreach (element_children($current_cart) as $id) {
+         foreach (element_children($current_cart[$id]->data['attributes']) as $aid){
+              if($current_cart[$id]->nid == $node->nid){
+                $applicable_items[$current_cart[$id]->data['attributes'][$aid]] = $current_cart[$id]->qty;
+              }
+         }
+    }
+  
     $form = array();
-    $form['#submit'][] = 'uc_catalog_buy_it_now_form_submit';
+    $form['#submit'][] = 'lotus_product_versions_cart_form_submit';
     $form['nid'] = array('#type' => 'hidden', '#value' => $node->nid);
     
     if(count($node->attributes)){
@@ -279,10 +292,10 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
       foreach ($attribute->options as $option) {
         
         //$default_product = $node->product_versions[$node->model.".".$default_id]; // this is an object, treat it like one.
-                   
-        $form['versions_quantities'][$option->oid] = array(
+        $form['versions_quantities'][$option->oid]['attr'] = array('#type' => 'hidden', '#value' => $attribute->aid);      
+        $form['versions_quantities'][$option->oid]['qty'] = array(
           '#type' => 'textfield',
-          //'#default_value' => $option->name,  // make this default to the total of this option in the cart. cool huh?
+          '#default_value' => $applicable_items[$option->oid],  // make this default to the total of this option in the cart. cool huh?
           '#size' => 5,
           '#weight' => -10,
         );
@@ -343,12 +356,12 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
         array('data' => $color_markup),
         array('data' => $version_data->imballo),
         array('data' => $version_data->dimensions),
-        array('data' => $version_data->arrivo_1),
-        array('data' => $version_data->data_arrivo_1),
-        array('data' => $version_data->arrivo_2),
-        array('data' => $version_data->data_arrivo_2),
+        array('data' => ($version_data->arrivo_1 != 0) ? $version_data->arrivo_1 : "-"),
+        array('data' => ($version_data->data_arrivo_1 != '0' && $version_data->data_arrivo_1 != "00/00/0000") ? $version_data->data_arrivo_1 : '---'),
+        array('data' => ($version_data->arrivo_2 != 0) ? $version_data->arrivo_2 : "-"),
+        array('data' => ($version_data->data_arrivo_2 != '0' && $version_data->data_arrivo_2 != "00/00/0000") ? $version_data->data_arrivo_2 : '---'),
         array('data' => $version_data->disponibile_descr),
-        array('data' => drupal_render($form['versions_quantities'][$id])),
+        array('data' => drupal_render($form['versions_quantities'][$id]['qty'])),
       );
     }
 
@@ -356,5 +369,11 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
   }
   
   function lotus_product_versions_cart_form_submit($form, &$form_state) {
-    drupal_set_message('<pre>'. print_r($form_state['values'], TRUE) .'</pre>');
+    foreach($form_state['values']['versions_quantities'] as $key => $item){
+      $form_state['values']['attributes'][$item['attr']] = $key;
+      if($item['qty'] != "" || $item['qty'] != 0){
+        uc_cart_add_item($form_state['values']['nid'], $item['qty'],  module_invoke_all('add_to_cart_data', $form_state['values']), NULL, variable_get('uc_cart_add_item_msg', TRUE));
+      }
+    }
+   //drupal_set_message('<pre>'. print_r($form_state['values'], TRUE) .'</pre>');
   }

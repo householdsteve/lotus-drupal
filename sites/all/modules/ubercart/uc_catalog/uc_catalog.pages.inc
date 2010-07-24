@@ -20,6 +20,7 @@
  * @ingroup themeable
  */
 function theme_uc_catalog_browse($tid = 0) {
+  global $user;
   drupal_add_css(drupal_get_path('module', 'uc_catalog') .'/uc_catalog.css');
 
   $output = '';
@@ -33,6 +34,12 @@ function theme_uc_catalog_browse($tid = 0) {
 	if($catalog->name == 'Catalog'){
 		array_pop($catalog->children);
 		array_pop($catalog->children);
+	}
+	
+	// check if use has permission to access this part of the catalog
+	if(!term_permissions_allowed($catalog->tid,$user)){
+	  // send them to main catalog page
+	  drupal_goto('catalog');
 	}
 	//echo "<pre>";
 	//print_r($catalog);

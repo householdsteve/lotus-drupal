@@ -93,6 +93,12 @@ div#social {
 	font: 33px/33px 'BebasRegular', Helvetica, sans-serif;
 }
 
+div#mediaspace {
+  position:absolute;
+  top:6px;
+  right:100px;
+}
+
 div#social span {
 	display:inline-block;
 	padding:0 10px 0 0;
@@ -109,7 +115,7 @@ div#social a:hover {
 div#area-riservata {
   position:absolute;
 	right:10px;
-	bottom:15px;
+	bottom:10px;
 	font: 30px/30px 'BebasRegular', Helvetica, sans-serif;
 	color:#fff;
 }
@@ -120,6 +126,43 @@ div#area-riservata a:hover {
   color:#fff;
 }
 
+
+div#area-riservata > ul:first-child {
+	padding:0;
+}
+
+div#area-riservata ul {
+	padding:0 0 10px 0;
+	position:relative;
+}
+
+div#area-riservata ul li {
+	font: 28px/27px 'BebasRegular', Helvetica, sans-serif;
+	display:inline-block;
+	float:left;
+	height:35px;
+}
+
+
+div#area-riservata ul li a {
+	padding:0 20px 0 0;
+	background: url('images/slash.png') 98% 70% no-repeat;
+	position:relative;
+
+}
+
+div#area-riservata ul li.last a {
+	padding:0 0 0 0;
+	background: none;
+}
+
+div#area-riservata ul li.active a, div#area-riservata ul li a.active {
+	color:#fff;
+}
+
+div#area-riservata ul.first.active ul {
+	display:block;
+}
 
 
 div#social img {
@@ -345,6 +388,8 @@ img.imagecache-uc_category_large {
   position:relative;
 }
 
+
+
 div.product-column.category div.category-label {
   position:absolute;
   bottom:0;
@@ -353,7 +398,7 @@ div.product-column.category div.category-label {
   background: url('images/50percent-grey.png') top left repeat;
   position:absolute;
   width:220px;
-  padding:5px 0 0 0;
+  padding:5px 0 5px 0;
 }
 
 div.product-column.category div.category-label a {
@@ -368,7 +413,7 @@ div.product-column.category div.category-label span.colorblock {
   width:24px;
   height:24px;
   background:#e1e1e1;
-  margin:0 6px 0 6px;
+  margin:0 0 0 6px;
   display:inline-block;
   vertical-align:top;
 }
@@ -376,6 +421,7 @@ div.product-column.category div.category-label span.colorblock {
 div.product-column.category div.category-label span.title {
   display:inline-block;
   vertical-align:top;
+  margin:0 0 0 6px;
 }
 
 
@@ -398,7 +444,7 @@ div.item-list {
   background:#3E3E3E;
   height:24px;
   padding:6px;
-  width:348px;
+  /*width:348px;*/
 }
 ul.pager {
   height:24px;
@@ -439,6 +485,17 @@ div.filter {
   padding:0;
 }
 
+div.filter-holder {
+  position:relative;
+}
+
+div.filter-holder div.filter.right{
+ width:auto;
+ position:absolute;
+ right:0;
+ top:0; 
+}
+
 div.column {
   float:left;
   margin:0;
@@ -467,6 +524,10 @@ div.middle-right {
 
 div.middle-right.space {
   padding-top:45px;
+}
+
+div.middle-right.table {
+  padding-top:10px;
 }
 
 div.right {
@@ -548,7 +609,7 @@ div.column-header {
 }
 
 div.spacer {
-  height:24px;
+  height:34px;
   padding:6px;
   width:100%;
   margin:0;
@@ -732,4 +793,42 @@ div.product-body {
   color:#000;
 }
   
+/* ------ STYLES FOR DOWNLOAD SECTION ---------- */
+
+.download-header {
+  padding:0;
+  margin:10px 0 25px 0;
+}
+
+.download-section-holder {
+  width:100%;
+  position:relative;
+}
+
+.download-column {
+  float:left;
+  width:32%;
+  margin:0 0 0 1.75%;
+  
+}
+
+.download-column h2 {
+  margin:0 0 10px 0;
+}
+
+.download-column:first-child {
+  margin:0 0 0 0;
+  padding:0;
+}
+
+.column-child {
+  padding:10px;
+  background:#fff;
+  height:400px;
+  overflow:auto;
+}
+
+.column-child:first-child {
+  margin:0 0 0 0;
+  padding:10px;
 }

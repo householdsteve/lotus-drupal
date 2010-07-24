@@ -92,6 +92,13 @@ function lotus_product_versions_schema() {
         'not null' => TRUE,
         'default' => 0,
       ),
+      'published' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
     ),
     'indexes' => array(
       'nid' => array('nid'),

@@ -104,6 +104,12 @@ function lotus_product_versions_edit_form($form_state, $node) {
           '#type' => 'checkbox',
           '#default_value' => !empty($versions['esclusiva']) ? $versions['esclusiva'] : 0,
         );
+        
+        // Checkbox to mark this as active.
+          $form['versions'][$id]['published'] = array(
+            '#type' => 'hidden',
+            '#default_value' => !empty($versions['published']) ? $versions['published'] : 1,
+          );
     }
   }
 
@@ -137,6 +143,7 @@ function theme_lotus_product_versions_edit_form($form) {
     array('data' => '&nbsp;&nbsp;'. t('Novita')) + theme('table_select_header_cell'),
     array('data' => '&nbsp;&nbsp;'. t('Offerta')) + theme('table_select_header_cell'),
     array('data' => '&nbsp;&nbsp;'. t('Esclusiva')) + theme('table_select_header_cell'),
+    //array('data' => '&nbsp;&nbsp;'. t('Pubblicato')) + theme('table_select_header_cell'),
   );
 
   foreach (element_children($form['versions']) as $id) {
@@ -152,6 +159,7 @@ function theme_lotus_product_versions_edit_form($form) {
       array('data' => drupal_render($form['versions'][$id]['novita'])),
       array('data' => drupal_render($form['versions'][$id]['offerta'])),
       array('data' => drupal_render($form['versions'][$id]['esclusiva'])),
+      //array('data' => drupal_render($form['versions'][$id]['published'])),
     );
   }
 
@@ -173,7 +181,8 @@ function lotus_product_versions_edit_form_submit($form, &$form_state) {
       disponibile_descr = '%s',
       novita = %d,
       offerta = %d,
-      esclusiva = %d      
+      esclusiva = %d,
+      published = %d       
       WHERE sku = '%s'",
       $form_state['values']['versions'][$id]['imballo'],
       $form_state['values']['versions'][$id]['dimensions'],
@@ -185,9 +194,10 @@ function lotus_product_versions_edit_form_submit($form, &$form_state) {
       $form_state['values']['versions'][$id]['novita'] ? 1 : 0,
       $form_state['values']['versions'][$id]['offerta'] ? 1 : 0,
       $form_state['values']['versions'][$id]['esclusiva'] ? 1 : 0,
+      $form_state['values']['versions'][$id]['published'] ? 1 : 0,
       $form_state['values']['versions'][$id]['sku']);
     if (!db_affected_rows()) {
-      db_query("INSERT INTO {product_versions} (sku, nid, imballo, dimensions, arrivo_1, arrivo_2, data_arrivo_1, data_arrivo_2, disponibile_descr, novita, offerta, esclusiva) VALUES ('%s',%d,'%s','%s', %d, %d,'%s','%s','%s',%d,%d,%d)",
+      db_query("INSERT INTO {product_versions} (sku, nid, imballo, dimensions, arrivo_1, arrivo_2, data_arrivo_1, data_arrivo_2, disponibile_descr, novita, offerta, esclusiva, published) VALUES ('%s',%d,'%s','%s', %d, %d,'%s','%s','%s',%d,%d,%d,%d)",
         $form_state['values']['versions'][$id]['sku'],
         $form_state['values']['nid'],
         $form_state['values']['versions'][$id]['imballo'],
@@ -199,7 +209,8 @@ function lotus_product_versions_edit_form_submit($form, &$form_state) {
         $form_state['values']['versions'][$id]['disponibile_descr'],
         $form_state['values']['versions'][$id]['novita'] ? 1 : 0,
         $form_state['values']['versions'][$id]['offerta'] ? 1 : 0,
-        $form_state['values']['versions'][$id]['esclusiva'] ? 1 : 0
+        $form_state['values']['versions'][$id]['esclusiva'] ? 1 : 0,
+        $form_state['values']['versions'][$id]['published'] ? 1 : 0
         );
     }
   }
