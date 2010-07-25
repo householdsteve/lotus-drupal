@@ -201,6 +201,17 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
     }
   }
   
+  /// FINISH THIS FUNCTION TO COMPLETE SECTION!
+  function _lotus_match_color_table_to_options($id, $LtoO = true){
+    if($LtoO){
+      // use this to get the option id that corresponds to the lotus id.
+      return db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE product_color_code = %d", $id));
+    }else{
+      return db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE oid = %d", $id));
+    }
+  }
+  
+  
   function lotus_product_versions_form_alter(&$form, &$form_state, $form_id) {
     //echo $form_id;
     if(strpos($form_id, 'add_product_form') !== 0){

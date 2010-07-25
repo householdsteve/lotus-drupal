@@ -32,46 +32,36 @@ $(document).ready(function(){
       window.location = $(this).find("option:selected").val();
     });
   }
-	
-	if($("div#navigation > ul > li > ul > li a.active").length > 0){
-		
-		$("div#navigation").css({height:"80px"});
-		$("div#navigation > ul > li > ul > li a.active").parent().parent().show();
-		setState(true);
-	}
-	
-	$("div#navigation > ul > li").has("ul").hover(function(e){
-		
-		if($("div#navigation > ul > li.over").length < 1){ // if no one has over class
-			$("div#navigation").animate({height:"80px"}, 500 ); // do slide
-		}
-		
-		$(this).click(function(){
-		  window.location = $(this).attr("href");
-		});
-		
-		$(this).children("ul").show();
-		
-		$(this).addClass("over");
-		setState(true);
-		
-	},function(e){
-		
-		$(this).removeClass("over");
-		
-		setTimeout(function(){
-		
-			if($("div#navigation > ul > li.over").length < 1){ // if no one has over class
-				$("div#navigation").animate({height:"37px"}, 500, function(e){
-					
-				});
-			}
-		},500);
-
-			
-	
-		$(this).children("ul").hide();	
-		
-	});
-	
+  
+  // grab the parents so we can associate then to their children
+  var $ulParents = $("div#navigation > ul > li").has("ul");
+  
+  // fuck dove siamo we're doing it te bad way. why does chrome render two of the same items differently? the li after it is the same.
+  $('a[title="DOVE SIAMO"]').parent().css("width","120px");
+  
+  $ulParents.each(function(i){
+    //var $ul = $(this).children("ul").remove(); // this takes the ul out of the object and leaves just the a tag in the $(this) variable
+    var id = $(this).children("a:first").text().toLowerCase() + "-menu";
+    
+    //var _div = $("<div/>").attr("id",id).addClass("sub-nav").hide().append($ul); // give it a new id and hide it for later.
+    
+    var _div = $("<div/>").attr("id",id).addClass("bg-spacer").html($("<div/>").addClass("bg-child")).hide(); // give it a new id and hide it for later.
+    $("#navigation-holder").append(_div);
+    $(this).hover(function(){
+        _div.show().css("z-index","2").animate({top:"30px"}, 500 );
+    		$(this).children("ul").animate({top:"4px"}, 500 );
+    		$(this).addClass("over");
+      },function(){
+       _div.css("z-index","1").animate({top:"-10px"}, 500, function(e){});
+      	$(this).children("ul").animate({top:"-34px"}, 500);
+      	$(this).removeClass("over");
+    });
+    
+    // this is for deeping linking menu opening
+  	if($(this).children("ul").find("a.active").length > 0){
+      _div.show().css("z-index","2").animate({top:"30px"}, 500 );
+      $(this).children("ul").animate({top:"4px"}, 500 );
+  	}
+  	
+  });
 });

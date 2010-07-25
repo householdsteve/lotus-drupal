@@ -13,105 +13,117 @@ function lotus_product_versions_schema() {
   $schema = array();
 
   $schema['product_versions'] = array(
-    'description' => t('versions for lotus products'),
+    'description' => t('this table controls the setup of product versions for lotus'),
     'fields' => array(
       'sku' => array(
-        'description' => t('SKU of a product'),
+        'description' => t('the sku of the product'),
         'type' => 'varchar',
         'length' => '255',
         'not null' => TRUE,
         'default' => '',
       ),
       'nid' => array(
-        'description' => t('Node ID of a product'),
+        'description' => t('the nid that the version refers to'),
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => TRUE,
+        'not null' => FALSE,
         'default' => 0,
       ),
       'imballo' => array(
+        'description' => t('the total number needed to order to get discount'),
         'type' => 'text',
-        'size' => 'big',
-        'not null' => TRUE,
-        'default' => '',
+        'not null' => FALSE,
       ),
       'dimensions' => array(
+        'description' => t('the product dimensions'),
         'type' => 'text',
-        'size' => 'big',
-        'not null' => TRUE,
-        'default' => '',
+        'not null' => FALSE,
       ),
       'arrivo_1' => array(
+        'description' => t('first arrival'),
         'type' => 'int',
         'size' => 'medium',
-        'not null' => TRUE,
+        'not null' => FALSE,
         'default' => 0,
       ),
       'data_arrivo_1' => array(
+        'description' => t('date of arrival'),
         'type' => 'varchar',
         'length' => '20',
-        'not null' => TRUE,
-        'default' => '',
+        'not null' => FALSE,
       ),
       'arrivo_2' => array(
+        'description' => t('second arrival'),
         'type' => 'int',
         'size' => 'medium',
-        'not null' => TRUE,
+        'not null' => FALSE,
         'default' => 0,
       ),
       'data_arrivo_2' => array(
+        'description' => t('date of second arrival'),
         'type' => 'varchar',
         'length' => '20',
-        'not null' => TRUE,
-        'default' => '',
+        'not null' => FALSE,
       ),
       'disponibile_descr' => array(
+        'description' => t('description of stock quantity'),
         'type' => 'text',
-        'size' => 'big',
-        'not null' => TRUE,
-        'default' => '',
+        'not null' => FALSE,
       ),
       'novita' => array(
+        'description' => t('is this item new'),
         'type' => 'int',
-        'size' => 'tiny',
         'unsigned' => TRUE,
-        'not null' => TRUE,
+        'size' => 'tiny',
+        'not null' => FALSE,
         'default' => 0,
       ),
       'offerta' => array(
+        'description' => t('is the a special offer'),
         'type' => 'int',
-        'size' => 'tiny',
         'unsigned' => TRUE,
-        'not null' => TRUE,
+        'size' => 'tiny',
+        'not null' => FALSE,
         'default' => 0,
       ),
       'esclusiva' => array(
+        'description' => t('is this an exclusive product'),
         'type' => 'int',
-        'size' => 'tiny',
         'unsigned' => TRUE,
-        'not null' => TRUE,
+        'size' => 'tiny',
+        'not null' => FALSE,
         'default' => 0,
       ),
       'published' => array(
+        'description' => t('is this published'),
         'type' => 'int',
-        'size' => 'tiny',
         'unsigned' => TRUE,
-        'not null' => TRUE,
+        'size' => 'tiny',
+        'not null' => FALSE,
         'default' => 0,
       ),
     ),
+    'primary key' => array('sku'),
     'indexes' => array(
       'nid' => array('nid'),
     ),
-    'primary key' => array('sku'),
   );
 
   return $schema;
 }
+
+
 
 /**
  * Implementation of hook_install().
  */
 function lotus_product_versions_install() {
   drupal_install_schema('lotus_product_versions');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function lotus_product_versions_uninstall() {
+  drupal_uninstall_schema('lotus_product_versions');
 }
