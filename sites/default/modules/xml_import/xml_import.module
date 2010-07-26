@@ -1,6 +1,7 @@
 <?php
 
-define("XML_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/test.xml");
+//define("XML_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/test.xml");
+define("XML_IMPORT_LINK","http://94.84.209.27/Lotus/Archivi/ARTI0099.XML");
 
 
 function xml_import_menu(){
@@ -461,6 +462,7 @@ function _xml_step_three_products($response){
 	
 	foreach($response['product'] as $id => $val){
 		$product_list[$val[id]]["versions"][] = $val;
+		$product_list[$val[id]]["photos"] = $response['product'][$id]['new_images'];
 	}
 	
 	foreach($product_list as $id => $val){
@@ -488,15 +490,15 @@ function _xml_step_three_products($response){
       
 		
 		$node->type = 'product';
-		$node->title = $val["versions"][0][name];
+		$node->title = check_plain($val["versions"][0][name]);
 		$node->language = "it";
 		$node->uid = 1;
 	  $node->status = 1;
 	  $node->active = 1;
-		$node->body = $val["versions"][0][description];
-		$node->teaser = $val["versions"][0][description];
+		$node->body = check_plain($val["versions"][0][description]);
+		$node->teaser = check_plain($val["versions"][0][description]);
 		
-		$node->field_product_code[0]['value'] = $val["versions"][0][id];
+		$node->field_product_code[0]['value'] = check_plain($val["versions"][0][id]);
 		$node->field_imballo[0]['value'] = $val["versions"][0][imballo];
 	
 	// these should also set taxonomy records to show in catalog listings
@@ -538,22 +540,13 @@ function _xml_step_three_products($response){
     
     $node->taxonomy = array('1' => $existing); // this assigns all of our taxonomy to the vocab 1 which is our catalog
 		
-	  /*
-	  $img_path = import_image_move($product_code);
-	  if($img_path){
-      $node->field_image_cache = array();
-      $node->field_image_cache[] = drupal_add_existing_file($img_path);
-    }
-    // LETS GET THIS IN HERE FOR OTHER IAMGE VERSIONS. ALSO NOTE THAT WE NEED TO REPLACE SPECIFIC IMAGES ON UPDATE FIND IT WITH ARRAY KEY
-    for($x = 1; $x < 7; $x++){
-	    $image_code = $product_code.".0".$x; 
-	    echo $image_code."<br>";
-	    $img_path = import_image_move($image_code);
-	    echo "the image path: ".$img_path."<br>";
-	  }
-    
-    
-    */
+		if(count($val["photos"]) > 0){
+	  	foreach($val["photos"] as $img_id => $img_path){
+  		  $node->field_image_cache[] = drupal_add_existing_file($img_path);
+  		}
+  	}
+		// WE NEED TO CHECK FOR THE EXISTING IMAGES AND COMPARE.
+
  
 		
 		$node->sell_price = $price;
@@ -592,11 +585,18 @@ function _xml_step_three_products($response){
 		// lets add the attributes
 
   	  foreach($val["versions"] as $key => $option){
-  	    
+  	     // next loop through each model and add option, version and stock data.
+  	     
   	    // get correpsonding color id from our color table
       	$version_color_table = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE product_color_code = %d", $option['color']['id']));
-
-    	  // next loop through each model and add option, version and stock data.
+      	
+      	echo "<pre>";
+      	print_r($version_color_table);
+      	echo "</pre>";
+        
+        // check if the option already exists by the option id. this should be the real color id not the lotus id.
+        $option_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_options} WHERE oid = %d AND nid = %d", $version_color_table['oid'], $node->vid));
+    	 
     	  $opts = new StdClass();
         $opts->nid = $node->vid;
         $opts->oid = $version_color_table['oid']; // this is out color attribute // attention because it could change
@@ -606,12 +606,14 @@ function _xml_step_three_products($response){
         $opts->ordering = 0;
 
         //print 'Calling uc_attributes_form';
-        if($is_new){
+        if(!$option_lookup){
           drupal_write_record('uc_product_options', $opts);
         }else{
           drupal_write_record('uc_product_options', $opts, array('nid','oid'));
         }
         
+        // check if the option already exists by the sku
+        $sku_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_adjustments} WHERE model = '%s'", $option['id'].".".$option['color']['id']));
         
         $adjusts = new StdClass();
         $adjusts->nid = $node->vid;
@@ -619,13 +621,15 @@ function _xml_step_three_products($response){
         $adjusts->model = $option['id'].".".$option['color']['id'];
 
         //print 'Calling uc_attributes_form';
-        if($is_new){
+        if(!$sku_lookup){
           drupal_write_record('uc_product_adjustments', $adjusts);
           echo 'my id is: '.$node->vid." and i am new";
         }else{
           drupal_write_record('uc_product_adjustments', $adjusts, 'nid');
           echo 'my id is: '.$node->vid." i am totally being updated";
         }
+        
+        $stock_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_stock} WHERE sku = '%s'", $option['id'].".".$option['color']['id']));
         
         $stock = new StdClass();
         $stock->nid = $node->vid;
@@ -635,34 +639,42 @@ function _xml_step_three_products($response){
         $stock->threshold = 0;
 
         //print 'Calling uc_attributes_form';
-        if($is_new){
-          drupal_write_record('uc_product_stock', $stock);
+        if(!$stock_lookup){
+         drupal_write_record('uc_product_stock', $stock);
+         echo 'stock: '.$node->vid." and i am new";
         }else{
-          drupal_write_record('uc_product_stock', $stock, 'sku');
+         drupal_write_record('uc_product_stock', $stock, 'sku');
+         echo 'stock: '.$node->vid." i am totally being updated";
         }
         
+        
+        $version_lookup = db_fetch_object(db_query("SELECT * FROM {product_versions} WHERE sku = '%s'", $option['id'].".".$option['color']['id']));
         
         $version_data = new StdClass();
         $version_data->nid = $node->vid;
         $version_data->sku = $option['id'].".".$option['color']['id'];
         $version_data->imballo = $option['imballo'];
-        $version_data->dimensions = $option['dimensions'];
+        $version_data->dimensions = check_plain($option['misure']);
         $version_data->arrivo_1 = $option['arrivo_1'];
-        $version_data->data_arrivo_1 = $option['data_arrivo_1'];
+        $version_data->data_arrivo_1 = check_plain($option['data_arrivo_1']);
         $version_data->arrivo_2 = $option['arrivo_2'];
-        $version_data->data_arrivo_2 = $option['data_arrivo_2'];
-        $version_data->disponibile_descr = $option['disponibile_descr'];
+        $version_data->data_arrivo_2 = check_plain($option['data_arrivo_2']);
+        $version_data->disponibile_descr = check_plain($option['disponibile_descr']);
         $version_data->novita = $option['novita'];
         $version_data->offerta = $option['offerta'];
         $version_data->esclusiva = $option['esclusiva'];
         $version_data->published = 1;
 
         //print 'Calling uc_attributes_form';
-        if($is_new){
+        if(!$version_lookup){
           drupal_write_record('product_versions', $version_data);
+          echo 'version: '.$node->vid." and i am new";
         }else{
           drupal_write_record('product_versions', $version_data, 'sku');
+         echo 'version is: '.$node->vid." i am totally being updated";
         }
+        
+        
         
         
       }
@@ -670,12 +682,7 @@ function _xml_step_three_products($response){
 	
 	$response['product_heirarchy'] = $product_list;
 	
-	
-	
-	
-  echo "<pre>";
-	print_r($product_list);
-	echo "</pre>";
+  
 }
 
 
@@ -979,6 +986,7 @@ function xml_import_delete_all_products($name){
     }
 	
 	db_query("DELETE FROM {uc_product_stock} WHERE active > %d", 0);
+	db_query("DELETE FROM {product_versions} WHERE sku != '%s'", "");
 	
 	drupal_flush_all_caches();
 	drupal_set_message('cache flushed.');

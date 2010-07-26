@@ -30,10 +30,12 @@ function theme_uc_catalog_browse($tid = 0) {
   $types = uc_product_types();
   $links = array();
   $child_list = array();
+  $is_first = false;
 	// get rid of last two items in array (novita') if its the main gallery page //
 	if($catalog->name == 'Catalog'){
 		array_pop($catalog->children);
 		array_pop($catalog->children);
+		$is_first = true;
 	}
 	
 	// check if use has permission to access this part of the catalog
@@ -54,10 +56,10 @@ function theme_uc_catalog_browse($tid = 0) {
       $image = '<div>';
       if (module_exists('imagecache')) {
         	if($catalog->name == 'Catalog'){
-			$image .= l(theme('imagecache', 'uc_category_large', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
-			}else{
-			$image .= l(theme('imagecache', 'uc_category', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
-		}
+		      	$image .= l(theme('imagecache', 'uc_category_large', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
+      			}else{
+      			$image .= l(theme('imagecache', 'uc_category', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
+		      }
       }
       else {
         $image .= l(theme('image', $child->image['filepath']), uc_catalog_path($child), array('html' => TRUE));
@@ -204,7 +206,7 @@ function theme_uc_catalog_browse($tid = 0) {
     $output .= '</div>';
 
 if($catalog->name == 'Catalog'){
-     $output .= '<div class="column full">';
+     $output .= '<div class="column full main">';
   }else{
     $output .= '<div class="column middle-right">';
   }

@@ -12,6 +12,44 @@ function setState(_v){
 
 $(document).ready(function(){
   
+  if($(".details-content").length > 0){
+    // check we have stuff to work with
+    $(".details-content").each(function(i){
+      var $h3 = $(this).children("h3");
+      
+      //var origBottom = $(this).css("bottom");
+      var origH = $(this).outerHeight();
+      var diff = -(origH - $h3.outerHeight());
+    
+      $(this).css("bottom", diff+"px");
+      
+      $(this).hover(function(){
+        if(!$(this).is(":animated")){
+          $(this).animate({bottom:"0"},500);
+        }
+      },function(){
+        //if(!$(this).is(":animated")){  
+          $(this).animate({bottom:diff+"px"},500);
+        //}  
+      });
+      
+      
+      // lets get the click link from the image just incase people try to click it
+      
+      var $parent = $(this).parents("div.product-column");
+      var siblingHref = $parent.children("span.catalog-grid-image").find("a").attr("href");
+      
+      $(this).click(function(){
+        window.location = siblingHref;
+      });
+      $parent.click(function(){
+        window.location = siblingHref;
+      });
+      
+    });
+  }
+  
+  $.backstretch(Drupal.settings.theme.themePath+"/images/spacer.gif");
   
   // write player into html //
   var so = new SWFObject(Drupal.settings.theme.themePath+'/player.swf','mpl','380','32','9');
@@ -29,7 +67,10 @@ $(document).ready(function(){
   if($("#fast-cat-change").length > 0){
     // see if fast changer is available
     $("#fast-cat-change").change(function(){
-      window.location = $(this).find("option:selected").val();
+      var selectedVal = $(this).find("option:selected").val();
+      if(selectedVal != "null"){
+        window.location = $(this).find("option:selected").val();
+      }
     });
   }
   
@@ -48,13 +89,18 @@ $(document).ready(function(){
     var _div = $("<div/>").attr("id",id).addClass("bg-spacer").html($("<div/>").addClass("bg-child")).hide(); // give it a new id and hide it for later.
     $("#navigation-holder").append(_div);
     $(this).hover(function(){
-        _div.show().css("z-index","2").animate({top:"30px"}, 500 );
-    		$(this).children("ul").animate({top:"4px"}, 500 );
-    		$(this).addClass("over");
+     
+        if(!$(this).is(":animated")){    
+          _div.show().css("z-index","2").animate({top:"30px"}, 500 );
+      		$(this).children("ul").animate({top:"4px"}, 500 );
+      		$(this).addClass("over");
+      	}
       },function(){
-       _div.css("z-index","1").animate({top:"-10px"}, 500, function(e){});
-      	$(this).children("ul").animate({top:"-34px"}, 500);
-      	$(this).removeClass("over");
+        if(!$(this).is(":animated")){
+          _div.css("z-index","1").animate({top:"-10px"}, 500, function(e){});
+        	$(this).children("ul").animate({top:"-34px"}, 500);
+        	$(this).removeClass("over");
+        }
     });
     
     // this is for deeping linking menu opening

@@ -22,6 +22,11 @@
   	      </div>
   	      </fieldset> 
      	  </form>
+     	  
+     	    <div id="shopping-links">
+     	      <?php print lotus_shopping_links(); ?>
+     	    </div>
+     	  
   	    </div>
 
 				<?php print $content; ?>

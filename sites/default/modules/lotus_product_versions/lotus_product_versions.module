@@ -113,7 +113,9 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
         
           foreach($node->attribute_id as $oid){
             $color = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE oid = %d", $oid));
-            $node->attribute_option_hex_colors[$oid] = $color['hex'];
+            $node->attribute_option_hex_colors[$oid][] = $color['hex'];
+            $node->attribute_option_hex_colors[$oid][] = $color['hex2'];
+            $node->options_to_lotus_schema[$oid] = $color['product_color_code'];
           }
       }
        
@@ -192,7 +194,9 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
           }
         }*/
         // If the product doesn't have attributes, return the form as it is.
-      
+       // echo "<pre>";
+      	//print_r($node);
+      //	echo "</pre>";
             
        
 
@@ -201,7 +205,7 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
     }
   }
   
-  /// FINISH THIS FUNCTION TO COMPLETE SECTION!
+ 
   function _lotus_match_color_table_to_options($id, $LtoO = true){
     if($LtoO){
       // use this to get the option id that corresponds to the lotus id.
@@ -222,8 +226,8 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
         foreach ($node->attributes as $attribute) {
           
           foreach ($attribute->options as $option) {
-            
-           $color_markup = '<span style="display:inline-block; background:#'.$node->attribute_option_hex_colors[$option->oid].'; width:20px; height:20px;">&nbsp;</span>';
+           $lotus_color_link = $node->options_to_lotus_schema[$option->oid];
+           $color_markup = '<span style="display:inline-block; background:#'.$node->attribute_option_hex_colors[$option->oid][0].'; width:20px; height:20px;">&nbsp;</span>';
                        
             $form['versions_colors_attributes'][$option->oid]['item'] = array(
               '#type' => 'textfield',
@@ -303,6 +307,7 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
       foreach ($attribute->options as $option) {
         
         //$default_product = $node->product_versions[$node->model.".".$default_id]; // this is an object, treat it like one.
+        $lotus_color_link = $node->options_to_lotus_schema[$option->oid];
         $form['versions_quantities'][$option->oid]['attr'] = array('#type' => 'hidden', '#value' => $attribute->aid);      
         $form['versions_quantities'][$option->oid]['qty'] = array(
           '#type' => 'textfield',
@@ -351,27 +356,42 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
       array('data' => t('Colore')),
       array('data' => t('Imballo')),
       array('data' => t('Dimensions')),
+      array('data' => t('Disponibilità')),
       array('data' => t('Arrivo 1')),
       array('data' => t('Data arrivo 1')),
       array('data' => t('Arrivo 2')),
       array('data' => t('Data arrivo 2')),
-      array('data' => t('Disponibilità')),
       array('data' => t('Qty')),
     );
 
     foreach (element_children($form['versions_quantities']) as $id) {
-      $version_data = $node_data->product_versions[$node_data->model.'.'.$id]; // object of item
-      $color_markup = '<span style="display:inline-block; background:#'.$node_data->attribute_option_hex_colors[$id].'; width:20px; height:20px;">&nbsp;</span>';
+      $lotus_color_id = $node_data->options_to_lotus_schema[$id];
+      $version_data = $node_data->product_versions[$node_data->model.'.'.$lotus_color_id]; // object of item
+      $color_markup = '<span class="table-swatch';
+      if(processColorSwatch($node_data->attribute_option_hex_colors[$id][0])){
+        $color_markup .= ' light';
+      }  
+      $color_markup .= '" style="display:inline-block; background:#'.$node_data->attribute_option_hex_colors[$id][0].'; width:20px; height:20px;">';
+      // check if 2 colors are supplied. if so lets make a split color swatch, otherwise print out a space
+      
+      if($node_data->attribute_option_hex_colors[$id][1]){
+        $color_markup .= '<img class="split-color" src="'.base_path().drupal_get_path('theme', 'lotusPD').'/color-swatch.php?color1='.$node_data->attribute_option_hex_colors[$id][0].'&amp;color2='.$node_data->attribute_option_hex_colors[$id][1].'&amp;width=20&amp;height=20" />';
+      }else{
+        $color_markup .= '&nbsp;';
+      }
+      $color_markup .= '</span>';
+      
+      
       $rows[] = array(
         array('data' => $version_data->sku),
         array('data' => $color_markup),
         array('data' => $version_data->imballo),
         array('data' => $version_data->dimensions),
+        array('data' => $version_data->disponibile_descr),
         array('data' => ($version_data->arrivo_1 != 0) ? $version_data->arrivo_1 : "-"),
         array('data' => ($version_data->data_arrivo_1 != '0' && $version_data->data_arrivo_1 != "00/00/0000") ? $version_data->data_arrivo_1 : '---'),
         array('data' => ($version_data->arrivo_2 != 0) ? $version_data->arrivo_2 : "-"),
         array('data' => ($version_data->data_arrivo_2 != '0' && $version_data->data_arrivo_2 != "00/00/0000") ? $version_data->data_arrivo_2 : '---'),
-        array('data' => $version_data->disponibile_descr),
         array('data' => drupal_render($form['versions_quantities'][$id]['qty'])),
       );
     }

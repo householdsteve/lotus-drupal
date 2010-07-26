@@ -1,10 +1,30 @@
 <?php
-$base_category = get_category_data($node->taxonomy);
-$category_key = array_shift(array_keys($node->taxonomy));
-$category = $node->taxonomy[$category_key]->name;
+  loadProductUiHelpers();
+  $base_category = get_category_data($node->taxonomy);
+  $category_key = array_shift(array_keys($node->taxonomy));
+  $category = $node->taxonomy[$category_key]->name;
 
+  // find out images for this node.
+  $nodeImgs = $node->content['field_image_cache']['field']['items'][0]["#node"]->field_image_cache;
+
+    if($nodeImgs){
+      $main_img = $nodeImgs[0]['view'];	
+      $thumbs = "";
+      $fulls = "";
+  	  foreach($nodeImgs as $item){
+  	    // loop through all images and generate thumbs for the left column
+    		//print $item['view'];
+    		$patterns = array("/\.jpg$/","/\./");
+    		$replace = array('','-');
+    		$className = preg_replace($patterns, $replace, $item['filename']);
+	
+    		$thumbs .= l(theme('imagecache', 'page_thumb', $item['filepath']), $item['filepath'], array('html' => TRUE, 'attributes' => array('class' => $className)));
+    		
+    		$fulls .= l(theme('imagecache', 'product_full', $item['filepath']), $item['filepath'], array('html' => TRUE, 'attributes' => array('class' => "prettyPhoto", "id" => $className)));
+    	}
+    }
 //echo "<pre>";
-//print_r($node->content['group_arrivals']['group']['field_arrivo_1']);
+//print_r($node);
 //echo "</pre>";
 ?>
 			  <div class="content-filters clearfix">
@@ -23,43 +43,41 @@ $category = $node->taxonomy[$category_key]->name;
   	      </div>
   	      </fieldset> 
      	  </form>
+     	  
+     	    <div id="shopping-links">
+     	      <?php print lotus_shopping_links(); ?>
+     	    </div>
+     	  
   	    </div>
   	    
   	    
   	    
   	    <div class="full-content clearfix">
-  	      <div class="column left">
+  	      <div class="column product left">
   	       <div class="column-header dark">
   	         <span class="colorblock" style="background:#<?php print $base_category->hexcolor; ?>">&nbsp;</span>
-  	         <span class="title"><?php print l($category,"catalog/".$node->taxonomy[$category_key]->tid); ?></span>
+  	         <span class="title"><?php print l($category,"catalog/".$node->taxonomy[$category_key]->tid); ?></span>	         
   	       </div>
               <h2 class="product-title"><?php print $node->title;?></h2>
+              
+              <div class="product-thumbs"><?php print $thumbs; ?></div>
+              
   	      </div>
   	      
   	      <div class="column middle-right space clearfix">
   	          
-  	          <?php // here we will render the contact form
+  	          <?php
   	                          
                 $default_id = $node->attributes[array_shift(array_keys($node->attributes))]->default_option;
                 
                 $default_product = $node->product_versions[$node->model.".".$default_id]; // this is an object, treat it like one.
-                
-                
-             
               ?>
   	          
   	        <?php //print $content; ?>
   	        
-  	        <div class="column middle">
-  	            <?php
-      	          $nodeImgs = $node->content['field_image_cache']['field']['items'][0]["#node"]->field_image_cache;
-
-                    if($nodeImgs){	
-                  	  foreach($nodeImgs as $item){
-                    		print $item['view'];
-                    	}
-                    }
-      	        ?>
+  	        <div class="column product middle">
+  	          <?php print $fulls; ?>
+  	            <!-- image goes here. make some nice js thingy ;) //-->
       	    </div>
   	        
   	        <div class="column product right">
@@ -76,8 +94,17 @@ $category = $node->taxonomy[$category_key]->name;
                	        if(count($node->attributes)){
                           foreach ($node->attributes as $attribute) {
                             foreach ($attribute->options as $option) { ?>
-                              <div class="color-row<?php if($option->oid == $default_id){ print ' selected';}?>">
-                                <span class="color-swatch" style="background:#<?php print $node->attribute_option_hex_colors[$option->oid];?>;">&nbsp;</span>
+                              <div class="color-row<?php if($option->oid == $default_id){ print ' selected-old';}?>">
+                                <span class="color-swatch<?php (!processColorSwatch($node->attribute_option_hex_colors[$option->oid][0])) ? print ' dark' : '' ?>" style="background:#<?php print $node->attribute_option_hex_colors[$option->oid][0];?>;">
+                                  
+                                  <?php
+                                  // check if 2 colors are supplied. if so lets make a split color swatch, otherwise print out a space
+                                  if($node->attribute_option_hex_colors[$option->oid][1]){
+                                    print '<img class="split-color" src="'.get_full_path_to_theme().'/color-swatch.php?color1='.$node->attribute_option_hex_colors[$option->oid][0].'&amp;color2='.$node->attribute_option_hex_colors[$option->oid][1].'&amp;width=15&amp;height=15" />';        
+                                
+                                  }
+                                  ?>
+                                </span>
                                 <span class="color-name"><?php print $option->name?></span>
                               </div>
 

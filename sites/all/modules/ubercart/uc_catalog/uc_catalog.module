@@ -324,9 +324,12 @@ function uc_catalog_taxonomy($op, $type, $object = NULL) {
               }
             }
           }
-		
-		db_query("UPDATE {uc_catalog_images} SET hexcolor = '%s' WHERE tid = '%d'", $form->hexcolor, $form->tid);
-        drupal_set_message($form->hexcolor."   ".$form->tid);
+		      
+		      // this is wrong! why did i do that
+		      if($form->hexcolor){
+		        db_query("UPDATE {uc_catalog_images} SET hexcolor = '%s' WHERE tid = '%d'", $form->hexcolor, $form->tid);
+            drupal_set_message($form->hexcolor."   ".$form->tid);
+          }
 		break;
         case 'delete':
           $category = (object) $object;

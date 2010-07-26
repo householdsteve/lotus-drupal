@@ -20,9 +20,13 @@ html  {
 }
 
 body {
-  background:url('images/flower-bg.png') repeat;
+  /*background:url('images/flower-bg.png') repeat;*/
   padding:0;
   margin:0;
+}
+
+#backstretch {
+  background:url('images/flower-bg.png') repeat;
 }
 
 a {
@@ -170,6 +174,10 @@ div#social img {
 	top:6px;
 }
 
+form#user-login .description {
+  display:none;
+}
+
 div#navigation-holder {
   position:relative;
   width:100%;
@@ -244,8 +252,9 @@ div#navigation ul li ul {
 
 div#navigation ul li ul li {
 	font: 18px/15px 'BebasRegular', Helvetica, sans-serif;
-	padding:15px 0 0 0;
-	background:transparent;
+	padding:0 0 0 0;
+	margin:15px 0 0 0;
+	background:black;
 	display:inline-block;
 	float:left;
 }
@@ -321,7 +330,28 @@ div#content h2 {
 
 .fixed-center {
 	width:575px;
-	margin:55px auto 0 auto;
+	margin:30px auto 0 auto;
+}
+
+form.webform-client-form {
+  width:575px;
+  margin:0 auto;
+  font-size:12px;
+  font-weight:normal;
+}
+
+form.webform-client-form .form-item label {
+  display:block;
+  font-weight:bold;
+  margin:0 0 6px 0;
+}
+
+.fixed-center a {
+  color:red;
+}
+
+.fixed-center a:hover {
+  color:white;
 }
 
 
@@ -386,6 +416,23 @@ div.page-top-images a div span {
 }
 
 
+div.column.product.middle a div {
+  font: 28px/28px 'BebasRegular', Helvetica, sans-serif;
+  background: url('images/50percent-grey.png') top left repeat;
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:350px;
+  padding:5px 0;
+}
+
+div.column.product.middle a div span {
+  background: url('images/zoom-icon.gif') 5px 5px no-repeat;
+  padding:0 0 0 40px;
+}
+
+
+
 /* -----  OVERRIDE STORESETTINGS CSS ----------*/
 .category-grid-products {
 	margin:0;
@@ -424,6 +471,7 @@ img.imagecache-uc_category_large {
   float:left;
   background:#fff;
   padding:0;
+  position:relative;
 }
 .category-grid-products div.product-column:first-child, .category-grid-products div.product-column.category:first-child  {
   margin:0 0 0 0;
@@ -437,6 +485,7 @@ img.imagecache-uc_category_large {
   background:#fff;
   padding:0;
   position:relative;
+  min-height:175px;
 }
 
 
@@ -483,6 +532,8 @@ div.product-column.category div.category-label span.title {
 	font-size:20px;
 	color:#fff;
 	background:#000;
+	position:relative;
+	line-height:25px;
 }
 .category-grid-products .catalog-grid-title a {
   color:#fff;
@@ -528,6 +579,26 @@ div.content-filters {
   border-bottom:2px solid #3E3E3E;
   height:29px;
   padding:0 0 10px 0;
+  position:relative;
+}
+
+div#shopping-links {
+  position:absolute;
+  top:-40px;
+  right:2px;
+  text-transform:uppercase;
+  font-size:11px;
+}
+
+div#shopping-links ul li {
+  float:left;
+  width:auto;
+  display:inline-block;
+  margin:0 0 0 15px;
+}
+
+div#shopping-links ul li a {
+  
 }
 
 div.filter {
@@ -540,17 +611,20 @@ div.filter-holder {
   position:relative;
 }
 
-div.filter-holder div.filter.right{
+div.filter-holder div.filter.right, div.column.middle-right div.filter.right {
  width:auto;
  position:absolute;
  right:0;
  top:0; 
 }
 
+
+
 div.column {
   float:left;
   margin:0;
   padding:0;
+  position:relative;
 }
 
 div.column.full {
@@ -558,6 +632,15 @@ div.column.full {
   margin:0;
   padding:0;
   width:100%;
+}
+
+div.column.full.main div.category-grid-products {
+  text-align:center;
+}
+
+div.column.full.main div.category-grid-products div.product-row {
+  width:650px;
+  margin:60px auto 0 auto;
 }
 
 div.left {
@@ -574,13 +657,27 @@ div.middle-right {
 }
 
 div.middle-right.space {
-  padding-top:45px;
+  padding-top:46px;
 }
 
 div.middle-right.table {
-  padding-top:10px;
+  padding-top:30px;
 }
 
+div.middle-right.table table {
+  padding:10px;
+  width:100%;
+}
+
+div.middle-right.table input.form-submit {
+  padding:10px;
+  margin:10px 0;
+}
+
+
+div.middle-right.table table td {
+  padding:2px 5px;
+}
 div.right {
   width:360px;
   float:right;
@@ -719,6 +816,69 @@ div.column-header.light span.title a:hover {
   color:#737373;
 }
 
+/* ------ STYLES FOR CATALOG ---------- */
+
+.category-grid-products .catalog-grid-image {
+  display:block;
+  padding:0;
+  text-align:left;
+}
+
+.details-holder {
+  height:220px;
+  width:220px;
+  overflow:hidden;
+  background:transparent;
+  position:absolute;
+  top:0;
+  left:0;
+  cursor:pointer;
+}
+
+.details-content {
+  height:auto;
+  width:220px;
+  position:absolute;
+  bottom:0; /* this should be calculated by jquery to show lift effect */
+  background: url('images/50percent-grey.png') top left repeat;
+  text-align:left;
+  cursor:pointer;
+}
+
+.details-content h3 {
+  font-size:11px;
+  font-weight:normal;
+  background: url('images/sm_arrow_icon.gif') top left no-repeat;
+  padding:0 0 4px 12px;
+  margin:0 auto 8px auto;
+  text-transform:uppercase;
+  border-bottom: solid 1px #000;
+  width:200px;
+  position:relative;
+  top:4px;
+}
+
+.details-content div {
+  text-align:left;
+  padding:5px;
+}
+
+.mini-thumbs {
+  position:absolute;
+  bottom:0;
+  background: url('images/75percent-black.png') top left repeat;
+  height:39px;
+  border-top:solid 1px #000;
+  width:210px;
+  padding:5px;
+}
+
+.category-grid-products .catalog-grid-sell-price {
+  display:block;
+  text-align:left;
+}
+
+
 
 /* ------ STYLES FOR PRODUCTS ---------- */
 h2.product-title {
@@ -809,8 +969,16 @@ div.color-row.selected span.color-swatch {
 
 span.color-swatch {
   display:inline-block;
-  width:10px;
-  height:10px;
+  width:15px;
+  height:15px;
+}
+
+span.color-swatch.dark {
+ border:solid 1px #696969; 
+}
+
+span.table-swatch.light {
+  border:solid 1px #999;
 }
 
 div.color-row.selected span.color-name {
@@ -842,6 +1010,41 @@ div.product-body {
 
 .full-content table tbody {
   color:#000;
+}
+
+#lotus-product-versions-cart-form th {
+  color:#fff;
+  font-weight:normal;
+  font-size:11px;
+}
+
+div.column.product.left {
+  height:399px;
+}
+div.column.product.middle {
+  position:relative;
+}
+div.column.product.middle a {
+  display:none;
+  top:0;
+  left:0;
+  position:absolute;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  height:350px;
+  width:350px;
+}
+
+div.column.product.middle a:first-child {
+  display:block;
+}
+
+div.product-thumbs {
+  position:absolute;
+  bottom:0;
+  right:0;
+  width:75px;
 }
   
 /* ------ STYLES FOR DOWNLOAD SECTION ---------- */

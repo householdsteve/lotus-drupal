@@ -27,6 +27,11 @@ function lotusPD_breadcrumb($breadcrumb) {
   }
 }
 
+function lotusPD_form_alter($form_id, &$form) {
+  if ('menu_edit_item_form' == $form_id) {
+    $form['path']['#description'] .= ' ' . t('Enter %none to have a menu item that generates no link.', array('%none' => '<none>'));
+  }
+}
 
 
 
@@ -142,8 +147,9 @@ function learn_taxonomy_ancestry($tid){
       $t_p[$parents->parents[0]]['children'][] = (array) $parents;
     }
   }
-  
+  /*
   $output = '<select id="fast-cat-change">';
+  $output .= '<option value="null" selected="selected">---------------</option>';
   foreach($t_p as $item){
     if(isset($item['children'])){
       $output .= '<optgroup label="'.$item['name'].'">';
@@ -158,6 +164,39 @@ function learn_taxonomy_ancestry($tid){
     }
   }
   $output .= "</select>";
+  */
+  
+
+  $output = '<select id="fast-cat-change">';
+  $output .= '<option value="null" selected="selected">---------------</option>';
+  foreach($t_p as $item){
+    $act_cat = uc_catalog_get_page((int)$item['tid']);
+    //echo "<pre>";
+   	//print_r($act_cat);
+   	//echo "</pre>";
+      if(count($act_cat->children) > 0){
+        $output .= '<optgroup label="'.$act_cat->name.'">';
+          foreach($act_cat->children as $child){
+           if (!empty($child->nodes)) {
+            $link = base_path().drupal_get_path_alias("catalog/".$child->tid);
+            $output .= '<option value="'.$link.'">'.$child->name.'</option>';
+           }
+          }
+        $output .= '</optgroup>';
+      }else{
+        $link = base_path().drupal_get_path_alias("catalog/".$act_cat->tid);
+        $output .= '<option value="'.$link.'">'.$act_cat->name.'</option>';
+      }
+    }
+    $output .= "</select>";
+    
+    
+    
+ 
+  
+  // this should be replaced by calling all categories that belong to the cart
+  //uc_catalog_get_page((int)$tid);
+  
   
   return $output;
   
@@ -220,6 +259,7 @@ function lotusPD_uc_catalog_product_grid($array) {
     $titlelink = l($product->model, "node/$nid", array('html' => TRUE));
     if (module_exists('imagecache') && ($field = variable_get('uc_image_'. $product->type, '')) && isset($product->$field) && file_exists($product->{$field}[0]['filepath'])) {
       $imagelink = l(theme('imagecache', 'product_list', $product->{$field}[0]['filepath'], $product->title, $product->title), "node/$nid", array('html' => TRUE));
+      $minilink = l(theme('imagecache', 'product_list_mini', $product->{$field}[0]['filepath'], $product->title, $product->title), "node/$nid", array('html' => TRUE));
     }
     else {
       $imagelink = '';
@@ -229,21 +269,30 @@ function lotusPD_uc_catalog_product_grid($array) {
     if (variable_get('uc_catalog_grid_display_title', TRUE)) {
       $product_table .= '<span class="catalog-grid-title">'. $titlelink .'</span>';
     }
-    if (variable_get('uc_catalog_grid_display_model', TRUE)) {
-      $product_table .= '<span class="catalog-grid-ref">'. $product->model .'</span>';
-    }
     $product_table .= '<span class="catalog-grid-image">'. $imagelink .'</span>';
-    if (variable_get('uc_catalog_grid_display_sell_price', TRUE)) {
-      $product_table .= '<span class="catalog-grid-sell-price">'. uc_price($product->sell_price, $context) .'</span>';
-    }
-    if (module_exists('uc_cart') && variable_get('uc_catalog_grid_display_add_to_cart', TRUE)) {
-      if (variable_get('uc_catalog_grid_display_attributes', TRUE)) {
-        $product_table .= theme('uc_product_add_to_cart', $product);
-      }
-      else {
-        $product_table .= drupal_get_form('uc_catalog_buy_it_now_form_'. $product->nid, $product);
-      }
-    }
+    
+    
+    $product_table .= '<div class="details-holder">';
+      $product_table .= '<div class="details-content">';
+        $product_table .= '<h3>'.t('DETTAGLI').'</h3>';
+        $product_table .= '<div>';
+
+          if (variable_get('uc_catalog_grid_display_sell_price', TRUE) && user_access('view product version')) {
+            $product_table .= '<span class="catalog-grid-sell-price">'. uc_price($product->sell_price, $context) .'</span>';
+          }
+        $product_table .= '<span>'.$product->body.'</span>';
+        $product_table .= '</div>';
+      $product_table .= '</div>';
+    $product_table .= '</div>';
+    
+    $product_table .= '<div class="mini-thumbs">';
+         $product_table .= '<span class="catalog-grid-image-mini">'. $minilink .'</span>';
+    $product_table .= '</div>';
+    
+    
+    
+    
+    
     $product_table .= '</div>';
 
     $count++;
@@ -271,6 +320,10 @@ function lotus_user_link(){
   return menu_tree('menu-area-riservata');
 }
 
+function lotus_shopping_links(){
+  return menu_tree('menu-shopping-links');
+}
+
 // code added begin
   /**
    * Add uc_advanced_catalog override.
@@ -284,7 +337,10 @@ function lotus_user_link(){
     return theme_uc_catalog_browse($tid);
   }*/
   // end of the code
-  
+function loadProductUiHelpers(){
+  drupal_add_js(path_to_theme().'/js/products_ui.js');
+}  
+
 function loadPrettyPhotoHelpers(){
   drupal_add_js(path_to_theme().'/js/pretty-photo-helper.js');
 }
@@ -292,4 +348,65 @@ function simpleGmap(){
   drupal_add_js(path_to_theme().'/js/map-controls.js');
   return gmap_simple_map("45.3972948", "11.9538438","", "",'14', '930px', '210px');
 }
-  
+
+
+function brghtdiff($R1,$G1,$B1,$R2,$G2,$B2){
+    $BR1 = (299 * $R1 + 587 * $G1 + 114 * $B1) / 1000;
+    $BR2 = (299 * $R2 + 587 * $G2 + 114 * $B2) / 1000;
+ 
+    return abs($BR1-$BR2);
+}
+
+function coldiff($R1,$G1,$B1,$R2,$G2,$B2){
+    return max($R1,$R2) - min($R1,$R2) +
+           max($G1,$G2) - min($G1,$G2) +
+           max($B1,$B2) - min($B1,$B2);
+}
+
+function html2rgb($color)
+{
+    if ($color[0] == '#')
+        $color = substr($color, 1);
+
+    if (strlen($color) == 6)
+        list($r, $g, $b) = array($color[0].$color[1],
+                                 $color[2].$color[3],
+                                 $color[4].$color[5]);
+    elseif (strlen($color) == 3)
+        list($r, $g, $b) = array($color[0].$color[0], $color[1].$color[1], $color[2].$color[2]);
+    else
+        return false;
+
+    $r = hexdec($r); $g = hexdec($g); $b = hexdec($b);
+
+    return array($r, $g, $b);
+}
+
+function rgb2html($r, $g=-1, $b=-1)
+{
+    if (is_array($r) && sizeof($r) == 3)
+        list($r, $g, $b) = $r;
+
+    $r = intval($r); $g = intval($g);
+    $b = intval($b);
+
+    $r = dechex($r<0?0:($r>255?255:$r));
+    $g = dechex($g<0?0:($g>255?255:$g));
+    $b = dechex($b<0?0:($b>255?255:$b));
+
+    $color = (strlen($r) < 2?'0':'').$r;
+    $color .= (strlen($g) < 2?'0':'').$g;
+    $color .= (strlen($b) < 2?'0':'').$b;
+    return '#'.$color;
+}
+
+function processColorSwatch($hex,$ratio=200){
+  $tc = html2rgb($hex);
+	$diff = coldiff($tc[0],$tc[1],$tc[2],255,255,255);
+	if($diff < $ratio){
+	  //use border
+	  return true;
+	}else{
+	  return false;
+	}
+}

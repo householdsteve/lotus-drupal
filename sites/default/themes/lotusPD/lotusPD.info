@@ -8,5 +8,6 @@ engine = phptemplate
 scripts[] = js/ui_scripts.js
 scripts[] = js/jquery.prettyPhoto.js
 scripts[] = js/swfobject.js
+scripts[] = js/jquery.backstretch.js
 stylesheets[all][] = style.css
 stylesheets[all][] = css/prettyPhoto.css
