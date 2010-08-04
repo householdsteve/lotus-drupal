@@ -58,8 +58,8 @@ $(document).ready(function(){
   so.addParam('allowscriptaccess','always');
   so.addParam('wmode','opaque');
   so.addVariable('plugins', 'revolt-1');
-  //so.write('mediaspace');
-  $("#mediaspace").hide();
+  so.write('mediaspace');
+  //$("#mediaspace").hide();
   // end player code //
   
   
@@ -92,13 +92,13 @@ $(document).ready(function(){
      
         if(!$(this).is(":animated")){    
           _div.show().css("z-index","2").animate({top:"30px"}, 500 );
-      		$(this).children("ul").animate({top:"4px"}, 500 );
+      		$(this).children("ul").animate({top:"34px"}, 500 );
       		$(this).addClass("over");
       	}
       },function(){
         if(!$(this).is(":animated")){
           _div.css("z-index","1").animate({top:"-10px"}, 500, function(e){});
-        	$(this).children("ul").animate({top:"-34px"}, 500);
+        	$(this).children("ul").animate({top:"0px"}, 500);
         	$(this).removeClass("over");
         }
     });
@@ -106,7 +106,7 @@ $(document).ready(function(){
     // this is for deeping linking menu opening
   	if($(this).children("ul").find("a.active").length > 0){
       _div.show().css("z-index","2").animate({top:"30px"}, 500 );
-      $(this).children("ul").animate({top:"4px"}, 500 );
+      $(this).children("ul").animate({top:"34px"}, 500 );
   	}
   	
   });

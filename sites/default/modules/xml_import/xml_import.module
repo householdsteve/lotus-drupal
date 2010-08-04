@@ -1,7 +1,7 @@
 <?php
 
-//define("XML_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/test.xml");
-define("XML_IMPORT_LINK","http://94.84.209.27/Lotus/Archivi/ARTI0099.XML");
+define("XML_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/test.xml");
+//define("XML_IMPORT_LINK","http://94.84.209.27/Lotus/Archivi/ARTI0099.XML");
 
 
 function xml_import_menu(){
@@ -952,13 +952,13 @@ function xml_import_catalog($name) {
 		
       		db_query("INSERT INTO {xml_import_temp_cats} (tid, cid) VALUES (%d, '%d')", $updateid, $k); //add a temp table to hold references for product import
 		
-		
+		      $hexResultnew = db_fetch_object(db_query("SELECT * FROM {stock_category_colors} WHERE used_by_tid = '0' ORDER BY RAND() LIMIT 1"));
       		// we are faking an image on the category to allow addition of color
       		db_query("INSERT INTO {uc_catalog_images} (fid,tid, filename,filepath,filemime,filesize,hexcolor) 
-      		        VALUES (%d, '%d', '%s', '%s', '%s', '%d', '%s')", '1553',$updateid,'image-missing.png','sites/default/files/image-missing.png','image/png','65969',$hexResult->hex); 
+      		        VALUES (%d, '%d', '%s', '%s', '%s', '%d', '%s')", '1553',$updateid,'image-missing.png','sites/default/files/image-missing.png','image/png','65969',$hexResultnew->hex); 
 		
       		// this adds an id to the stock color to not allow it to be chosen again
-      		db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$updateid,$hexResult->scid);
+      		db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$updateid,$hexResultnew->scid);
 	
 	    }
 		
