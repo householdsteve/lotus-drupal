@@ -119,6 +119,30 @@ function lotusPD_preprocess_page(&$vars, $hook) {
 	
 }
 
+function phptemplate_preprocess(&$variables, $hook) {
+  if($hook == 'page') {
+    lotusPD_removetab('Anagrafico', $variables);
+    lotusPD_removetab('Profilo', $variables);
+    lotusPD_removetab('Orders', $variables);
+    lotusPD_removetab('Modifica', $variables);
+    lotusPD_removetab('Richiedi una nuova password', $variables);
+    lotusPD_removetab('Crea nuovo profilo', $variables);
+    lotusPD_removetab('Accedi', $variables);
+    
+  }
+  return $variables;
+}
+
+function lotusPD_removetab($label, &$vars) {
+  $tabs = explode("\n", $vars['tabs']);
+  $vars['tabs'] = '';
+
+  foreach($tabs as $tab) {
+    if(strpos($tab, '>' . $label . '<') === FALSE) {
+      $vars['tabs'] .= $tab . "\n";
+    }
+  }
+}
 
 function get_category_data($tax){
   

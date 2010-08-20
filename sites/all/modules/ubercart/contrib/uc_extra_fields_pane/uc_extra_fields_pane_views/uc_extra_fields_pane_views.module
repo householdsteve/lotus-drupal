@@ -1,0 +1,20 @@
+<?php
+// $Id$
+/* 
+ * Module: uc_extra_fields_pane_views.module
+ * 
+ * This module allow integration between Extra Fields Checkout Pane and Views.  
+ *  
+ * Developed by blackice78 - Maurizio Ganovelli - drupal@ganovelli.it 
+ *
+ */       
+
+ /**
+ * Implementation of hook_views_api()
+ *  
+ */
+function uc_extra_fields_pane_views_views_api() {
+  return array(
+    'api' => '2.0',
+  );
+}

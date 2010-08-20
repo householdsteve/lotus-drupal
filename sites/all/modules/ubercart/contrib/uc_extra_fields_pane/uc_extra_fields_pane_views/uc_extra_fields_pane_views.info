@@ -1,0 +1,15 @@
+; $Id$
+name = Extra Fields Pane Views
+description = Views integration for Extra Fields Pane module.
+dependencies[] = uc_extra_fields_pane
+dependencies[] = uc_views
+package = "Ubercart - extra"
+core = 6.x
+php = 5.0
+
+; Information added by drupal.org packaging script on 2010-07-19
+version = "6.x-1.0"
+core = "6.x"
+project = "uc_extra_fields_pane"
+datestamp = "1279525512"
+

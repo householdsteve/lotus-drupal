@@ -1,0 +1,75 @@
+<?php
+// $Id$
+/* 
+ * Module: uc_extra_fields_pane.module
+ * 
+ * This module extends Ubercart checkout panes, allowing creation
+ * of custom extra address fields.  
+ *  
+ * Developed by blackice78 - Maurizio Ganovelli - drupal@ganovelli.it 
+ * 
+ * Sponsored by CHG Digital Solutions - http://chgnet.com 
+ *
+ */      
+
+function uc_extra_fields_pane_schema() {
+   
+  $schema['uc_extra_fields_values'] = array(
+    'fields' => array(
+      'order_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    ),
+    'primary key' => array('order_id'),
+  );
+
+  $schema['uc_extra_fields'] = array(
+    'fields' => array(
+      'field_id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'field_name' => array(
+        'type' => 'varchar',
+        'length' => 100, 
+        'not null' => TRUE,
+      ), 
+      'field_description' => array(
+        'type' => 'text',
+      ),
+      'field_db_name' => array(
+        'type' => 'varchar',
+        'length' => 20, 
+        'not null' => TRUE,
+      ),
+      'field_required' => array(
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),       
+    ),
+    'primary key' => array('field_id'),
+    'unique keys' => array(
+      'field_name' => array('field_name'),
+    ),
+  );
+
+  return $schema;
+}
+
+function uc_extra_fields_pane_install() {
+  drupal_install_schema('uc_extra_fields_pane');
+}
+
+function uc_extra_fields_pane_uninstall() {
+  drupal_uninstall_schema('uc_extra_fields_pane');
+  variable_del('uc_extra_fields_pane_delivery_pane_description');
+  variable_del('uc_extra_fields_pane_billing_pane_description');
+  variable_del('uc_extra_fields_pane_delivery_pane_title');
+  variable_del('uc_extra_fields_pane_billing_pane_title');
+}

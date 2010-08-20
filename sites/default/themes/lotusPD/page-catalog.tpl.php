@@ -16,9 +16,22 @@
   	          <span class="input_wrapper"><?php print learn_taxonomy_ancestry(10); ?></span>
   	      </div>
   	      <div class="filter right">
-  	        <img class="imageblock" src="<?php print $base_path . $directory ?>/images/cerca-label.gif" width="180" height="29" alt="Cerca Label" />
-  	          <span class="input_wrapper"><input type="text" name="cerca" value="" id="cerca" /></span>
-  	        <input class="submit-icon" type="submit" name="submit" value="submit" id="submit" />
+  	       
+  	          <span class="input_wrapper text">
+  	              <span class="lead">PREZZO</span>
+  	              <span>DA:</span>
+  	              <input type="text" name="from" value="" id="from" style="width:25px;" />
+  	              <span>A</span>
+  	              <input type="text" name="to" value="" id="to" style="width:25px;" />
+  	          </span>
+  	          <input class="submit-icon" type="submit" name="submit" value="submit" id="submit" />
+  	          
+  	         
+  	          <span class="input_wrapper text">
+  	              <span class="lead">CODICE:</span>
+  	              <input type="text" name="cerca" value="" id="cerca" style="width:60px;" />
+  	          </span>
+  	          <input class="submit-icon" type="submit" name="submit" value="submit" id="submit" />
   	      </div>
   	      </fieldset> 
      	  </form>

@@ -83,7 +83,7 @@ function xml_import_import_users($name){
       
       $output .= "creating new <br>";
       $newUser = array(
-        'name' => $val["ragione_sociale"],
+        'name' => $val["codice"],
         //'name' => encodeUrlParam($val["ragione_sociale"]),
         'pass' => $val["password"], // note: do not md5 the password
         'mail' => $val["e_mail"],
@@ -105,7 +105,7 @@ function xml_import_import_users($name){
       xml_import_save_profile($edit_cliente, $u, 'cliente');
     }
 	  
-    $u->name = $val["ragione_sociale"];
+    $u->name = $val["codice"];
     $u->pass = $val["password"];
   	$u->mail = $val["e_mail"];
   	$u->timezone = "7200";

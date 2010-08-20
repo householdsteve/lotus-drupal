@@ -683,6 +683,16 @@ div.right {
   float:right;
 }
 
+
+div.filter.middle {
+  width:310px;
+}
+
+div.filter.right {
+  width:400px;
+  text-align:right;
+}
+
 div.product.right {
   width:350px;
   float:right;
@@ -714,6 +724,20 @@ div.middle select {
   margin:0;
   vertical-align: top;
   
+}
+.input_wrapper.text input {
+  position:relative;
+  top:-4px;
+}
+.input_wrapper.text span.lead {
+  color:#6a6a6a;
+}
+
+.input_wrapper.text span {
+  font-family: 'BebasRegular', Helvetica, sans-serif;
+  font-size:18px;
+  line-height:14px;
+  position:relative;
 }
 div.right input[type="text"] {
   width:120px;

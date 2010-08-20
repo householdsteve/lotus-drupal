@@ -1,0 +1,175 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  uc_extra_fields_pane.module: n/a
+#  uc_extra_fields_pane.info: n/a
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: UC Extra Fields Checkout Pane\n"
+"POT-Creation-Date: 2009-11-01 20:07+0100\n"
+"PO-Revision-Date: 2010-02-04 17:42+0100\n"
+"Last-Translator: Maurizio Ganovelli <ganovelli@chgnet.com>\n"
+"Language-Team: Maurizio Ganovelli - Blackice78 <drupal@ganovelli.it>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Poedit-Language: Italian\n"
+"X-Poedit-Country: ITALY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: uc_extra_fields_pane.module:59;60;537;593
+msgid "Additional billing information"
+msgstr ""
+
+#: uc_extra_fields_pane.module:66;67;543;596
+msgid "Additional delivery information"
+msgstr ""
+
+#: uc_extra_fields_pane.module:84
+msgid "Add new field: you need to provide a label."
+msgstr ""
+
+#: uc_extra_fields_pane.module:89
+msgid "Add new field: you need to provide a field name."
+msgstr ""
+
+#: uc_extra_fields_pane.module:103
+msgid "Add new field: the field name %field_name is invalid. The name must include only lowercase unaccentuated letters, numbers, and underscores."
+msgstr ""
+
+#: uc_extra_fields_pane.module:108
+msgid "Add new field: the field name %field_name is too long. The name is limited to 23 characters, including the 'ucxf_' prefix."
+msgstr ""
+
+#: uc_extra_fields_pane.module:115
+msgid "Add new field: the field name %field_name already exists."
+msgstr ""
+
+#: uc_extra_fields_pane.module:138
+msgid "Field saved"
+msgstr ""
+
+#: uc_extra_fields_pane.module:167
+msgid "Are you sure you want to remove the field \"%field\"?"
+msgstr ""
+
+#: uc_extra_fields_pane.module:169
+msgid "This action cannot be undone."
+msgstr ""
+
+#: uc_extra_fields_pane.module:170
+msgid "Remove"
+msgstr ""
+
+#: uc_extra_fields_pane.module:171
+msgid "Cancel"
+msgstr ""
+
+#: uc_extra_fields_pane.module:191
+msgid "Field deleted"
+msgstr ""
+
+#: uc_extra_fields_pane.module:209;233;290
+msgid "Label"
+msgstr ""
+
+#: uc_extra_fields_pane.module:210;239
+msgid "Field name"
+msgstr ""
+
+#: uc_extra_fields_pane.module:211
+msgid "Required"
+msgstr ""
+
+#: uc_extra_fields_pane.module:212;245;298
+msgid "Description"
+msgstr ""
+
+#: uc_extra_fields_pane.module:213
+msgid "Actions"
+msgstr ""
+
+#: uc_extra_fields_pane.module:222
+msgid "delete"
+msgstr ""
+
+#: uc_extra_fields_pane.module:223
+msgid "edit"
+msgstr ""
+
+#: uc_extra_fields_pane.module:236;293
+msgid "Label shown to customers in checkout pages."
+msgstr ""
+
+#: uc_extra_fields_pane.module:242
+msgid "Database field name. It must contain only lower chars a-z, digits 0-9 and _. Max allowed lenght is 23 characters."
+msgstr ""
+
+#: uc_extra_fields_pane.module:248;301
+msgid "Insert a description to tell customers how to fill this field."
+msgstr ""
+
+#: uc_extra_fields_pane.module:251;305
+msgid "Field required"
+msgstr ""
+
+#: uc_extra_fields_pane.module:253;307
+msgid "Check this item is field is mandatory."
+msgstr ""
+
+#: uc_extra_fields_pane.module:257;312
+msgid "Save"
+msgstr ""
+
+#: uc_extra_fields_pane.module:269
+msgid "Field updated"
+msgstr ""
+
+#: uc_extra_fields_pane.module:353
+msgid "Please fill in additional billing information below."
+msgstr ""
+
+#: uc_extra_fields_pane.module:393
+msgid "Please fill in additional delivery information below."
+msgstr ""
+
+#: uc_extra_fields_pane.module:479;480
+msgid "Additional information"
+msgstr ""
+
+#: uc_extra_fields_pane.module:22
+msgid "Extra address fields"
+msgstr ""
+
+#: uc_extra_fields_pane.module:23;32
+msgid "Add more address fields."
+msgstr ""
+
+#: uc_extra_fields_pane.module:31
+msgid "Delete field"
+msgstr ""
+
+#: uc_extra_fields_pane.module:39
+msgid "Modify field"
+msgstr ""
+
+#: uc_extra_fields_pane.module:40
+msgid "Edit extra address fields."
+msgstr ""
+
+#: uc_extra_fields_pane.info:0
+msgid "Extra Fields Pane"
+msgstr ""
+
+#: uc_extra_fields_pane.info:0
+msgid "Checkout pane for Ubercart with custom extra address fields."
+msgstr ""
+
+#: uc_extra_fields_pane.info:0
+msgid "Ubercart - core (optional)"
+msgstr ""
+

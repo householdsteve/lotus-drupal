@@ -58,9 +58,9 @@ function theme_jquery_file_tree_present_contents($content=NULL) {
   $output .= '</div>';
 
   $output .= '<div class="download-section-holder clearfix">';
-  $output .= '<div class="download-column"><h2>Communicati Stampa</h2><div id="dl-col-1" class="column-child"></div></div>';
-  $output .= '<div class="download-column"><h2>Prodotti in alta risoluzione</h2><div id="dl-col-2" class="column-child"></div></div>';
-  $output .= '<div class="download-column"><h2>Documenti Importanti</h2><div id="dl-col-3" class="column-child"></div></div>';
+  $output .= '<div class="download-column"><h2>Comunicati Stampa</h2><div id="dl-col-1" class="column-child"></div></div>';
+  $output .= '<div class="download-column"><h2>Prodotti ad alta risoluzione</h2><div id="dl-col-2" class="column-child"></div></div>';
+  $output .= '<div class="download-column"><h2>Scarica PDF</h2><div id="dl-col-3" class="column-child"></div></div>';
   $output .= '</div>';
   
   return $output;
