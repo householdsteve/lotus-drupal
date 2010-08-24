@@ -755,7 +755,7 @@ function theme_uc_catalog_product_grid($products) {
     else {
       $imagelink = '';
     }
-
+    
     $product_table .= '<div class="product-column">';
     if (variable_get('uc_catalog_grid_display_title', TRUE)) {
       $product_table .= '<span class="catalog-grid-title">'. $titlelink .'</span>';

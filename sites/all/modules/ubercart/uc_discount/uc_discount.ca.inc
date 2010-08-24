@@ -198,7 +198,8 @@ function uc_discount_calculate_product_discounts_test($arguments,$settings){
   
   foreach($arguments["cart"]["#data"] as $cart_item){
     if($cart_item->nid == $arguments["product"]["#data"]->nid){ // check the product id to cart product id
-      if($cart_item->qty >= $arguments["product"]["#data"]->field_imballo[0]['value']){ // if the amount in the cart is greater or equal to imballo value. then return true to give initial 10% discount. see saved action in CMS for amount (this keeps us flexible on percentage)
+      if($cart_item->qty >= $arguments["product"]["#data"]->field_imballo[0]['value'] && !$arguments["product"]["#data"]->field_offerta[0]['value']){ // if the amount in the cart is greater or equal to imballo value. then return true to give initial 10% discount. see saved action in CMS for amount (this keeps us flexible on percentage)
+        // the condition is now checked to make sure the item is not a special offer. this applies to the user discount as well. user discount is excuted in a php code block in the drupal admin
         
         return true;
       }else{

@@ -488,6 +488,36 @@ img.imagecache-uc_category_large {
   min-height:175px;
 }
 
+div.product-flags {
+  position:absolute;
+  top:30px;
+  right:-4px;
+}
+
+div.product-flags-page {
+  position:absolute;
+  top:7px;
+  right:-11px;
+}
+
+div.lotus_flags {
+  background-color:transparent;
+  width:85px;
+  height:24px;
+}
+
+div.lotus_flags.new {
+  background:url('images/novita.png') top left no-repeat;
+}
+
+div.lotus_flags.offer {
+  background:url('images/offerta.png') top left no-repeat;
+}
+
+div.lotus_flags.exclusive {
+  background:url('images/esclusiva.png') top left no-repeat;
+}
+
 
 
 div.product-column.category div.category-label {
@@ -696,6 +726,8 @@ div.filter.right {
 div.product.right {
   width:350px;
   float:right;
+  min-height:350px;
+  /*border-bottom:2px solid #3e3e3e;*/
 }
 
 div.right label, div.right input {
@@ -897,6 +929,21 @@ div.column-header.light span.title a:hover {
   padding:5px;
 }
 
+span.catalog-grid-image-mini {
+  width:210px;
+  height:40px;
+  overflow:hidden;
+  display:inline-block;
+}
+span.catalog-grid-image-mini a {
+  display:inline-block;
+  margin:0 0 0 3px;
+}
+
+span.catalog-grid-image-mini a:first-child {
+  margin:0 0 0 0;
+}
+
 .category-grid-products .catalog-grid-sell-price {
   display:block;
   text-align:left;
@@ -1016,17 +1063,34 @@ span.color-name {
 }
 
 div.product-detail-right {
-  width:170px;
-  padding:0 0 10px 0;
+  width:160px;
+  padding:0 0 10px 10px;
   float:left;
+  position:relative;
 }
 
 div.additional-info {
-  border-bottom:2px solid #3e3e3e;
+  /*border-bottom:2px solid #3e3e3e;*/
   width:100%;
   padding:12px 0;
 }
 
+div#add_to_cart_holder {
+  position:absolute;
+  bottom:13px;
+  width:100%;
+  height:20px;
+}
+div.right input.list-add-to-cart {
+  background:#3e3e3e;
+  border:1px solid #666;
+  font-family: 'BebasRegular', Helvetica, sans-serif;
+  font-size:18px;
+  line-height:14px;
+  padding:3px;
+  display:block;
+  width:100%;
+}
 div.product-body {
   color:#666;
   font-size:14px;
@@ -1041,6 +1105,7 @@ div.product-body {
   color:#fff;
   font-weight:normal;
   font-size:11px;
+  padding-bottom:7px;
 }
 
 div.column.product.left {
@@ -1067,9 +1132,18 @@ div.column.product.middle a:first-child {
 
 div.product-thumbs {
   position:absolute;
-  bottom:0;
+  bottom:3px;
   right:0;
+  width:170px;
+}
+
+div.product-thumbs a {
+  margin:10px 0 0 10px;
   width:75px;
+  height:75px;
+  line-height:75px;
+  float:left;
+  display:inline-block;
 }
   
 /* ------ STYLES FOR DOWNLOAD SECTION ---------- */
@@ -1110,4 +1184,44 @@ div.product-thumbs {
 .column-child:first-child {
   margin:0 0 0 0;
   padding:10px;
+}
+
+div#not_found {
+  display:none;
+  border:1px solid #ff0000;
+  padding:20px;
+  color:#ff0000;
+  font-size:18px;
+  text-transform:capitalize;
+  margin-bottom:15px;
+}
+
+span#clear_button {
+  font-size:20px;
+  display:none;
+}
+img#loading_image {
+  display:none;
+}
+
+div.search_holder input[type="text"] {
+  background:none repeat scroll 0 0 #353535;
+  border:1px solid #CCCCCC;
+  margin:0;
+  padding:0;
+  width:400px;
+  color:#fff;
+  font-size:18px;
+  height:27px;
+}
+div.search_holder span.input_wrapper {
+  padding:10px 10px 15px 10px;
+}
+
+div.search_holder {
+  margin-bottom:15px;
+}
+
+input#id_search_list_button {
+  top:-4;
 }

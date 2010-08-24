@@ -1,8 +1,14 @@
 <?php
 
 define("XML_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/test.xml");
-//define("XML_IMPORT_LINK","http://94.84.209.27/Lotus/Archivi/ARTI0099.XML");
+define("ORIGINAL_IMAGE_FOLDER_LINK","http://localhost/lotuspd.com_prep/IMG/");
+define("CLIENT_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/clients.xml");
 
+
+
+//define("XML_IMPORT_LINK","http://94.84.209.27/Lotus/Archivi/ARTI0099.XML");
+//define("ORIGINAL_IMAGE_FOLDER_LINK","http://94.84.209.27/Lotus/Immagini/");
+//define("CLIENT_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/clients.xml"); // UPDATE THIS LINK
 
 function xml_import_menu(){
   $items = array();
@@ -66,7 +72,7 @@ function xml_import_uc_price_handler() {
 
 function xml_import_import_users($name){
   
-  $response = xml_import_get_xml_data("http://localhost/lotuspd.com_prep/xml/clients.xml");
+  $response = xml_import_get_xml_data(CLIENT_IMPORT_LINK);
  
 
 	$output = "starting output <br/>";
@@ -286,7 +292,7 @@ function xml_import_test($name) {
 
 function import_image_move($filename){
   
-    $file_address = 'http://94.84.209.27/Lotus/Immagini/'.$filename.".jpg";
+    $file_address = ORIGINAL_IMAGE_FOLDER_LINK.$filename.".jpg";
     //$ch = curl_init('http://localhost/lotuspd.com_prep/t/'.$filename.".jpg"); //Here is the file we are downloading
     $check_url = curl_init($file_address);
     curl_setopt($check_url, CURLOPT_TIMEOUT, 3);
@@ -360,7 +366,7 @@ function _xml_step_one_images($arg=NULL){
     for($x = 1; $x < 5; $x++){
 	    $image_code = $product_code.".0".$x; 
 	    echo $image_code."<br>";
-	    //$img_path = import_image_move($image_code);
+	    $img_path = import_image_move($image_code);
 	    
 	    if($img_path){
 	      echo "the image path: ".$img_path."<br>";
@@ -370,6 +376,7 @@ function _xml_step_one_images($arg=NULL){
 	  }
     
   }
+  
   _xml_step_two_categories($response); // more onto the next step
 }
 
@@ -462,8 +469,14 @@ function _xml_step_three_products($response){
 	
 	foreach($response['product'] as $id => $val){
 		$product_list[$val[id]]["versions"][] = $val;
-		$product_list[$val[id]]["photos"] = $response['product'][$id]['new_images'];
+		if(count($response['product'][$id]['new_images']) > 0){
+		  foreach($response['product'][$id]['new_images'] as $key => $imgs){
+  		  $product_list[$val[id]]["photos"][] = $response['product'][$id]['new_images'][$key];
+  		}
+  	}
 	}
+	
+	
 	
 	foreach($product_list as $id => $val){
 		// we need to use the first product as a default
@@ -476,6 +489,8 @@ function _xml_step_three_products($response){
         $node = node_load($p->vid);
         
         $existing = element_children($node->taxonomy);
+        print "product vid: ".$p->vid." <br>";
+        db_query("DELETE FROM {content_field_image_cache} WHERE vid = '%d'", $p->vid); // get rid of old image references
         
         $is_new = false;
         $output .= "loaded existig <br>";
@@ -486,7 +501,8 @@ function _xml_step_three_products($response){
         $existing = array(); //create it to push other items in
       }
 		
-		$price = number_format($val["versions"][0][listino], 2, '.', '');
+		$reformatted_price = str_replace(",",".",$val["versions"][0][listino]);
+		$price = number_format($reformatted_price, 2, '.', '');
       
 		
 		$node->type = 'product';
@@ -502,9 +518,9 @@ function _xml_step_three_products($response){
 		$node->field_imballo[0]['value'] = $val["versions"][0][imballo];
 	
 	// these should also set taxonomy records to show in catalog listings
-		$node->field_novita[0]['value'] = $val["versions"][0][novita];
-		$node->field_offerta[0]['value'] = $val["versions"][0][offerta];
-		$node->field_esclusiva[0]['value'] = $val["versions"][0][esclusiva];
+		$node->field_novita[0]['value'] = ($val["versions"][0][novita] == "S") ? 1 : 0;
+		$node->field_offerta[0]['value'] = ($val["versions"][0][offerta] == "S") ? 1 : 0;
+		$node->field_esclusiva[0]['value'] = ($val["versions"][0][esclusiva] == "S") ? 1 : 0;
 		
 		$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val["versions"][0][categoria][id]));
 		
@@ -512,7 +528,7 @@ function _xml_step_three_products($response){
       $existing[] = $result->tid; // see if the id in the xml file is the same and load it if not.
     }
 		
-		if($val["versions"][0][novita] == '1'){
+		if($val["versions"][0][novita] == 'S'){
       if(!in_array('7',$existing)){
         $existing[] = '7'; // if its not already in the array add it
       }
@@ -525,7 +541,7 @@ function _xml_step_three_products($response){
       }
     }
     
-    if($val["versions"][0][offerta] == '1'){
+    if($val["versions"][0][offerta] == 'S'){
       if(!in_array('29',$existing)){
         $existing[] = '29'; // if its not already in the array add it
       }
@@ -540,6 +556,8 @@ function _xml_step_three_products($response){
     
     $node->taxonomy = array('1' => $existing); // this assigns all of our taxonomy to the vocab 1 which is our catalog
 		
+		unset($node->field_image_cache); // get rid of the deleted images from the array
+  	
 		if(count($val["photos"]) > 0){
 	  	foreach($val["photos"] as $img_id => $img_path){
   		  $node->field_image_cache[] = drupal_add_existing_file($img_path);
@@ -660,9 +678,9 @@ function _xml_step_three_products($response){
         $version_data->arrivo_2 = $option['arrivo_2'];
         $version_data->data_arrivo_2 = check_plain($option['data_arrivo_2']);
         $version_data->disponibile_descr = check_plain($option['disponibile_descr']);
-        $version_data->novita = $option['novita'];
-        $version_data->offerta = $option['offerta'];
-        $version_data->esclusiva = $option['esclusiva'];
+        $version_data->novita = ($option['novita'] == "S") ? 1 : 0;
+        $version_data->offerta = ($option['offerta'] == "S") ? 1 : 0;
+        $version_data->esclusiva = ($option['esclusiva'] == "S") ? 1 : 0;
         $version_data->published = 1;
 
         //print 'Calling uc_attributes_form';

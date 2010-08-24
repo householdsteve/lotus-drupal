@@ -12,6 +12,16 @@ function setState(_v){
 
 $(document).ready(function(){
   
+  
+  if($("input.list-add-to-cart").length > 0){
+    var $form = $("input.list-add-to-cart").parents("form");
+    $("input.list-add-to-cart").click(function(){
+      $form.submit();
+    });
+    
+    $("input.list-add-to-cart").appendTo($("#add_to_cart_holder"));
+  }
+  
   if($(".details-content").length > 0){
     // check we have stuff to work with
     $(".details-content").each(function(i){

@@ -46,6 +46,7 @@ if(jQuery) (function($){
 			if( o.multiFolder == undefined ) o.multiFolder = true;
 			if( o.loadMessage == undefined ) o.loadMessage = 'Loading...';
 			
+			
 			$(this).each( function() {
 				
 				function showTree(c, t) {
@@ -54,8 +55,12 @@ if(jQuery) (function($){
 					$.post(o.script, { dir: t }, function(data) {
 						$(c).find('.start').html('');
 						$(c).removeClass('wait').append(data);
+						if($.isFunction(o.callback)){
+						  o.callback.call(this);
+						}
 						if( o.root == t ) $(c).find('UL:hidden').show(); else $(c).find('UL:hidden').slideDown({ duration: o.expandSpeed, easing: o.expandEasing });
 						bindTree(c);
+						
 					});
 				}
 				

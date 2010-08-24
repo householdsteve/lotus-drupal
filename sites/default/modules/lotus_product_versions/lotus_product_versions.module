@@ -328,7 +328,7 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
     
     $form['submit'] = array(
       '#type' => 'submit',
-      '#value' =>  'Aggiungi al Carello',
+      '#value' =>  'Aggiorni / Aggiungi al Carello',
       '#id' => 'new-submit-'. $node->nid,
       '#attributes' => array(
         'class' => 'list-add-to-cart',

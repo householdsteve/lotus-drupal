@@ -56,7 +56,19 @@ function theme_jquery_file_tree_present_contents($content=NULL) {
   $output = '<div class="download-header">';
   $output .= 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. ';
   $output .= '</div>';
-
+  
+  $output .= '<div class="search_holder"><form action="#">
+		<fieldset>
+		  <span class="input_wrapper text">
+		  <span>'.t("Ricerca Veloce").'</span>
+			<input type="text" name="search" value="" id="id_search_list" />
+			<input type="submit" name="search_button" class="submit-icon" value="cerca" id="id_search_list_button" />
+			<img src="'.drupal_get_path('module', 'jquery_file_tree').'/images/ajax-loader.gif" id="loading_image" />
+			<span id="clear_button">&times;</span>
+			</span>
+		</fieldset>
+	</form></div>';
+  $output .= '<div id="not_found">'.t("nessun risulatato").'</div>';
   $output .= '<div class="download-section-holder clearfix">';
   $output .= '<div class="download-column"><h2>Comunicati Stampa</h2><div id="dl-col-1" class="column-child"></div></div>';
   $output .= '<div class="download-column"><h2>Prodotti ad alta risoluzione</h2><div id="dl-col-2" class="column-child"></div></div>';
@@ -71,6 +83,7 @@ function _present_contents($arg) {
   $jqtFP = drupal_get_path('module', 'jquery_file_tree');
   drupal_add_css($jqtFP.'/css/jqueryFileTree.css');
   drupal_add_js($jqtFP .'/js/jqueryFileTree.js');
+  drupal_add_js($jqtFP .'/js/jquery.quicksearch.js');
   drupal_add_js($jqtFP .'/js/jquery_tree_settings.js');
   
   $tree_settings = array('treePath' => $jqtFP,'fileDirectory' => file_directory_path());

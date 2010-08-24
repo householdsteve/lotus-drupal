@@ -272,7 +272,7 @@ function lotusPD_uc_catalog_product_grid($array) {
   foreach ($products as $nid) {
     $product = node_load($nid);
     $context['subject'] = array('node' => $product);
-
+    
     if ($count == 0) {
       $product_table .= "<div class='product-row clearfix'>";
     }
@@ -283,13 +283,42 @@ function lotusPD_uc_catalog_product_grid($array) {
     $titlelink = l($product->model, "node/$nid", array('html' => TRUE));
     if (module_exists('imagecache') && ($field = variable_get('uc_image_'. $product->type, '')) && isset($product->$field) && file_exists($product->{$field}[0]['filepath'])) {
       $imagelink = l(theme('imagecache', 'product_list', $product->{$field}[0]['filepath'], $product->title, $product->title), "node/$nid", array('html' => TRUE));
-      $minilink = l(theme('imagecache', 'product_list_mini', $product->{$field}[0]['filepath'], $product->title, $product->title), "node/$nid", array('html' => TRUE));
+      //$minilink = l(theme('imagecache', 'product_list_mini', $product->{$field}[0]['filepath'], $product->title, $product->title), "node/$nid", array('html' => TRUE));
+      $minilink = "";
+      foreach($product->$field as $item){
+  	    // loop through all images and generate thumbs for the left column
+    		//print $item['view'];
+    		$patterns = array("/\.jpg$/","/\./");
+    		$replace = array('','-');
+    		$className = preg_replace($patterns, $replace, $item['filename']);
+	
+    		$minilink .= l(theme('imagecache', 'product_list_mini', $item['filepath']), "node/$nid", array('html' => TRUE, 'attributes' => array('class' => $className)));
+    		
+    	}
+    	
     }
     else {
       $imagelink = '';
     }
+    
 
     $product_table .= '<div class="product-column">';
+    
+        $product_table .= '<div class="product-flags">';
+    
+        if(in_array(7,array_keys($product->taxonomy))){ // checks to see if item is novita by taxonomy
+          $product_table .= '<div class="lotus_flags new">&nbsp;</div>';
+        }
+    
+        if(in_array(29,array_keys($product->taxonomy))){ // checks to see if item is offerta by taxonomy
+          $product_table .= '<div class="lotus_flags offer">&nbsp;</div>';
+        }
+    
+        if($product->field_esclusiva[0]['value']){ // checks to see if item is exclusive by cck field
+          $product_table .= '<div class="lotus_flags exclusive">&nbsp;</div>';
+        }
+        $product_table .= '</div>';
+    
     if (variable_get('uc_catalog_grid_display_title', TRUE)) {
       $product_table .= '<span class="catalog-grid-title">'. $titlelink .'</span>';
     }

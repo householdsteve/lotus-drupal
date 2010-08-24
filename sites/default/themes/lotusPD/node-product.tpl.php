@@ -26,6 +26,7 @@
 //echo "<pre>";
 //print_r($node);
 //echo "</pre>";
+
 ?>
 			  <div class="content-filters clearfix">
   	      <form>
@@ -60,7 +61,7 @@
   	       </div>
               <h2 class="product-title"><?php print $node->title;?></h2>
               
-              <div class="product-thumbs"><?php print $thumbs; ?></div>
+              <div class="product-thumbs clearfix"><?php print $thumbs; ?></div>
               
   	      </div>
   	      
@@ -86,8 +87,9 @@
   	            
   	            <div class="product-detail-holder clearfix">
   	              <div class="product-detail-left">
+  	               <?php if($default_product->dimensions):?>
   	               <div class="dimensions"><?php print t('Dimensioni');?>: <span><?php print $default_product->dimensions; ?></span> </div>
-  	               
+  	               <?php endif?>
   	                 <div class="available-colors">
     	                 <div class="available-title"><?php print t('Colori Disponibili');?>:</div>
     	                  <?php
@@ -114,8 +116,26 @@
   	              
   	              <div class="product-detail-right">
   	                <?php if(user_access('view product version')):?>
+  	                  <div class="available-title"><?php print t('Prezzo');?>:</div>  
   	                  <?php print $node->content["display_price"]['#value']; ?>
   	                <?php endif ?>
+  	                
+  	                <div class="product-flags-page">
+  	                <?php
+  	                  if(in_array(7,array_keys($node->taxonomy))){ // checks to see if item is novita by taxonomy
+                        print '<div class="lotus_flags new">&nbsp;</div>';
+                      }
+                      
+                      if(in_array(29,array_keys($node->taxonomy))){ // checks to see if item is offerta by taxonomy
+                        print '<div class="lotus_flags offer">&nbsp;</div>';
+                      }
+                      
+                      if($node->field_esclusiva[0]['value']){ // checks to see if item is exclusive by cck field
+                        print '<div class="lotus_flags exclusive">&nbsp;</div>';
+                      }
+  	                
+  	                ?>
+  	                </div>
   	              </div>
   	            
   	            </div>
@@ -134,10 +154,15 @@
              	        <div class="generic-row">data_arrivo_2: <?php print $default_product->data_arrivo_2; ?> </div>
              	        <div class="generic-row"><?php print $default_product->disponibile_descr; ?> </div>
            	        <?php endif ?>
+           	        
+           	        
   	            </div>
   	            
   	            <?php //print $node->content["add_to_cart"]['#value']; ?>
       	        
+      	        <div id="add_to_cart_holder">
+       	          
+       	        </div>
       	    </div>
       	    
       	    <div class="column middle-right table clearfix">
