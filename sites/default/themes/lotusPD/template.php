@@ -121,10 +121,13 @@ function lotusPD_preprocess_page(&$vars, $hook) {
 
 function phptemplate_preprocess(&$variables, $hook) {
   if($hook == 'page') {
-    lotusPD_removetab('Anagrafico', $variables);
-    lotusPD_removetab('Profilo', $variables);
+    if(!user_access('administer product versions')){
+      lotusPD_removetab('Anagrafico', $variables);
+      lotusPD_removetab('Profilo', $variables);
+      lotusPD_removetab('Modifica', $variables);
+    }
     lotusPD_removetab('Orders', $variables);
-    lotusPD_removetab('Modifica', $variables);
+    
     lotusPD_removetab('Richiedi una nuova password', $variables);
     lotusPD_removetab('Crea nuovo profilo', $variables);
     lotusPD_removetab('Accedi', $variables);

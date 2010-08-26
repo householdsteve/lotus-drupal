@@ -1,5 +1,9 @@
 var hasActive = false;
 
+var playAudio = true;
+
+var orig_bg;
+var orig_pad;
 function getState(){
 	return hasActive;
 }
@@ -8,6 +12,76 @@ function setState(_v){
 	hasActive = _v;
 }
 
+function loadHome(){
+  playAudio = false;
+  $(document).ready(function(){
+    $.backstretch(Drupal.settings.theme.themePath+"/images/spacer.gif",{showFirst:true});
+    // set up main state before animation:
+   
+    orig_bg = $(".content-body").css("background");
+    orig_pad = $(".content-body").css("padding");
+    $(".content-body").css({"background":"none","padding":"0"});
+    
+    $(".column.full.main").hide();
+    $("#backstretch").hide();
+    $("#primary").hide();
+    $("#navigation-holder").hide();
+    $("#scoprite").hide();
+    $("#standard-cat").hide();
+    $("#outlet-cat").hide();
+    $("#footer").hide();
+    
+    $("#content").css({"top":"100px"});
+    $(".wrapper").css({"width":"660px"});
+    
+    var so = new SWFObject(Drupal.settings.theme.themePath+'/intro-lotus.swf','intro-clip','660','150','9');
+    so.addParam('allowfullscreen','true');
+    so.addParam('allowscriptaccess','always');
+    so.addParam('wmode','transparent');
+    so.write('intro');
+  });
+}
+
+function loadOut(){
+  
+  
+  $("#intro").fadeOut(500,function(){$("#intro").remove();});
+  $("#intro-bg").fadeOut(600);
+  $("#backstretch").delay(500).fadeIn();
+  $(".column.full.main").show();
+  $(".wrapper").delay(700).animate({"width":"930px"});
+  $("#content").delay(800).animate({"top":"0px"});
+  
+  $("#primary").delay(1400).slideDown();
+  $("#navigation-holder").delay(1600).fadeIn("slow",function(){
+    $(".content-body").css({"background":orig_bg,"padding":orig_pad});
+  });
+  $("#scoprite").delay(1800).fadeIn("slow",function(){
+    loadAudio(true);  
+  });
+  $("#standard-cat").delay(2000).fadeIn();
+  $("#outlet-cat").delay(2200).fadeIn();
+  $("#footer").delay(2600).fadeIn();
+    
+}
+
+function loadAudio(play){
+  // write player into html //
+  
+  if(play){
+  var so = new SWFObject(Drupal.settings.theme.themePath+'/player.swf','mpl','380','32','9');
+  so.addParam('allowfullscreen','true');
+  so.addParam('flashvars','&file='+Drupal.settings.theme.themePath+'/playlist.xml&repeat=single&autostart=true&icons=false&dock=false&image=none&skin='+Drupal.settings.theme.themePath+'/stylish_slim.swf&playlist=none&playlistsize=0&backcolor=989795&frontcolor=000000&lightcolor=8e1d2f&screencolor=cccccc');
+  so.addParam('allowscriptaccess','always');
+  so.addParam('wmode','opaque');
+  so.addVariable('plugins', 'revolt-1');
+  so.write('mediaspace');
+  
+  // end player code //
+  }else{
+    $("#mediaspace").hide();
+  }
+}
 
 
 $(document).ready(function(){
@@ -59,18 +133,13 @@ $(document).ready(function(){
     });
   }
   
-  $.backstretch(Drupal.settings.theme.themePath+"/images/spacer.gif");
   
-  // write player into html //
-  var so = new SWFObject(Drupal.settings.theme.themePath+'/player.swf','mpl','380','32','9');
-  so.addParam('allowfullscreen','true');
-  so.addParam('flashvars','&file='+Drupal.settings.theme.themePath+'/playlist.xml&repeat=single&autostart=true&icons=false&dock=false&image=none&skin='+Drupal.settings.theme.themePath+'/stylish_slim.swf&playlist=none&playlistsize=0&backcolor=989795&frontcolor=000000&lightcolor=8e1d2f&screencolor=cccccc');
-  so.addParam('allowscriptaccess','always');
-  so.addParam('wmode','opaque');
-  so.addVariable('plugins', 'revolt-1');
-  //so.write('mediaspace');
-  $("#mediaspace").hide();
-  // end player code //
+  
+  if(playAudio){
+    $.backstretch(Drupal.settings.theme.themePath+"/images/spacer.gif",{showFirst:false});
+    loadAudio(playAudio);
+  }
+  
   
   
   

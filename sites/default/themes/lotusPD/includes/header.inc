@@ -20,7 +20,7 @@
 				<a id="site_logo" href="<?php print $base_path ?>" title="<?php print t('Home') ?>"><img src="<?php print $base_path . $directory ?>/images/louts-logo.png" width="264" height="50" alt="Louts Logo" /></a>
 				
 				<div id="social">
-						<div id='mediaspace' style="border:1px solid 000000;">This div will be replaced</div>
+						<div id='mediaspace' style="border:1px solid 000000;">&nbsp;</div>
 						<a href="#"><img src="<?php print $base_path . $directory ?>/images/fb.png" width="28" height="28" alt="Fb" /></a>
 						<a href="#"><img src="<?php print $base_path . $directory ?>/images/t.png" width="28" height="28" alt="T" /></a>
 						<a href="#"><img src="<?php print $base_path . $directory ?>/images/x.png" width="28" height="28" alt="X" /></a>

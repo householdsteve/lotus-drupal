@@ -29,6 +29,10 @@ body {
   background:url('images/flower-bg.png') repeat;
 }
 
+#intro-bg {
+  background:url('images/bg.jpg') top center no-repeat;
+}
+
 a {
 	text-decoration:none;
 	color:#737373;
@@ -50,6 +54,11 @@ a:hover {
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
+
+ul.tabs li.active a {
+  color:#ff0000;
+  border:none;
+}
 
 #container {
 	height:100%;
@@ -314,6 +323,7 @@ div.sub-nav ul li a {
 div#content {
 	background:#000;
 	color:#fff;
+	margin:0 auto;
 }
 
 div#content h2 {
@@ -354,7 +364,14 @@ form.webform-client-form .form-item label {
   color:white;
 }
 
+div#intro {
+  text-align:center;
+}
 
+img#scoprite {
+  position:relative;
+  top:20px;
+}
 
 div.map-holder {
   border-top:2px solid #3E3E3E;

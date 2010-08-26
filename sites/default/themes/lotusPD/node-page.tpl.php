@@ -11,7 +11,7 @@
     return;
     } 
 ?>
-
+<?php if($node->nid != 12):?>
 <div class="page-top-images">
 <?php 
 loadPrettyPhotoHelpers();
@@ -45,5 +45,6 @@ if(count($nodeImgs) > 0){
 
 ?>
 </div>
+<?php endif ?>
 <?php print $node->content['body']['#value']; ?>
 

@@ -13,7 +13,8 @@
   $.backstretch = function(src, options, callback) {
     var settings = {
           hideUntilReady: true, // Hide the image until it's finished loading
-          speed: 0 // fadeIn speed for background after image loads (e.g. "fast" or 500)
+          speed: 0, // fadeIn speed for background after image loads (e.g. "fast" or 500)
+          showFirst: false
         },
         imgRatio;
     
@@ -35,6 +36,7 @@
             container = $("<div />").attr("id", "backstretch")
                                     .css( $.extend(commonCSS, {position: "fixed", overflow: "hidden", zIndex: -1}) )
                                     .appendTo(wrap),
+                                    
             img = $("<img />").attr("src", src)
                               .bind("load", function() {
                                     var self = $(this);
@@ -50,7 +52,10 @@
         
         if(settings.hideUntilReady) img.hide();          
         img.appendTo(container);
-          
+        
+        if(settings.showFirst){
+          container.clone().prependTo(wrap).attr("id","intro-bg");
+        }
         $("body").prepend(wrap);
 
         // Adjust the background size when the window is resized
@@ -69,6 +74,10 @@
       }
 
       $("#backstretch img").width( bgWidth ).height( bgHeight );
+      
+      if(settings.showFirst){
+        $("#intro-bg img").width( bgWidth ).height( bgHeight ).css("display","block");
+      }
       
       if (typeof callback == "function") callback();
     }
