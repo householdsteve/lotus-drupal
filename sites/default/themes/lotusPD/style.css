@@ -25,12 +25,26 @@ body {
   margin:0;
 }
 
+fieldset {
+  display:inline;
+  width:auto;
+}
+
+form#page-catalog_submit_code {
+  display:inline;
+  width:auto;
+}
+form#page-catalog_submit_prices {
+  display:inline;
+  width:auto;
+}
+
 #backstretch {
   background:url('images/flower-bg.png') repeat;
 }
 
 #intro-bg {
-  background:url('images/bg.jpg') top center no-repeat;
+  background: #000 url('images/bg.jpg') top center no-repeat;
 }
 
 a {
@@ -324,6 +338,7 @@ div#content {
 	background:#000;
 	color:#fff;
 	margin:0 auto;
+	 min-height:150px;
 }
 
 div#content h2 {
@@ -366,6 +381,7 @@ form.webform-client-form .form-item label {
 
 div#intro {
   text-align:center;
+ 
 }
 
 img#scoprite {

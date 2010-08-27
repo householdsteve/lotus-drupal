@@ -212,7 +212,8 @@ function learn_taxonomy_ancestry($tid){
         $output .= '</optgroup>';
       }else{
         $link = base_path().drupal_get_path_alias("catalog/".$act_cat->tid);
-        $output .= '<option value="'.$link.'">'.$act_cat->name.'</option>';
+        
+        if($act_cat->tid != 38){$output .= '<option value="'.$link.'">'.$act_cat->name.'</option>';}
       }
     }
     $output .= "</select>";

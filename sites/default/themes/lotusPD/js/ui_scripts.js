@@ -2,6 +2,8 @@ var hasActive = false;
 
 var playAudio = true;
 
+var orig_bg_bg;
+
 var orig_bg;
 var orig_pad;
 function getState(){
@@ -18,9 +20,11 @@ function loadHome(){
     $.backstretch(Drupal.settings.theme.themePath+"/images/spacer.gif",{showFirst:true});
     // set up main state before animation:
    
+    orig_bg_bg = $("html").css("background");
     orig_bg = $(".content-body").css("background");
     orig_pad = $(".content-body").css("padding");
     $(".content-body").css({"background":"none","padding":"0"});
+        $("html").css("background","#000");
     
     $(".column.full.main").hide();
     $("#backstretch").hide();
@@ -31,7 +35,7 @@ function loadHome(){
     $("#outlet-cat").hide();
     $("#footer").hide();
     
-    $("#content").css({"top":"100px"});
+    $("#content").css({"top":($(document).height()/2) - 75});
     $(".wrapper").css({"width":"660px"});
     
     var so = new SWFObject(Drupal.settings.theme.themePath+'/intro-lotus.swf','intro-clip','660','150','9');
@@ -44,24 +48,28 @@ function loadHome(){
 
 function loadOut(){
   
-  
-  $("#intro").fadeOut(500,function(){$("#intro").remove();});
+   $("html").css("background",orig_bg_bg);
+  $("#intro").animate({"opacity":0},600,function(){
+    $("#intro").remove();
+   
+  });
   $("#intro-bg").fadeOut(600);
   $("#backstretch").delay(500).fadeIn();
-  $(".column.full.main").show();
-  $(".wrapper").delay(700).animate({"width":"930px"});
-  $("#content").delay(800).animate({"top":"0px"});
+  $(".column.full.main").delay(1500).fadeIn();
+  $(".wrapper").delay(600).animate({"width":"930px"});
+  $("#content").animate({"top":"0px"});
   
   $("#primary").delay(1400).slideDown();
-  $("#navigation-holder").delay(1600).fadeIn("slow",function(){
-    $(".content-body").css({"background":orig_bg,"padding":orig_pad});
-  });
+  $("#navigation-holder").delay(1600).fadeIn();
   $("#scoprite").delay(1800).fadeIn("slow",function(){
-    loadAudio(true);  
+    
+    $(".content-body").css({"background":orig_bg,"padding":orig_pad});
   });
   $("#standard-cat").delay(2000).fadeIn();
   $("#outlet-cat").delay(2200).fadeIn();
-  $("#footer").delay(2600).fadeIn();
+  $("#footer").delay(2800).fadeIn("slow",function(){
+    loadAudio(true);  
+  });
     
 }
 
@@ -80,6 +88,20 @@ function loadAudio(play){
   // end player code //
   }else{
     $("#mediaspace").hide();
+  }
+}
+
+function getQueryVariable(variable)
+{
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++)
+  {
+    var pair = vars[i].split("=");
+    if (pair[0] == variable)
+    {
+      return pair[1];
+    }
   }
 }
 
@@ -137,7 +159,15 @@ $(document).ready(function(){
   
   if(playAudio){
     $.backstretch(Drupal.settings.theme.themePath+"/images/spacer.gif",{showFirst:false});
-    loadAudio(playAudio);
+    //loadAudio(playAudio);
+  }
+  
+  if($("#submit-code").length > 0){
+   $("#cerca-codce").attr("value",getQueryVariable("code"));
+    $("form#page-catalog_submit_code").submit(function(){
+      window.location = Drupal.settings.basePath + "catalog/ricerca?code=" + $("#cerca-codce").val();
+      return false;
+    });
   }
   
   
