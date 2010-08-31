@@ -352,7 +352,7 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
     //echo "</pre>";
   	
   	$header = array(
-      array('data' => t('SKU')),
+      array('data' => t('Codice')),
       array('data' => t('Colore')),
       array('data' => t('Imballo')),
       array('data' => t('Dimensions')),

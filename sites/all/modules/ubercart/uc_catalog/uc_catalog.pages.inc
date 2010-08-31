@@ -43,9 +43,9 @@ function theme_uc_catalog_browse($tid = 0) {
 	  // send them to main catalog page
 	  drupal_goto('catalog');
 	}
-	//echo "<pre>";
+  //echo "<pre>";
 	//print_r($catalog);
-//	echo "</pre>";
+	//echo "</pre>";
   foreach ($catalog->children as $child) {
     if (!empty($child->nodes)) {
       $links[] = array('title' => $child->name . (variable_get('uc_catalog_breadcrumb_nodecount', FALSE) ? ' ('. $child->nodes .')' : ''), 'href' => uc_catalog_path($child),
@@ -118,7 +118,7 @@ function theme_uc_catalog_browse($tid = 0) {
   
   ////// !!!!!! ---- WE NEED TO RE-WRITE THE SQL QUERY TO NOT LOAD INDIVIDUAL PRODUCTS THAT ARE PRESENT IN A PRODUCT KIT.
 
-if (!isset($_REQUEST['code'])) {
+if (!isset($_REQUEST['code']) && !isset($_REQUEST['price'])) {
   $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
     FROM {node} n
       INNER JOIN {term_node} tn ON n.vid = tn.vid
@@ -142,17 +142,46 @@ if (!isset($_REQUEST['code'])) {
       FROM {node} n
         INNER JOIN {uc_products} AS p ON n.vid = p.vid
       WHERE n.status = 1
-        AND p.model LIKE '%".$init_search_string[0]."%'
+        AND p.model LIKE '%s'
         AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
 
     $sql_count = "SELECT COUNT(DISTINCT(n.nid))
       FROM {node} n
         INNER JOIN {uc_products} AS p ON n.vid = p.vid
       WHERE n.status = 1
-        AND p.model LIKE '%".$init_search_string[0]."%'
+        AND p.model LIKE '%s'
         AND n.type IN (". db_placeholders($types, 'varchar') .")";
         
-        $sql_args = array();
+        $sql_args = array("%".$init_search_string[0]."%");
+  }elseif(isset($_REQUEST['price'])){
+    $price_search = explode(":",$_REQUEST['price']);
+    
+    $low = $price_search[1] / ((100-($user->profile_discount_1 + $user->profile_discount_2 + $user->profile_discount_3))/100);
+    $high = $price_search[3] / ((100-($user->profile_discount_1 + $user->profile_discount_2 + $user->profile_discount_3))/100);
+     //echo $low."<br/>";
+     //echo $high."<br/>";
+  
+    
+    $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
+      FROM {node} n
+        INNER JOIN {term_node} tn ON n.vid = tn.vid
+        INNER JOIN {uc_products} AS p ON n.vid = p.vid
+      WHERE tn.tid = %d 
+        AND n.status = 1
+        AND (p.sell_price >= $low) AND (p.sell_price <= $high)
+        AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
+
+    $sql_count = "SELECT COUNT(DISTINCT(n.nid))
+      FROM {node} n
+        INNER JOIN {term_node} tn ON n.vid = tn.vid
+        INNER JOIN {uc_products} AS p ON n.vid = p.vid
+      WHERE tn.tid = %d
+        AND n.status = 1
+       AND (p.sell_price >= $low) AND (p.sell_price <= $high)
+        AND n.type IN (". db_placeholders($types, 'varchar') .")";
+
+        $sql_args = array($catalog->tid);
+    
   }
       
     

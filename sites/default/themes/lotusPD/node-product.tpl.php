@@ -29,8 +29,7 @@
 
 ?>
 			  <div class="content-filters clearfix">
-  	      <form>
-  	         <fieldset class="clearfix">
+  	    
   	      <div class="filter left">
   	        <img src="<?php print base_path() . path_to_theme(); ?>/images/select-categoy.gif" width="209" height="29" alt="Select Categoy" />
   	      </div>
@@ -38,12 +37,18 @@
   	          <span class="input_wrapper"><?php print learn_taxonomy_ancestry(10); ?></span>
   	      </div>
   	      <div class="filter right">
-  	        <img class="imageblock" src="<?php print base_path() . path_to_theme(); ?>/images/cerca-label.gif" width="180" height="29" alt="Cerca Label" />
-  	          <span class="input_wrapper"><input type="text" name="cerca" value="" id="cerca" /></span>
-  	        <input class="submit-icon" type="submit" name="submit" value="submit" id="submit" />
+  	        
+  	         <form id="page-catalog_submit_code" action="<?php print base_path().drupal_get_path_alias("catalog/ricerca");?>" method="post" accept-charset="utf-8">
+  	           <fieldset class="">
+  	              <span class="input_wrapper text">
+  	              <span class="lead">CODICE:</span>
+  	              <input type="text" name="cerca" value="" id="cerca-codce" style="width:60px;" />
+  	            </span>
+  	            <input class="submit-icon" type="submit" name="submit" value="submit" id="submit-code" />
+  	            </fieldset>
+  	         </form>
   	      </div>
-  	      </fieldset> 
-     	  </form>
+  	   
      	  
      	    <div id="shopping-links">
      	      <?php print lotus_shopping_links(); ?>
@@ -65,8 +70,10 @@
               
   	      </div>
   	      
-  	      <div class="column middle-right space clearfix">
-  	          
+  	      <div class="column middle-right clearfix">
+  	          <div class="product-messages">
+  	            <?php print theme_status_messages();?>
+  	          </div>
   	          <?php
   	                          
                 $default_id = $node->attributes[array_shift(array_keys($node->attributes))]->default_option;

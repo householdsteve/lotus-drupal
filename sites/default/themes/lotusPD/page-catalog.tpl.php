@@ -16,18 +16,20 @@
   	          <span class="input_wrapper"><?php print learn_taxonomy_ancestry(10); ?></span>
   	      </div>
   	      <div class="filter right">
+  	        <?php if(user_access('view product version')):?>
   	        <form id="page-catalog_submit_prices" action="<?php print base_path().drupal_get_path_alias("catalog/ricerca");?>" method="post" accept-charset="utf-8">
   	           <fieldset class="">
   	          <span class="input_wrapper text">
   	              <span class="lead">PREZZO</span>
   	              <span>DA:</span>
-  	              <input type="text" name="from" value="" id="from" style="width:25px;" />
+  	              <input type="text" name="from" value="" id="from" style="width:35px;" />
   	              <span>A</span>
-  	              <input type="text" name="to" value="" id="to" style="width:25px;" />
+  	              <input type="text" name="to" value="" id="to" style="width:35px;" />
   	          </span>
   	          <input class="submit-icon" type="submit" name="submit" value="submit" id="submit-prices" />
   	          </fieldset>
 	         </form>
+	         <?php endif ?>
   	         <form id="page-catalog_submit_code" action="<?php print base_path().drupal_get_path_alias("catalog/ricerca");?>" method="post" accept-charset="utf-8">
   	           <fieldset class="">
   	              <span class="input_wrapper text">

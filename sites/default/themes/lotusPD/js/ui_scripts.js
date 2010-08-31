@@ -159,7 +159,7 @@ $(document).ready(function(){
   
   if(playAudio){
     $.backstretch(Drupal.settings.theme.themePath+"/images/spacer.gif",{showFirst:false});
-    //loadAudio(playAudio);
+    loadAudio(playAudio);
   }
   
   if($("#submit-code").length > 0){
@@ -170,7 +170,23 @@ $(document).ready(function(){
     });
   }
   
+  if($("#submit-prices").length > 0){
+     // get the price from query string
+      var completeURL = window.location.href; 
+      var URl = completeURL.split("?");
+
+      var price_range = getQueryVariable("price");
+      if(price_range){
+          var s_price_range = price_range.split(":");
+          $("input#from").attr("value",s_price_range[1]);
+          $("input#to").attr("value",s_price_range[3]);
+      }
+        $("form#page-catalog_submit_prices").submit(function(){
+          window.location = URl[0] + "?price=from:" + $("input#from").val() + ":to:" + $("input#to").val();
+          return false;
+        });
   
+  }
   
   
   if($("#fast-cat-change").length > 0){
