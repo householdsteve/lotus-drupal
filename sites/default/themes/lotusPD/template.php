@@ -195,7 +195,7 @@ function learn_taxonomy_ancestry($tid){
   
 
   $output = '<select id="fast-cat-change">';
-  $output .= '<option value="null" selected="selected">---------------</option>';
+  $output .= '<option value="null" selected="selected">-- Categoria --</option>';
   foreach($t_p as $item){
     $act_cat = uc_catalog_get_page((int)$item['tid']);
     //echo "<pre>";
@@ -335,9 +335,9 @@ function lotusPD_uc_catalog_product_grid($array) {
         $product_table .= '<div>';
 
           if (variable_get('uc_catalog_grid_display_sell_price', TRUE) && user_access('view product version')) {
-            $product_table .= '<span class="catalog-grid-sell-price">'. uc_price($product->sell_price, $context) .'</span>';
+            $product_table .= '<span class="catalog-grid-sell-price">'. uc_price($product->sell_price, $context) .' <span class="small">– prezzo al netto per imballo completo</span></span>';
           }
-        $product_table .= '<span>'.$product->body.'</span>';
+        $product_table .= '<span class="product-desc">'.$product->body.'</span>';
         $product_table .= '</div>';
       $product_table .= '</div>';
     $product_table .= '</div>';

@@ -118,7 +118,7 @@ function theme_uc_catalog_browse($tid = 0) {
   
   ////// !!!!!! ---- WE NEED TO RE-WRITE THE SQL QUERY TO NOT LOAD INDIVIDUAL PRODUCTS THAT ARE PRESENT IN A PRODUCT KIT.
 
-if (!isset($_REQUEST['code']) && !isset($_REQUEST['price'])) {
+if (!isset($_REQUEST['code']) && !isset($_REQUEST['price']) && !isset($_REQUEST['quantity'])) {
   $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
     FROM {node} n
       INNER JOIN {term_node} tn ON n.vid = tn.vid
@@ -182,6 +182,32 @@ if (!isset($_REQUEST['code']) && !isset($_REQUEST['price'])) {
 
         $sql_args = array($catalog->tid);
     
+  }elseif(isset($_REQUEST['quantity'])){
+          $search = explode(":",$_REQUEST['quantity']);
+          $low = $search[1];
+          $high = $search[3];
+
+        $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
+            FROM {node} n
+              INNER JOIN {term_node} tn ON n.vid = tn.vid
+              INNER JOIN {uc_products} AS p ON n.vid = p.vid
+              LEFT JOIN {uc_product_stock} AS ps ON n.nid = ps.nid
+            WHERE tn.tid = %d 
+              AND n.status = 1
+              AND (ps.stock >= $low) AND (ps.stock <= $high)
+              AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
+
+          $sql_count = "SELECT COUNT(DISTINCT(n.nid))
+            FROM {node} n
+              INNER JOIN {term_node} tn ON n.vid = tn.vid
+              INNER JOIN {uc_products} AS p ON n.vid = p.vid
+              LEFT JOIN {uc_product_stock} AS ps ON n.nid = ps.nid
+            WHERE tn.tid = %d 
+              AND n.status = 1
+              AND (ps.stock >= $low) AND (ps.stock <= $high)
+              AND n.type IN (". db_placeholders($types, 'varchar') .")";
+
+              $sql_args = array($catalog->tid);
   }
       
     

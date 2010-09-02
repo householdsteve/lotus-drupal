@@ -328,14 +328,14 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
     
     $form['submit'] = array(
       '#type' => 'submit',
-      '#value' =>  'Aggiorni / Aggiungi al Carello',
+      '#value' =>  t('AGGIUNGI AL CARRELLO'),
       '#id' => 'new-submit-'. $node->nid,
       '#attributes' => array(
         'class' => 'list-add-to-cart',
       ),
     );
 
-   
+   $form['#redirect'] = "cart";
 
     return $form;
   }
@@ -355,7 +355,7 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
       array('data' => t('Codice')),
       array('data' => t('Colore')),
       array('data' => t('Imballo')),
-      array('data' => t('Dimensions')),
+      //array('data' => t('Dimensions')),
       array('data' => t('Disponibilità')),
       array('data' => t('Arrivo 1')),
       array('data' => t('Data arrivo 1')),
@@ -381,13 +381,18 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
       }
       $color_markup .= '</span>';
       
-      
+      if(strstr($version_data->disponibile_descr,",")){
+        $disp_desc = explode(",",$version_data->disponibile_descr);
+        $disp_desc = $disp_desc[0];
+      }else{
+        $disp_desc = $version_data->disponibile_descr;
+      }
       $rows[] = array(
         array('data' => $version_data->sku),
         array('data' => $color_markup),
         array('data' => $version_data->imballo),
-        array('data' => $version_data->dimensions),
-        array('data' => $version_data->disponibile_descr),
+        //array('data' => $version_data->dimensions),
+        array('data' => $disp_desc),
         array('data' => ($version_data->arrivo_1 != 0) ? $version_data->arrivo_1 : "-"),
         array('data' => ($version_data->data_arrivo_1 != '0' && $version_data->data_arrivo_1 != "00/00/0000") ? $version_data->data_arrivo_1 : '---'),
         array('data' => ($version_data->arrivo_2 != 0) ? $version_data->arrivo_2 : "-"),
@@ -405,6 +410,7 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
       if($item['qty'] != "" || $item['qty'] != 0){
         uc_cart_add_item($form_state['values']['nid'], $item['qty'],  module_invoke_all('add_to_cart_data', $form_state['values']), NULL, variable_get('uc_cart_add_item_msg', TRUE));
       }
+      //drupal_goto("cart");
     }
    //drupal_set_message('<pre>'. print_r($form_state['values'], TRUE) .'</pre>');
   }

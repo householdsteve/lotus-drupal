@@ -21,7 +21,7 @@
 				
 				<div id="social">
 						<div id='mediaspace' style="border:1px solid 000000;">&nbsp;</div>
-						<a href="#"><img src="<?php print $base_path . $directory ?>/images/fb.png" width="28" height="28" alt="Fb" /></a>
+						<a href="http://www.facebook.com/pages/Padova-Italy/Lotus-Srl-Articoli-Promozionali/122972221087627"><img src="<?php print $base_path . $directory ?>/images/fb.png" width="28" height="28" alt="Fb" /></a>
 						<a href="#"><img src="<?php print $base_path . $directory ?>/images/t.png" width="28" height="28" alt="T" /></a>
 						<a href="#"><img src="<?php print $base_path . $directory ?>/images/x.png" width="28" height="28" alt="X" /></a>
 				</div>

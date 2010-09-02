@@ -74,11 +74,14 @@
   	          <div class="product-messages">
   	            <?php print theme_status_messages();?>
   	          </div>
+  	        
   	          <?php
-  	                          
+  	                       
                 $default_id = $node->attributes[array_shift(array_keys($node->attributes))]->default_option;
+                $color_match = _lotus_match_color_table_to_options($default_id,false); 
                 
-                $default_product = $node->product_versions[$node->model.".".$default_id]; // this is an object, treat it like one.
+                $default_product = $node->product_versions[$node->model.".".$color_match['product_color_code']]; // this is an object, treat it like one.
+               
               ?>
   	          
   	        <?php //print $content; ?>
@@ -94,7 +97,7 @@
   	            
   	            <div class="product-detail-holder clearfix">
   	              <div class="product-detail-left">
-  	               <?php if($default_product->dimensions):?>
+  	               <?php if(!empty($default_product->dimensions)):?>
   	               <div class="dimensions"><?php print t('Dimensioni');?>: <span><?php print $default_product->dimensions; ?></span> </div>
   	               <?php endif?>
   	                 <div class="available-colors">
@@ -125,6 +128,7 @@
   	                <?php if(user_access('view product version')):?>
   	                  <div class="available-title"><?php print t('Prezzo');?>:</div>  
   	                  <?php print $node->content["display_price"]['#value']; ?>
+  	                  – prezzo al netto per imballo completo
   	                <?php endif ?>
   	                
   	                <div class="product-flags-page">
