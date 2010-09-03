@@ -335,7 +335,7 @@ function lotusPD_uc_catalog_product_grid($array) {
         $product_table .= '<div>';
 
           if (variable_get('uc_catalog_grid_display_sell_price', TRUE) && user_access('view product version')) {
-            $product_table .= '<span class="catalog-grid-sell-price">'. uc_price($product->sell_price, $context) .' <span class="small">– prezzo al netto per imballo completo</span></span>';
+            $product_table .= '<span class="catalog-grid-sell-price">'. uc_price($product->sell_price, $context) .' <span class="small">– prezzo netto per imballo completo</span></span>';
           }
         $product_table .= '<span class="product-desc">'.$product->body.'</span>';
         $product_table .= '</div>';

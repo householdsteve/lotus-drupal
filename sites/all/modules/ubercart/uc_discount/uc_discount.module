@@ -130,10 +130,9 @@ function uc_discount_price_handler_alter(&$price_info, &$context, &$options) {
     
     $prices[$cache] = $node->sell_price;
     
-    ca_pull_trigger('uc_discount_calculate_product_discounts', $node, $user, $loaded_cart);
-    
     ca_pull_trigger('calculate_product_discounts', $node, $user);
     
+    ca_pull_trigger('uc_discount_calculate_product_discounts', $node, $user, $loaded_cart);
    
   }
   else {

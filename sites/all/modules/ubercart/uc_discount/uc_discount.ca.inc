@@ -23,9 +23,10 @@ function uc_discount_ca_predicate() {
   $predicates = array();
 
   $predicates['uc_discount_test_predicate'] = array(
-    '#title' => t('test dicount predicate'),
-    '#description' => t('let me know that my shit is working'),
+    '#title' => t('imballo dicount predicate'),
+    '#description' => t('if the imballo is met, apply 10% discount'),
     '#class' => 'discount',
+    '#weight' => '10',
     '#status' => 1,
     '#trigger' => 'uc_discount_calculate_product_discounts',
     '#conditions' => array(
@@ -33,7 +34,7 @@ function uc_discount_ca_predicate() {
       '#conditions' => array(
         array(
           '#name' => 'uc_discount_calculate_product_discounts',
-          '#title' => t('this is out test condition'),
+          '#title' => t('meet imballo requirement'),
           '#argument_map' => array(
             'arguments' => 'arguments',
           ),
@@ -520,7 +521,7 @@ function uc_discount_get_discount($entity, $settings) {
   else {
     $base = 0;
   }
-
+  
   return $base * $settings['amount'];
 }
 

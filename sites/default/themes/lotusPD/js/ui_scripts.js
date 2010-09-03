@@ -174,6 +174,10 @@ $(document).ready(function(){
      // get the price from query string
       var completeURL = window.location.href; 
       var URl = completeURL.split("?");
+      
+      var new_qs;
+      var qs_items = new Array();
+      var useURL;
 
       var price_range = getQueryVariable("price");
       if(price_range){
@@ -181,30 +185,41 @@ $(document).ready(function(){
           $("select#from").attr('value', s_price_range[1]);
           $("select#to").attr("value",s_price_range[3]);
       }
-        $("form#page-catalog_submit_prices").submit(function(){
-          window.location = URl[0] + "?price=from:" + $("select#from option:selected").val() + ":to:" + $("select#to option:selected").val();
-          return false;
-        });
-  
-  }
-  
-  if($("#submit-quantity").length > 0){
-     // get the price from query string
-      var completeURL = window.location.href; 
-      var URl = completeURL.split("?");
-
+      
+      
       var range = getQueryVariable("quantity");
       if(range){
           var s_range = range.split(":");
           $("input#from_qty").attr('value', s_range[1]);
           $("input#to_qty").attr("value",s_range[3]);
       }
-        $("form#page-catalog_submit_quantity").submit(function(){
-          window.location = URl[0] + "?quantity=from:" + $("input#from_qty").val() + ":to:" + $("input#to_qty").val();
+      
+        
+        $("form#page-catalog_submit_prices").submit(function(){
+          if($("select#from option:selected").val() != "" && $("select#to option:selected").val() != ""){
+            qs_items.push("price=from:" + $("select#from option:selected").val() + ":to:" + $("select#to option:selected").val());
+          }
+          if($("input#from_qty").val() != "" && $("input#to_qty").val() != ""){
+            qs_items.push("quantity=from:" + $("input#from_qty").val() + ":to:" + $("input#to_qty").val());
+          }
+          
+          // builds new query string
+          new_qs = qs_items.join("&");
+          
+          // checks to see if we have a category available to search in.
+          var fc = completeURL.split("/");
+          var isFirstCatPage = fc[fc.length-1]; // get the last item which will tell us the page
+          if(completeURL.match("standard") || completeURL.match("outlet") || completeURL.match("products") || isFirstCatPage.match("catalog")){
+            useURL = Drupal.settings.basePath + "catalog/ricerca";
+          }else{
+            useURL = URl[0];
+          }
+          window.location = useURL + "?" +new_qs;
           return false;
         });
   
   }
+
   
   
   if($("#fast-cat-change").length > 0){

@@ -118,24 +118,7 @@ function theme_uc_catalog_browse($tid = 0) {
   
   ////// !!!!!! ---- WE NEED TO RE-WRITE THE SQL QUERY TO NOT LOAD INDIVIDUAL PRODUCTS THAT ARE PRESENT IN A PRODUCT KIT.
 
-if (!isset($_REQUEST['code']) && !isset($_REQUEST['price']) && !isset($_REQUEST['quantity'])) {
-  $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
-    FROM {node} n
-      INNER JOIN {term_node} tn ON n.vid = tn.vid
-      INNER JOIN {uc_products} AS p ON n.vid = p.vid
-    WHERE tn.tid = %d AND n.status = 1
-      AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
-
-  $sql_count = "SELECT COUNT(DISTINCT(n.nid))
-    FROM {node} n
-      INNER JOIN {term_node} tn ON n.vid = tn.vid
-      INNER JOIN {uc_products} AS p ON n.vid = p.vid
-    WHERE tn.tid = %d
-      AND n.status = 1
-      AND n.type IN (". db_placeholders($types, 'varchar') .")";
-      
-      $sql_args = array($catalog->tid);
-  }elseif(isset($_REQUEST['code'])){
+if(isset($_REQUEST['code'])){
     
     $init_search_string = explode(".",$_REQUEST['code']);
     $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
@@ -153,22 +136,80 @@ if (!isset($_REQUEST['code']) && !isset($_REQUEST['price']) && !isset($_REQUEST[
         AND n.type IN (". db_placeholders($types, 'varchar') .")";
         
         $sql_args = array("%".$init_search_string[0]."%");
-  }elseif(isset($_REQUEST['price'])){
-    $price_search = explode(":",$_REQUEST['price']);
+  }elseif(isset($_REQUEST['price']) || isset($_REQUEST['quantity'])){
+   
+     
+     // build a query with loops.
+      $joins = array("INNER JOIN {uc_products} AS p ON n.vid = p.vid");
+      $conditions = array("n.status = 1");
+      
+        if($catalog->tid != 38 && $catalog->tid != 3 && $catalog->tid != 4){
+          $joins[] = "INNER JOIN {term_node} tn ON n.vid = tn.vid";
+          $conditions[] = "tn.tid = %d";
+          $sql_args = array($catalog->tid);
+        }else{
+          $sql_args = array();
+        }
+        
+        if(isset($_REQUEST['price'])){
+           $price_search = explode(":",$_REQUEST['price']);
+           $low = $price_search[1] / ((100-($user->profile_discount_1 + $user->profile_discount_2 + $user->profile_discount_3))/100);
+           $high = $price_search[3] / ((100-($user->profile_discount_1 + $user->profile_discount_2 + $user->profile_discount_3))/100);
+           
+           $conditions[] = "(p.sell_price >= $low) AND (p.sell_price <= $high)";
+        }
+        
+        if(isset($_REQUEST['quantity'])){
+           $search = explode(":",$_REQUEST['quantity']);
+           $low_qty = $search[1];
+           $high_qty = $search[3];
+           
+           $joins[] = "LEFT JOIN {uc_product_stock} AS ps ON n.nid = ps.nid";
+           $conditions[] = "(ps.stock >= $low_qty) AND (ps.stock <= $high_qty)";
+          }
+        
+        
+        $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering FROM {node} n ";
+
+        $sql .= implode(" ",$joins);
+
+        $sql .= " WHERE ";
+
+        $sql .= implode(" AND ",$conditions);
     
-    $low = $price_search[1] / ((100-($user->profile_discount_1 + $user->profile_discount_2 + $user->profile_discount_3))/100);
-    $high = $price_search[3] / ((100-($user->profile_discount_1 + $user->profile_discount_2 + $user->profile_discount_3))/100);
-     //echo $low."<br/>";
-     //echo $high."<br/>";
-  
+        $sql .= " AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
+        
+        
+        
+        $sql_count = "SELECT COUNT(DISTINCT(n.nid)) FROM {node} n ";
+
+        $sql_count .= implode(" ",$joins);
+
+        $sql_count .= " WHERE ";
+
+        $sql_count .= implode(" AND ",$conditions);
     
+        $sql_count .= " AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
+        
+/*
+    $sql_count = "SELECT COUNT(DISTINCT(n.nid))
+      FROM {node} n
+        INNER JOIN {term_node} tn ON n.vid = tn.vid
+        INNER JOIN {uc_products} AS p ON n.vid = p.vid
+      WHERE tn.tid = %d
+        AND n.status = 1
+       AND (p.sell_price >= $low) AND (p.sell_price <= $high)
+        AND n.type IN (". db_placeholders($types, 'varchar') .")";*/
+
+        
+    
+  }else{
+    // this is the original query. we move it to the end in case all fails and that way we dont have to check that the other conditions dont exist.
     $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
       FROM {node} n
         INNER JOIN {term_node} tn ON n.vid = tn.vid
         INNER JOIN {uc_products} AS p ON n.vid = p.vid
-      WHERE tn.tid = %d 
-        AND n.status = 1
-        AND (p.sell_price >= $low) AND (p.sell_price <= $high)
+      WHERE tn.tid = %d AND n.status = 1
         AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
 
     $sql_count = "SELECT COUNT(DISTINCT(n.nid))
@@ -177,37 +218,9 @@ if (!isset($_REQUEST['code']) && !isset($_REQUEST['price']) && !isset($_REQUEST[
         INNER JOIN {uc_products} AS p ON n.vid = p.vid
       WHERE tn.tid = %d
         AND n.status = 1
-       AND (p.sell_price >= $low) AND (p.sell_price <= $high)
         AND n.type IN (". db_placeholders($types, 'varchar') .")";
 
         $sql_args = array($catalog->tid);
-    
-  }elseif(isset($_REQUEST['quantity'])){
-          $search = explode(":",$_REQUEST['quantity']);
-          $low = $search[1];
-          $high = $search[3];
-
-        $sql = "SELECT DISTINCT(n.nid), n.sticky, n.title, n.created, p.model, p.sell_price, p.ordering
-            FROM {node} n
-              INNER JOIN {term_node} tn ON n.vid = tn.vid
-              INNER JOIN {uc_products} AS p ON n.vid = p.vid
-              LEFT JOIN {uc_product_stock} AS ps ON n.nid = ps.nid
-            WHERE tn.tid = %d 
-              AND n.status = 1
-              AND (ps.stock >= $low) AND (ps.stock <= $high)
-              AND n.type IN (". db_placeholders($types, 'varchar') .") ". $order;
-
-          $sql_count = "SELECT COUNT(DISTINCT(n.nid))
-            FROM {node} n
-              INNER JOIN {term_node} tn ON n.vid = tn.vid
-              INNER JOIN {uc_products} AS p ON n.vid = p.vid
-              LEFT JOIN {uc_product_stock} AS ps ON n.nid = ps.nid
-            WHERE tn.tid = %d 
-              AND n.status = 1
-              AND (ps.stock >= $low) AND (ps.stock <= $high)
-              AND n.type IN (". db_placeholders($types, 'varchar') .")";
-
-              $sql_args = array($catalog->tid);
   }
       
     

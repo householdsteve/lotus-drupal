@@ -1179,6 +1179,11 @@ table.order-review-table {
   width:100%;
   margin:20px 0 0 0;
 }
+
+table.cart-final-review {
+  width:100%;
+}
+
 div#cart-form-products table, form#uc-cart-checkout-form table, table.order-review-table {
   color:#000;
 }
@@ -1256,11 +1261,13 @@ form#uc-cart-checkout-form fieldset {
   display:block;
   width:100%;
   margin:10px 0 20px 0;
+  overflow:none;
 }
 
 form#uc-cart-checkout-form fieldset legend {
   margin:0;
   padding:0;
+  display:none;
 }
 
 div#checkout-form-bottom {

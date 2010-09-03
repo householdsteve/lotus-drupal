@@ -948,7 +948,7 @@ function theme_uc_product_attributes($element) {
         $optionstr .= t(', !option', array('!option' => $option));
       }
     }
-    $option_rows[$key] = t('@attribute: @option', array('@attribute' => $element[$key]['#attribute_name'], '@option' => $optionstr));
+    $option_rows[$key] = t('@option', array('@option' => $optionstr));
   }
 
   if (!empty($option_rows)) {

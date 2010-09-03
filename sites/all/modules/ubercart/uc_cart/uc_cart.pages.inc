@@ -133,7 +133,18 @@ function uc_cart_checkout_form() {
     }
     drupal_goto('cart');
   }
+  
+  $cs_text_1 = variable_get('uc_continue_shopping_text_1', '') ? variable_get('uc_continue_shopping_text_1', '') : t('Torna al catalogo');
 
+  // Cancel an order when a customer clicks the 'Cancel' button.
+  if ($_POST['op'] == $cs_text_1) {
+    if (intval($_SESSION['cart_order']) > 0) {
+      uc_order_comment_save($_SESSION['cart_order'], 0, t('Customer cancelled this order from the checkout form.'));
+      unset($_SESSION['cart_order']);
+    }
+    drupal_goto('catalog');
+  }
+  
   $order = uc_order_load($_SESSION['cart_order']);
 
   // Check the referer URI to clear order details and prevent identity theft.
@@ -221,6 +232,31 @@ function uc_cart_checkout_form() {
     '#type' => 'hidden',
     '#value' => serialize($contents),
   );
+  
+  // If the continue shopping element is enabled...
+   if (($cs_type = variable_get('uc_continue_shopping_type', 'link')) !== 'none') {
+     // Setup the text used for the element.
+     $cs_text = variable_get('uc_continue_shopping_text_1', '') ? variable_get('uc_continue_shopping_text_1', '') : t('Torna al catalogo');
+
+     // Add the element to the form based on the element type.
+     if (variable_get('uc_continue_shopping_type', 'link') == 'link') {
+       $form['continue_shopping'] = array(
+         '#value' => l($cs_text, uc_cart_continue_shopping_url()),
+       );
+     }
+     elseif (variable_get('uc_continue_shopping_type', 'link') == 'button') {
+       $form['continue_shopping'] = array(
+         '#type' => 'submit',
+         '#value' => $cs_text,
+         '#submit' => FALSE,
+       );
+       $form['continue_shopping_text'] = array(
+         '#type' => 'hidden',
+         '#value' => $cs_text,
+       );
+     }
+   }
+   
 
   $form['cancel'] = array(
     '#type' => 'submit',
@@ -261,9 +297,26 @@ function theme_uc_cart_checkout_form($form) {
       $output .= drupal_render($form['panes'][$pane_id]);
     }
   }
+  
+  if (($type = variable_get('uc_continue_shopping_type', 'link')) != 'none') {
+    // Render the continue shopping element into a variable.
+    $cs_element = drupal_render($form['continue_shopping']);
+
+    // Add the element with the appropriate markup based on the display type.
+    if ($type == 'link') {
+      $output .= '<div id="cart-form-buttons"><div id="continue-shopping-link">'
+               . $cs_element .'</div>'. drupal_render($form) .'</div>';
+    }
+    elseif ($type == 'button') {
+      $output .= '<div id="cart-form-buttons"><div id="update-checkout-buttons">'
+               . drupal_render($form) .'</div><div id="continue-shopping-button">'
+               . $cs_element .'</div></div>';
+    }
+  }
+  else {
 
   $output .= '<div id="checkout-form-bottom">'. drupal_render($form) .'</div>';
-
+}
   return $output;
 }
 

@@ -924,6 +924,16 @@ function theme_uc_empty_cart() {
  *   uc_cart_view_table()
  */
 function uc_cart_view_form($form_state, $items = NULL) {
+  
+  // Cancel an order when a customer clicks the 'Cancel' button.
+  if ($_POST['op'] == t('Cancel')) {
+    if (intval($_SESSION['cart_order']) > 0) {
+      uc_order_comment_save($_SESSION['cart_order'], 0, t('Customer cancelled this order from the checkout form.'));
+      unset($_SESSION['cart_order']);
+    }
+    drupal_goto('catalog');
+  }
+  
   $form['items'] = array(
     '#type' => 'tapir_table',
     '#tree' => TRUE,
@@ -937,11 +947,18 @@ function uc_cart_view_form($form_state, $items = NULL) {
   foreach ($items as $item) {
     $display_item = module_invoke($item->module, 'cart_display', $item);
     if (!empty($display_item)) {
+      //echo "the disp item: <pre>";
+      //print_r($item);
+      //echo "</pre>";
       $form['items'][$i] = $display_item;
       $form['items'][$i]['image']['#value'] = uc_product_get_picture($display_item['nid']['#value'], 'cart');
 
       $description = $display_item['title']['#value'] . $display_item['description']['#value'];
-      $form['items'][$i]['desc']['#value'] = $description;
+      //$form['items'][$i]['desc']['#value'] = $description;
+      
+      $form['items'][$i]['price']['#value'] = uc_price($item->price,$context);
+      $form['items'][$i]['color']['#value'] = $display_item['description']['#value'];
+      $form['items'][$i]['sku']['#value'] = $item->model;
 
       $form['items'][$i]['title']['#type'] = 'value';
       $form['items'][$i]['description']['#type'] = 'value';
@@ -992,6 +1009,12 @@ function uc_cart_view_form($form_state, $items = NULL) {
     '#value' => t('Update cart'),
     '#submit' => array('uc_cart_view_form_submit'),
   );
+  $form['cancel'] = array(
+    '#type' => 'submit',
+    '#value' => t('Cancel'),
+    '#submit' => FALSE,
+  );
+  
   if (variable_get('uc_checkout_enabled', TRUE)) {
     $form['checkout'] = array(
       '#type' => 'submit',
@@ -1093,6 +1116,11 @@ function theme_uc_cart_view_price($form) {
  * List the products in the cart in a TAPIr table.
  */
 function uc_cart_view_table($table) {
+  
+  //echo "<pre>";
+  //print_r($table);
+  //echo "</pre>";
+  
   $table['#attributes'] = array('width' => '100%');
 
   $table['#columns'] = array(
@@ -1104,17 +1132,25 @@ function uc_cart_view_table($table) {
       'cell' => t('Products'),
       'weight' => 1,
     ),
-    'desc' => array(
-      'cell' => '',
+    'sku' => array(
+      'cell' => t('Codice'),
+      'weight' => 2,
+    ),
+    'color' => array(
+      'cell' => t('Colore'),
       'weight' => 2,
     ),
     'qty' => array(
       'cell' => t('Qty.'),
       'weight' => 3,
     ),
+    'price' => array(
+      'cell' => t('Price'),
+      'weight' => 5,
+    ),
     'total' => array(
       'cell' => t('Total'),
-      'weight' => 4,
+      'weight' => 6,
     ),
   );
 
@@ -1123,8 +1159,10 @@ function uc_cart_view_table($table) {
 
     $table[$i]['remove']['#cell_attributes'] = array('align' => 'center', 'class' => 'remove');
     $table[$i]['image']['#cell_attributes'] = array('class' => 'image');
-    $table[$i]['desc']['#cell_attributes'] = array('class' => 'desc');
+    $table[$i]['sku']['#cell_attributes'] = array('class' => 'desc');
+    $table[$i]['color']['#cell_attributes'] = array('class' => 'color');
     $table[$i]['qty']['#cell_attributes'] = array('class' => 'qty');
+    $table[$i]['price']['#cell_attributes'] = array('class' => 'unit_price');
     $table[$i]['total']['#cell_attributes'] = array('class' => 'price');
     $table[$i]['#attributes'] = array('valign' => 'top');
   }
