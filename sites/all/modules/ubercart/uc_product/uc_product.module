@@ -1185,6 +1185,7 @@ function uc_product_cart_display($item) {
     'price' => $item->price,
     'qty' => $item->qty,
   );
+  
 
   $element['#total'] = uc_price($price_info, $context);
   $element['data'] = array('#type' => 'hidden', '#value' => serialize($item->data));

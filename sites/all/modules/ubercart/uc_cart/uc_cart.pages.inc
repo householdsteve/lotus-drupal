@@ -476,9 +476,9 @@ function theme_uc_cart_checkout_review($panes, $form) {
           else {
             $border = '';
           }
-          $output .= '<tr valign="top"'. $border .'><td class="title-col" '
-                    .'nowrap>'. $row['title'] .':</td><td class="data-col">'
+          $output .= '<tr valign="top"'. $border .'><td class="data-col" colspan="2">'
                    . $row['data'] .'</td></tr>';
+                   
         }
         else {
           $output .= '<tr valign="top"><td colspan="2">'. $row .'</td></tr>';

@@ -97,7 +97,7 @@ function uc_checkout_pane_cart($op) {
            array('data' => $item->model, 'class' => 'model'),
            array('data' => $display_item['description']['#value'], 'class' => 'sku'),
            array('data' => t('@qty', array('@qty' => $item->qty)), 'class' => 'qty'),
-           array('data' => uc_price($item->price, $context), 'class' => 'unit_price'),
+           array('data' => uc_price($total/$item->qty, $context), 'class' => 'unit_price'),
            array('data' => uc_price($total, $context), 'class' => 'total'),
          );
        }
@@ -688,7 +688,7 @@ function theme_cart_review_table($show_subtotal = TRUE) {
       array('data' => $item->model, 'class' => 'model'),
       array('data' => $display_item['description']['#value'], 'class' => 'sku'),
       array('data' => t('@qty', array('@qty' => $item->qty)), 'class' => 'qty'),
-      array('data' => uc_price($item->price, $context), 'class' => 'unit_price'),
+      array('data' => uc_price($total/$item->qty, $context), 'class' => 'unit_price'),
       array('data' => uc_price($total, $context), 'class' => 'total'),
     );
   }

@@ -158,7 +158,7 @@
                         <b><?php echo t('Total for this Order:'); ?>&nbsp;</b>
                       </td>
                       <td>
-                        <b>[order-total]</b>
+                        <b>[order-subtotal]</b>
                       </td>
                     </tr>
 
@@ -198,7 +198,7 @@
                               
                               <?php if (is_array($product->data['attributes']) && count($product->data['attributes']) > 0) {?>
                               <?php foreach ($product->data['attributes'] as $attribute => $option) {
-                                echo $option.'<br/>';
+                                echo t('@attribute: @options', array('@attribute' => $attribute, '@options' => implode(', ', (array)$option)));
                               } ?>
                               <?php } ?>
                               <br />

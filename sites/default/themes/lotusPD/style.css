@@ -1315,6 +1315,13 @@ div.address-pane-table .field-label {
   background-color:#000;
   border:none;
   text-align:right;
+  height:65px;
+}
+
+.order-review-table .data-col {
+  padding:none;
+  background:#000;
+  color:#fff;
 }
 
 form#uc-cart-checkout-review-form {

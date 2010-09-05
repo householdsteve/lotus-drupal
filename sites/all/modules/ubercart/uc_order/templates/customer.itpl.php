@@ -46,9 +46,7 @@
             <b><?php echo t('Password:'); ?></b> [new-password]</p>
             <?php } ?>
 
-            <p><b><?php echo t('Want to manage your order online?'); ?></b><br />
-            <?php echo t('If you need to check the status of your order, please visit our home page at [store-link] and click on "My account" in the menu or login with the following link:'); ?>
-            <br /><br />[site-login]</p>
+           
             <?php } ?>
 
             <table cellpadding="4" cellspacing="0" border="0" width="100%" style="font-family: verdana, arial, helvetica; font-size: small;">
@@ -65,32 +63,7 @@
                   [order-email]
                 </td>
               </tr>
-              <tr>
-                <td colspan="2">
-
-                  <table width="100%" cellspacing="0" cellpadding="0" style="font-family: verdana, arial, helvetica; font-size: small;">
-                    <tr>
-                      <td valign="top" width="50%">
-                        <b><?php echo t('Billing Address:'); ?></b><br />
-                        [order-billing-address]<br />
-                        <br />
-                        <b><?php echo t('Billing Phone:'); ?></b><br />
-                        [order-billing-phone]<br />
-                      </td>
-                      <?php if (uc_order_is_shippable($order)) { ?>
-                      <td valign="top" width="50%">
-                        <b><?php echo t('Shipping Address:'); ?></b><br />
-                        [order-shipping-address]<br />
-                        <br />
-                        <b><?php echo t('Shipping Phone:'); ?></b><br />
-                        [order-shipping-phone]<br />
-                      </td>
-                      <?php } ?>
-                    </tr>
-                  </table>
-
-                </td>
-              </tr>
+              
               <tr>
                 <td nowrap="nowrap">
                   <b><?php echo t('Order Grand Total:'); ?></b>
@@ -99,14 +72,7 @@
                   <b>[order-total]</b>
                 </td>
               </tr>
-              <tr>
-                <td nowrap="nowrap">
-                  <b><?php echo t('Payment Method:'); ?></b>
-                </td>
-                <td width="98%">
-                  [order-payment-method]
-                </td>
-              </tr>
+            
 
               <tr>
                 <td colspan="2" bgcolor="#006699" style="color: white;">
@@ -223,16 +189,16 @@
                               <b><?php echo $product->qty; ?> x </b>
                             </td>
                             <td width="98%">
-                              <b><?php echo $product->title .' - '. uc_price($price_info, $context); ?></b>
+                              <b><?php echo  $product->model.' - '. uc_price($price_info, $context); ?></b>
                               <?php if ($product->qty > 1) {
                                 $price_info['qty'] = 1;
                                 echo t('(!price each)', array('!price' => uc_price($price_info, $context)));
                               } ?>
                               <br />
-                              <?php echo t('SKU: ') . $product->model; ?><br />
+                              
                               <?php if (is_array($product->data['attributes']) && count($product->data['attributes']) > 0) {?>
                               <?php foreach ($product->data['attributes'] as $attribute => $option) {
-                                echo '<li>'. t('@attribute: @options', array('@attribute' => $attribute, '@options' => implode(', ', (array)$option))) .'</li>';
+                                echo t('@attribute: @options', array('@attribute' => $attribute, '@options' => implode(', ', (array)$option)));
                               } ?>
                               <?php } ?>
                               <br />
@@ -253,12 +219,6 @@
               <tr>
                 <td colspan="2">
                   <hr noshade="noshade" size="1" /><br />
-
-                  <?php if ($help_text) { ?>
-                  <p><b><?php echo t('Where can I get help with reviewing my order?'); ?></b><br />
-                  <?php echo t('To learn more about managing your orders on [store-link], please visit our <a href="[store-help-url]">help page</a>.'); ?>
-                  <br /></p>
-                  <?php } ?>
 
                   <?php if ($email_text) { ?>
                   <p><?php echo t('Please note: This e-mail message is an automated notification. Please do not reply to this message.'); ?></p>
