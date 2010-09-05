@@ -1178,6 +1178,7 @@ table.order-review-table {
   background:#fff;
   width:100%;
   margin:20px 0 0 0;
+  border:none;
 }
 
 table.cart-final-review {
@@ -1291,6 +1292,34 @@ div.address-pane-table .field-label {
   color:#fff;
 }
 
+
+.order-pane table {
+  color:#000;
+}
+
+.order-pane table .product-description, .product-description, .product-description li {
+  background:none;
+}
+
+.order-review-table .pane-title-row {
+  background-color:#000;
+  border:none;
+  font-weight:bold;
+  padding:10px 20px;
+  text-align:left;
+  color:#fff;
+
+}
+
+.order-review-table .review-button-row {
+  background-color:#000;
+  border:none;
+  text-align:right;
+}
+
+form#uc-cart-checkout-review-form {
+  margin-top:25px;
+}
 
 div.right input.list-add-to-cart {
   /*background:#3e3e3e;

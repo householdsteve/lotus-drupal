@@ -951,7 +951,7 @@ function uc_cart_view_form($form_state, $items = NULL) {
       //print_r($item);
       //echo "</pre>";
       $form['items'][$i] = $display_item;
-      $form['items'][$i]['image']['#value'] = uc_product_get_picture($display_item['nid']['#value'], 'cart');
+      $form['items'][$i]['image']['#value'] = uc_product_get_picture_by_name($display_item['nid']['#value'], $item->model,'cart');
 
       $description = $display_item['title']['#value'] . $display_item['description']['#value'];
       //$form['items'][$i]['desc']['#value'] = $description;
