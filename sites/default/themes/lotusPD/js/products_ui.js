@@ -63,6 +63,8 @@ $(document).ready(function(){
     
     $("input.list-add-to-cart").appendTo($("#add_to_cart_holder"));
     
+    
+    /* price range listing.  not needed but lets keep it aroudn anyway
     var price_array = new Array();
     var $prices = $("form#lotus-product-versions-cart-form table td.price");
     
@@ -80,5 +82,6 @@ $(document).ready(function(){
     }else{
      $("#price_range").text(price_array[price_array.length-1]);
    }
+   */
   
 });

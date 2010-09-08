@@ -50,6 +50,12 @@
           }
         break;
         
+        case 'product_version_all_imballo':
+  
+              $price_info['price'] = $price_info['price'] * 0.9; // 10% discount
+        
+        break;
+        
         case 'cart_product_version':
       
          

@@ -269,13 +269,17 @@ function lotusPD_uc_catalog_product_grid($array) {
   
   $product_table .= '<div class="category-grid-products">';
   $count = 0;
-  $context = array(
-    'revision' => 'themed',
-    'type' => 'product',
-  );
+  
   foreach ($products as $nid) {
     $product = node_load($nid);
-    $context['subject'] = array('node' => $product);
+    
+    $context = array(
+      'revision' => 'themed',
+      'type' => 'product_version_all_imballo',
+      'subject' => array('node' => $product,'sku' => $version_data->sku,'offer'=>$version_data->offerta),
+
+    );
+  
     
     if ($count == 0) {
       $product_table .= "<div class='product-row clearfix'>";
