@@ -197,16 +197,20 @@ function uc_discount_ca_condition() {
 
 function uc_discount_calculate_product_discounts_test($arguments,$settings){
   
+  //echo "the disp item: <pre>";
+  //print_r($arguments["cart"]["#data"]);
+  //echo "</pre>";
+  
   foreach($arguments["cart"]["#data"] as $cart_item){
-    if($cart_item->nid == $arguments["product"]["#data"]->nid){ // check the product id to cart product id
-      if($cart_item->qty >= $arguments["product"]["#data"]->field_imballo[0]['value'] && !$arguments["product"]["#data"]->field_offerta[0]['value']){ // if the amount in the cart is greater or equal to imballo value. then return true to give initial 10% discount. see saved action in CMS for amount (this keeps us flexible on percentage)
+    //if($cart_item->nid == $arguments["product"]["#data"]->nid){ // check the product id to cart product id
+      if($cart_item->qty >= $cart_item->version_imballo && !$cart_item->offer){ // if the amount in the cart is greater or equal to imballo value. then return true to give initial 10% discount. see saved action in CMS for amount (this keeps us flexible on percentage)
         // the condition is now checked to make sure the item is not a special offer. this applies to the user discount as well. user discount is excuted in a php code block in the drupal admin
-        
+        watchdog("uc_dicount","in cart: ".$cart_item->qty." cost: ".$cart_item->price." is offer: ".$cart_item->offer);
         return true;
       }else{
         return false;
       }
-    }
+    //}
   }
 }
 
@@ -467,6 +471,11 @@ function uc_discount_get_user_product_discount($arguments, $settings) {
 
 
 function uc_discount_get_product_discount($product, $settings) {
+  watchdog("uc_discount","doing first call here");
+  //$ops = _uc_cart_product_get_options($product);
+   //echo "the disp item: <pre>";
+   // print_r($product);
+    //echo "</pre>";
   $product->sell_price += uc_discount_get_discount($product, $settings);
 }
 

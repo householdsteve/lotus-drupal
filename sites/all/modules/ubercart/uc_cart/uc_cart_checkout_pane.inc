@@ -72,12 +72,10 @@ function uc_checkout_pane_cart($op) {
            'qty' => $item->qty,
          );
 
-         $context['revision'] = 'altered';
-         $context['type'] = 'cart_item';
-         $context['subject'] = array(
-           'cart' => $contents,
-           'cart_item' => $item,
-           'node' => node_load($item->nid),
+         $context = array(
+           'revision' => 'altered',
+           'type' => 'cart_product_version',
+           'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
          );
 
          $total = uc_price($price_info, $context);
@@ -89,16 +87,24 @@ function uc_checkout_pane_cart($op) {
 
 
          // Remove node from context to prevent the price from being altered.
-         $context['revision'] = 'themed-original';
-         $context['type'] = 'amount';
-         unset($context['subject']);
+         $price_context = array(
+           'revision' => 'formatted',
+           'type' => 'cart_product_version',
+           'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
+         );
+         
+          $total_context = array(
+             'revision' => 'formatted',
+             'type' => 'amount',
+           );
+         
          $rows[] = array(
            array('data' => uc_product_get_picture_by_name($item->nid,$item->model, 'cart'), 'class' => 'foto'),
            array('data' => $item->model, 'class' => 'model'),
            array('data' => $display_item['description']['#value'], 'class' => 'sku'),
            array('data' => t('@qty', array('@qty' => $item->qty)), 'class' => 'qty'),
-           array('data' => uc_price($total/$item->qty, $context), 'class' => 'unit_price'),
-           array('data' => uc_price($total, $context), 'class' => 'total'),
+           array('data' => uc_price($item->price, $price_context), 'class' => 'unit_price'),
+           array('data' => uc_price($total, $total_context), 'class' => 'total'),
          );
        }
 
@@ -680,16 +686,24 @@ function theme_cart_review_table($show_subtotal = TRUE) {
   
 
     // Remove node from context to prevent the price from being altered.
-    $context['revision'] = 'themed-original';
-    $context['type'] = 'amount';
-    unset($context['subject']);
+    $price_context = array(
+       'revision' => 'formatted',
+       'type' => 'cart_product_version',
+       'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
+     );
+     
+     $total_context = array(
+        'revision' => 'formatted',
+        'type' => 'amount',
+      );
+     
     $rows[] = array(
       array('data' => uc_product_get_picture_by_name($item->nid,$item->model,'cart'), 'class' => 'foto'),
       array('data' => $item->model, 'class' => 'model'),
       array('data' => $display_item['description']['#value'], 'class' => 'sku'),
       array('data' => t('@qty', array('@qty' => $item->qty)), 'class' => 'qty'),
-      array('data' => uc_price($total/$item->qty, $context), 'class' => 'unit_price'),
-      array('data' => uc_price($total, $context), 'class' => 'total'),
+      array('data' => uc_price($item->price, $price_context), 'class' => 'unit_price'),
+      array('data' => uc_price($total, $total_context), 'class' => 'total'),
     );
   }
 

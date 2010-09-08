@@ -939,26 +939,36 @@ function uc_cart_view_form($form_state, $items = NULL) {
     '#tree' => TRUE,
   );
 
-  $context = array(
-    'revision' => 'themed-original',
-    'type' => 'amount',
-  );
+  
   $i = 0;
   foreach ($items as $item) {
     $display_item = module_invoke($item->module, 'cart_display', $item);
     
+    $context = array(
+      'revision' => 'formatted',
+      'type' => 'cart_product_version',
+      'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
+    );
+    
+    $context2 = array(
+      'revision' => 'altered',
+      'type' => 'cart_product_version',
+      'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
+    );
+    
     if (!empty($display_item)) {
       //echo "the disp item: <pre>";
-      //print_r($display_item);
-      //echo "</pre>";
+      //print_r($item);
+     // echo "</pre>";
       $form['items'][$i] = $display_item;
       $form['items'][$i]['image']['#value'] = uc_product_get_picture_by_name($display_item['nid']['#value'], $item->model,'cart');
 
       $description = $display_item['title']['#value'] . $display_item['description']['#value'];
       //$form['items'][$i]['desc']['#value'] = $description;
       
-      
-      $form['items'][$i]['price']['#value'] = uc_price($display_item['#total']/$display_item['qty']['#default_value'],$context);
+      $p = uc_price($item->price,$context);
+      $p2 = uc_price($item->price,$context2);
+      $form['items'][$i]['price']['#value'] = $p;
       $form['items'][$i]['color']['#value'] = $display_item['description']['#value'];
       $form['items'][$i]['sku']['#value'] = $item->model;
 
@@ -971,10 +981,8 @@ function uc_cart_view_form($form_state, $items = NULL) {
         );
       }
 
-      $form['items'][$i]['total'] = array(
-        '#value' => uc_price($display_item['#total'], $context),
-        '#theme' => 'uc_cart_view_price',
-      );
+      $form['items'][$i]['total']['#value'] = uc_price($p2*$item->qty,array('revision'=>'themed-original'));
+      
       
       $i++;
     }

@@ -1,0 +1,80 @@
+<?php
+
+ /******************************************************************************
+  * Ubercart hooks                                                             *
+  ******************************************************************************/
+
+ /**
+  * Implementation of hook_uc_price_handler().
+  */
+ function lotus_discounts_uc_price_handler() {
+   return array(
+     'alter' => array(
+       'title' => t('Lotus Discount price handler'),
+       'description' => t('Adds discounts to lotus product prices.'),
+       'callback' => 'lotus_discounts_price_handler_alter',
+     ),
+   );
+ }
+
+ function lotus_discounts_price_handler_alter(&$price_info, &$context, &$options) {
+   global $user;
+   static $prices = array();
+   
+   //echo "the context type: ".$context['type']."</br>";
+   
+   // give user initial discount on item:
+
+   if(!$context['subject']['offer']){ // if its not an offer apply discount
+      $account = user_load($user->uid);
+      
+      $disc_1 = $price_info['price'] - ($price_info['price'] * ($account->profile_discount_1 / 100));
+      $disc_2 = $disc_1 - ($disc_1 * ($account->profile_discount_2 / 100));
+      $disc_3 = $disc_2 - ($disc_2 * ($account->profile_discount_3 / 100));
+     
+      $price_info['price'] = $disc_3;
+  
+       switch ($context['type']) {
+     
+    
+        case 'product_version':
+      
+          $loaded_cart = uc_cart_get_contents(); // get the cart to check against items
+      
+          foreach($loaded_cart as $cart_item){
+            if($context['subject']['sku'] == $cart_item->model && $cart_item->qty >= $cart_item->version_imballo){ 
+              // check that the item is in the cart and it meets the imballo for discount
+              $price_info['price'] = $price_info['price'] * 0.9; // 10% discount
+            }
+        
+          }
+        break;
+        
+        case 'cart_product_version':
+      
+         
+            if($context['subject']['qty'] >= $context['subject']['imballo']){ 
+              // check that the item is in the cart and it meets the imballo for discount
+              $price_info['price'] = $price_info['price'] * 0.9; // 10% discount
+            }
+        
+        
+        break;
+        
+        
+    
+         default:
+           // Nothing to do.
+          // return;
+          break;
+       }
+       // Alter the price given in place.
+ 
+   }
+   
+   //echo "the disp item: <pre>";
+   //print_r($account);
+   //echo "</pre>";
+   
+ }
+

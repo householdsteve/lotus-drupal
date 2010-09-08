@@ -108,8 +108,29 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
         
         $skus = uc_product_get_models($node);
         
+        
+        
         if(count($node->attributes)){
           $node->attribute_id = array_keys($node->attributes[array_shift(array_keys($node->attributes))]->options);
+          
+          $product_price_range = array();
+          
+          foreach($node->attribute_id as $id){
+            
+            $product_price_range[] = $node->sell_price + $node->attributes[array_shift(array_keys($node->attributes))]->options[$id]->price;
+            
+          } 
+          
+          $node->price_range = $product_price_range;
+          
+          $low = min($product_price_range);
+          $high = max($product_price_range);
+          
+          if($low != $high) {
+           $node->price_range = t('Da @low a @high', array('@low' => $low, '@high' => $high));
+          }else{
+            $node->price_range = $high;
+          }
         
           foreach($node->attribute_id as $oid){
             $color = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE oid = %d", $oid));
@@ -347,15 +368,17 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
   	//$oot .= '</div>';
   	//return $oot;
   	
-  	//echo "<pre>";
+  	
     $node_data = $form['#parameters'][2]; // object like normal node object.
+    //echo "<pre>";
+    //print_r($node_data);
     //echo "</pre>";
   	
   	$header = array(
       array('data' => t('Codice')),
       array('data' => t('Colore')),
       array('data' => t('Imballo')),
-      //array('data' => t('Dimensions')),
+      array('data' => t('Prezzo')),
       array('data' => t('Disponibilità')),
       array('data' => t('Arrivo 1')),
       array('data' => t('Data arrivo 1')),
@@ -367,6 +390,8 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
     foreach (element_children($form['versions_quantities']) as $id) {
       $lotus_color_id = $node_data->options_to_lotus_schema[$id];
       $version_data = $node_data->product_versions[$node_data->model.'.'.$lotus_color_id]; // object of item
+      $version_attrib_opts = $node_data->attributes[array_shift(array_keys($node_data->attributes))]->options[$id]; //object
+      
       $color_markup = '<span class="table-swatch';
       if(processColorSwatch($node_data->attribute_option_hex_colors[$id][0])){
         $color_markup .= ' light';
@@ -387,11 +412,20 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
       }else{
         $disp_desc = $version_data->disponibile_descr;
       }
+      
+      $item_version_price = $node_data->sell_price + $version_attrib_opts->price;
+      
+      $context = array(
+        'revision' => 'formatted',
+        'type' => 'product_version',
+        'subject' => array('sku' => $version_data->sku,'offer'=>$version_data->offerta),
+      );
+      
       $rows[] = array(
         array('data' => $version_data->sku),
         array('data' => $color_markup),
         array('data' => $version_data->imballo),
-        //array('data' => $version_data->dimensions),
+        array('data' => uc_price($item_version_price,$context), 'class' => 'price'),
         array('data' => $disp_desc),
         array('data' => ($version_data->arrivo_1 != 0) ? $version_data->arrivo_1 : "-"),
         array('data' => ($version_data->data_arrivo_1 != '0' && $version_data->data_arrivo_1 != "00/00/0000") ? $version_data->data_arrivo_1 : '---'),
@@ -413,4 +447,22 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
       //drupal_goto("cart");
     }
    //drupal_set_message('<pre>'. print_r($form_state['values'], TRUE) .'</pre>');
+  }
+  
+  function lotus_product_versions_cart_item($op, &$item) {
+    switch ($op) {
+      case 'load':
+        
+        $result = db_fetch_object(db_query("SELECT * FROM {product_versions} WHERE sku = '%s'",$item->model));
+        
+        if($result){
+          $item->version_imballo = $result->imballo;
+          $item->offer = $result->offerta;
+        }
+         
+        
+        //$options = _uc_cart_product_get_options($item);
+        
+       break;
+    }
   }

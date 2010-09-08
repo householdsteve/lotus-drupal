@@ -124,7 +124,10 @@ function uc_discount_price_handler_alter(&$price_info, &$context, &$options) {
   
   if (!isset($prices[$cache])) {
     // The discount action modifies the node's sell_price field.
+    
     $loaded_cart = uc_cart_get_contents();
+    
+   
 
     $node->sell_price = $price_info['price'];
     
@@ -634,6 +637,7 @@ function uc_discount_line_items_discount_form($form_state, $settings = array()) 
  * @return The total price of the products selected from the action's settings..
  */
 function uc_discount_node_discount($product, $settings) {
+  watchdog("uc_discount", "trying to apply di");
   return $product->sell_price;
 }
 

@@ -159,8 +159,8 @@
   	              <div class="product-detail-right">
   	                <?php if(user_access('view product version')):?>
   	                  <div class="available-title"><?php print t('Prezzo');?>:</div>  
-  	                  <?php print $node->content["display_price"]['#value']; ?>
-  	                  – prezzo netto per imballo completo
+  	                  <strong id="price_range"><?php //print $node->price_range."Euro"; ?></strong>
+  	                  <br/>– prezzo netto per imballo completo
   	                <?php endif ?>
   	                
   	                <div class="product-flags-page">

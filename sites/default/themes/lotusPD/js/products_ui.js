@@ -55,4 +55,30 @@ $(document).ready(function(){
   });
   
   
+ 
+    var $form = $("input.list-add-to-cart").parents("form");
+    $("input.list-add-to-cart").click(function(){
+      $form.submit();
+    });
+    
+    $("input.list-add-to-cart").appendTo($("#add_to_cart_holder"));
+    
+    var price_array = new Array();
+    var $prices = $("form#lotus-product-versions-cart-form table td.price");
+    
+    
+    $prices.each(function(){
+      price_array.push($(this).text());
+     });
+    
+    // get them in order:
+    price_array.sort();
+    
+    if(price_array[0] != price_array[price_array.length-1]){
+     
+      $("#price_range").text("Da: "+price_array[0]+" a "+price_array[price_array.length-1]);
+    }else{
+     $("#price_range").text(price_array[price_array.length-1]);
+   }
+  
 });

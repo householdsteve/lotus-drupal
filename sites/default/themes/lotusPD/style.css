@@ -854,6 +854,13 @@ div.middle-right input[type="text"],div.right input[type="text"] {
   color:#fff;
 }
 
+form#lotus-product-versions-cart-form input[type="text"] {
+  width:auto;
+  border:2px inset;
+  background:#fff;
+  color:#000;
+}
+
 div.middle-right input[type="submit"] {
   border:none;
 
