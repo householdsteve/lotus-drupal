@@ -1420,7 +1420,7 @@ function uc_order_get_total($order, $products_only = FALSE) {
   if (is_array($order->products)) {
     $context = array(
       'revision' => 'altered',
-      'type' => 'order_product',
+      'type' => 'order_product_version',
     );
 
     foreach ($order->products as $product) {

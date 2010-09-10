@@ -19,7 +19,7 @@ $(document).ready(function(){
    });
   
   var script_path = Drupal.settings.jqueryTree.treePath+'/jqueryFileTree.php';
-  $('#dl-col-1').fileTree({callback:function(){qs.cache();}, root: Drupal.settings.basePath+Drupal.settings.jqueryTree.fileDirectory+'/default/comunicati_stampa/', script: script_path, folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, loadMessage: 'Un momento...' }, function(file) {
+  $('#dl-col-1').fileTree({callback:function(){qs.cache();}, root: Drupal.settings.basePath+Drupal.settings.jqueryTree.fileDirectory+'/default/catalog_pdf/', script: script_path, folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, loadMessage: 'Un momento...' }, function(file) {
     openFile(file);
   });
   
@@ -27,7 +27,7 @@ $(document).ready(function(){
     openFile(file);
   });
   
-  $('#dl-col-3').fileTree({callback:function(){qs.cache();}, root: Drupal.settings.basePath+Drupal.settings.jqueryTree.fileDirectory+'/default/catalog_pdf/', script: script_path, folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, loadMessage: 'Un momento...' }, function(file) {
+  $('#dl-col-3').fileTree({callback:function(){qs.cache();}, root: Drupal.settings.basePath+Drupal.settings.jqueryTree.fileDirectory+'/default/listini/', script: script_path, folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, loadMessage: 'Un momento...' }, function(file) {
     openFile(file);
   });
   

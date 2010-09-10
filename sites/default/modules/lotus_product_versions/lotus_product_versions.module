@@ -123,13 +123,15 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
           
           $node->price_range = $product_price_range;
           
-          $low = min($product_price_range);
-          $high = max($product_price_range);
+          if(count($product_price_range) > 0){
+            $low = min($product_price_range);
+            $high = max($product_price_range);
           
-          if($low != $high) {
-           $node->price_range = t('Da @low a @high', array('@low' => $low, '@high' => $high));
-          }else{
-            $node->price_range = $high;
+            if($low != $high) {
+             $node->price_range = t('Da @low a @high', array('@low' => $low, '@high' => $high));
+            }else{
+              $node->price_range = $high;
+            }
           }
         
           foreach($node->attribute_id as $oid){

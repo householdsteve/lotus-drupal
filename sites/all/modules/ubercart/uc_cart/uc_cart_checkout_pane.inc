@@ -73,45 +73,47 @@ function uc_checkout_pane_cart($op) {
          );
 
          $context = array(
-           'revision' => 'altered',
+           'revision' => 'formatted',
            'type' => 'cart_product_version',
            'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
          );
 
-         $total = uc_price($price_info, $context);
-         $subtotal += $total;
+         $context2 = array(
+           'revision' => 'altered',
+           'type' => 'cart_product_version',
+           'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
+         );
+         
+         $p = uc_price($item->price,$context);
+         $p2 = uc_price($item->price,$context2);
+         
+         $st = uc_price(array('price'=>$p2,'qty'=>$item->qty),array('revision'=>'original'));
+         $line_total = uc_price(array('price'=>$p2,'qty'=>$item->qty),array('revision'=>'formatted-original'));
+
+         
+         $subtotal += $st;
 
          $description = check_plain($item->title) . uc_product_get_description($item);
 
          $display_item = module_invoke($item->module, 'cart_display', $item);
 
 
-         // Remove node from context to prevent the price from being altered.
-         $price_context = array(
-           'revision' => 'formatted',
-           'type' => 'cart_product_version',
-           'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
-         );
-         
-          $total_context = array(
-             'revision' => 'formatted',
-             'type' => 'amount',
-           );
+       
          
          $rows[] = array(
            array('data' => uc_product_get_picture_by_name($item->nid,$item->model, 'cart'), 'class' => 'foto'),
            array('data' => $item->model, 'class' => 'model'),
            array('data' => $display_item['description']['#value'], 'class' => 'sku'),
            array('data' => t('@qty', array('@qty' => $item->qty)), 'class' => 'qty'),
-           array('data' => uc_price($item->price, $price_context), 'class' => 'unit_price'),
-           array('data' => uc_price($total, $total_context), 'class' => 'total'),
+           array('data' => $p, 'class' => 'unit_price'),
+           array('data' => $line_total, 'class' => 'total'),
          );
        }
 
        // Add the subtotal as the final row.
       
          $rows[] = array(
-           'data' => array(array('data' => '<span id="subtotal-title">' . t('Subtotal:') . '</span> ' . uc_price($subtotal, $context), 'colspan' => 7, 'class' => 'subtotal')),
+           'data' => array(array('data' => '<span id="subtotal-title">' . t('Subtotal:') . '</span> ' . uc_price($subtotal,array('revision'=>'themed-original')), 'colspan' => 7, 'class' => 'subtotal')),
            'class' => 'subtotal',
          );
       
@@ -669,16 +671,26 @@ function theme_cart_review_table($show_subtotal = TRUE) {
       'qty' => $item->qty,
     );
 
-    $context['revision'] = 'altered';
-    $context['type'] = 'cart_item';
-    $context['subject'] = array(
-      'cart' => $contents,
-      'cart_item' => $item,
-      'node' => node_load($item->nid),
-    );
+    $context = array(
+       'revision' => 'formatted',
+       'type' => 'cart_product_version',
+       'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
+     );
 
-    $total = uc_price($price_info, $context);
-    $subtotal += $total;
+     $context2 = array(
+       'revision' => 'altered',
+       'type' => 'cart_product_version',
+       'subject' => array('sku' => $item->model,'offer'=> $item->offer,'qty'=> $item->qty,'imballo'=> $item->version_imballo),
+     );
+     
+     $p = uc_price($item->price,$context);
+     $p2 = uc_price($item->price,$context2);
+     
+     $st = uc_price(array('price'=>$p2,'qty'=>$item->qty),array('revision'=>'original'));
+     $line_total = uc_price(array('price'=>$p2,'qty'=>$item->qty),array('revision'=>'formatted-original'));
+
+     
+     $subtotal += $st;
 
     $description = check_plain($item->title) . uc_product_get_description($item);
     
@@ -702,8 +714,8 @@ function theme_cart_review_table($show_subtotal = TRUE) {
       array('data' => $item->model, 'class' => 'model'),
       array('data' => $display_item['description']['#value'], 'class' => 'sku'),
       array('data' => t('@qty', array('@qty' => $item->qty)), 'class' => 'qty'),
-      array('data' => uc_price($item->price, $price_context), 'class' => 'unit_price'),
-      array('data' => uc_price($total, $total_context), 'class' => 'total'),
+      array('data' => $p, 'class' => 'unit_price'),
+      array('data' => $line_total, 'class' => 'total'),
     );
   }
 
@@ -714,7 +726,7 @@ function theme_cart_review_table($show_subtotal = TRUE) {
       'type' => 'amount',
     );
     $rows[] = array(
-      'data' => array(array('data' => '<span id="subtotal-title">' . t('Subtotal:') . '</span> ' . uc_price($subtotal, $context), 'colspan' => 7, 'class' => 'subtotal')),
+      'data' => array(array('data' => '<span id="subtotal-title">' . t('Subtotal:') . '</span> ' . uc_price($subtotal,array('revision'=>'themed-original')), 'colspan' => 7, 'class' => 'subtotal')),
       'class' => 'subtotal',
     );
   }

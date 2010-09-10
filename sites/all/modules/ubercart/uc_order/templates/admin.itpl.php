@@ -14,6 +14,7 @@
 <?php echo t('Shipping method:'); ?> [order-shipping-method]
 </p>
 
+<h2>Attenzione che i prezzi qui non si dimostrano correttamente. E' un lavoro in corso</h2>
 <p>
 <?php echo t('Products:'); ?><br />
 <?php

@@ -42,7 +42,10 @@ function loadHome(){
     so.addParam('allowfullscreen','true');
     so.addParam('allowscriptaccess','always');
     so.addParam('wmode','transparent');
-    so.write('intro');
+    if(!so.write('intro')){
+      // if there is no flash
+      loadOut();
+    }
   });
 }
 

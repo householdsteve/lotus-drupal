@@ -981,7 +981,8 @@ function uc_cart_view_form($form_state, $items = NULL) {
         );
       }
 
-      $form['items'][$i]['total']['#value'] = uc_price($p2*$item->qty,array('revision'=>'themed-original'));
+      $form['items'][$i]['subtotal']["#theme"] = uc_price(array('price'=>$p2,'qty'=>$item->qty),array('revision'=>'original'));
+      $form['items'][$i]['total']['#value'] = uc_price(array('price'=>$p2,'qty'=>$item->qty),array('revision'=>'formatted-original'));
       
       
       $i++;
@@ -1166,8 +1167,8 @@ function uc_cart_view_table($table) {
   );
 
   foreach (element_children($table) as $i) {
-    $subtotal += $table[$i]['#total'];
-
+    $subtotal += $table[$i]['subtotal']['#theme'];
+    
     $table[$i]['remove']['#cell_attributes'] = array('align' => 'center', 'class' => 'remove');
     $table[$i]['image']['#cell_attributes'] = array('class' => 'image');
     $table[$i]['sku']['#cell_attributes'] = array('class' => 'desc');
@@ -1184,7 +1185,7 @@ function uc_cart_view_table($table) {
   );
   $table[] = array(
     'total' => array(
-      '#value' => '<strong>'. t('Subtotal:') .'</strong> '. uc_price($subtotal, $context),
+      '#value' => '<strong>'. t('Subtotal:') .'</strong> '. uc_price($subtotal,array('revision'=>'themed-original')),
       '#cell_attributes' => array(
         'colspan' => 'full',
         'align' => 'right',

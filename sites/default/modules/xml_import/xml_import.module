@@ -836,7 +836,7 @@ function _xml_update_stock($response){
 		$node->model = $product_code;
 		$node->list_in_catalog = 0;
 		
-		
+		/*
 		 $fnData = db_query("SELECT * FROM {files} WHERE filename LIKE '%s' AND status = 1 ORDER BY timestamp DESC","%".$product_code."%");
      $photos = array();
        while ( $obj = db_fetch_object ($fnData) ) {
@@ -852,10 +852,10 @@ function _xml_update_stock($response){
        
        	if(count($photos) > 0){
      	  	foreach($photos as $img_id => $img_path){
-       		  //$node->field_image_cache[] = drupal_add_existing_file($img_path->filepath);
-       		  //print $img_path->filepath."<br/>";
+       		  $node->field_image_cache[] = drupal_add_existing_file($img_path->filepath);
+       		  print $img_path->filepath."<br/>";
        		}
-       	}
+       	}*/
     
 
   	node_save($node);

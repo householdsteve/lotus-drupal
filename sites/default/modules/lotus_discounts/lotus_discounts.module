@@ -32,7 +32,7 @@
       $disc_2 = $disc_1 - ($disc_1 * ($account->profile_discount_2 / 100));
       $disc_3 = $disc_2 - ($disc_2 * ($account->profile_discount_3 / 100));
      
-      $price_info['price'] = $disc_3;
+      $price_info['price'] = round($disc_3,2);
   
        switch ($context['type']) {
      
@@ -44,7 +44,7 @@
           foreach($loaded_cart as $cart_item){
             if($context['subject']['sku'] == $cart_item->model && $cart_item->qty >= $cart_item->version_imballo){ 
               // check that the item is in the cart and it meets the imballo for discount
-              $price_info['price'] = $price_info['price'] * 0.9; // 10% discount
+              $price_info['price'] = round($price_info['price'] * 0.9, 2); // 10% discount
             }
         
           }
@@ -52,7 +52,7 @@
         
         case 'product_version_all_imballo':
   
-              $price_info['price'] = $price_info['price'] * 0.9; // 10% discount
+              $price_info['price'] =  round($price_info['price'] * 0.9, 2); // 10% discount
         
         break;
         
@@ -61,12 +61,39 @@
          
             if($context['subject']['qty'] >= $context['subject']['imballo']){ 
               // check that the item is in the cart and it meets the imballo for discount
-              $price_info['price'] = $price_info['price'] * 0.9; // 10% discount
+              $price_info['price'] = round($price_info['price'] * 0.9, 2); // 10% discount
             }
         
         
         break;
         
+        
+        case 'order_product_version' :
+            
+            //echo "<pre>";
+           // print_r($price_info['qty']);
+            
+           // echo "</pre>";
+            //
+            //echo $context['subject']['node']->product_versions[$context['subject']['product']->model]->imballo;
+            
+              if($price_info['qty'] >= $context['subject']['node']->product_versions[$context['subject']['product']->model]->imballo){ 
+                // check that the item is in the cart and it meets the imballo for discount
+               // $price_info['price'] = round($price_info['price'] * 0.9, 2); // 10% discount
+               // echo "cool";
+              }
+           
+              
+        break;
+        
+        
+        case 'line_item' :
+           //echo "<pre>";
+            //print_r($context['subject']['order']);
+            
+            //echo "</pre>";
+        
+        break;
         
     
          default:

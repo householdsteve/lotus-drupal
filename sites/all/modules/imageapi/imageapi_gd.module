@@ -99,6 +99,11 @@ function imageapi_gd_image_crop(&$image, $x, $y, $width, $height) {
     return FALSE;
   }
 
+  imagefill($res, 0, 0, imagecolorallocate($res, 255, 255, 255));
+  $new = imageapi_gd_create_tmp($image, $width, $height);
+  imagecopy($new, $res, 0, 0, 0, 0, ($width + $x), ($height + $y));
+  $res = $new;
+  
   // Destroy the original image and return the modified image.
   imagedestroy($image->resource);
   $image->resource = $res;
