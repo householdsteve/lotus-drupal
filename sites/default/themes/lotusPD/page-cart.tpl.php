@@ -9,7 +9,8 @@
 			
 				<?php print $content; ?>
 								<div class="shipping-info">
-								  <?php print t('*** spese di trasporto escluse ***'); ?>
+								  <?php print t('*spese di trasporto escluse'); ?><br/>
+								  <?php print t('*per ordini inferiori a €150,00 addebito per spese fisse di gestione di € 7,00*'); ?>
 								</div>
 			</div>
 <?php include("includes/footer.inc"); ?>

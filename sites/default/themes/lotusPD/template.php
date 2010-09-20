@@ -133,6 +133,10 @@ function phptemplate_preprocess(&$variables, $hook) {
     lotusPD_removetab('Accedi', $variables);
     
   }
+  
+  //echo "<pre>";
+	//print_r($variables);
+	//echo "</pre>";
   return $variables;
 }
 

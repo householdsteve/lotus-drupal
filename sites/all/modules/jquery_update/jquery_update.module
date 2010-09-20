@@ -50,7 +50,19 @@ function jquery_update_preprocess_page(&$variables) {
   //echo "<pre>";
 	//var_dump($variables);
 	//echo "</pre>";
-  if (!empty($variables['scripts']) && $variables['template_files'][0] != "page-admin") {
+  $template_match = false;
+  
+  // match admin and edit pages to not conflict with the 1.4.2 library
+	$patterns = array('page-admin','edit');
+	foreach($variables['template_files'] as $item){
+	  foreach($patterns as $pattern){
+	    if(strstr($item,$pattern)){
+  	    $template_match = true;
+  	  }
+  	}
+	}
+	
+  if (!empty($variables['scripts']) && !$template_match) {
   
     // Perform the logic if either jQuery Update's jquery.js is newer than
     // core's, or if we're using a different compression type.
