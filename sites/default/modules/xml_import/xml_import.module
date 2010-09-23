@@ -26,14 +26,7 @@ $items['import-xml-products'] = array(
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-  
-$items['import-xml-test-vars'] = array(
-    'title' => t('Test Xml products'),
-    'page callback' => 'xml_import_test',
-    'page arguments' => array(1),
-    'access arguments' => array('access content'),
-    'type' => MENU_CALLBACK,
-  );
+
   
 $items['delete-all-products-test'] = array(
     'title' => t('Delete all products'),
@@ -182,119 +175,6 @@ function xml_import_save_profile($edit, $user, $category, $register = FALSE) {
 }
 
 
-function xml_import_test($name) {
-  
-  watchdog("xml_import","tesint module");
-  /*
-  if(isset($name) && $name == "first"){
-    return "we're rolling the first upload";
-  }else{
-    return "just doing old updates";
-  }*/
-  /*
-  $node = new StdClass();
-	$node->type = 'product_kit';
-	$node->title = "tetpgmtly";
-	$node->taxonomy[4] = 14;
-	$node->uid = 1;
-  $node->status = 1;
-  $node->active = 1;
-	$node->body = "pgmtly";
-	$node->teaser = "pgmtly";
-	$node->language = "it";
-  
-  // each product
-    $node->products = array(790,791,792);
-    
-  // to allow product to be old seperately -1 dont list 0 list but dont add seperate 1 list and add seperate
-    $node->mutable = 1;
-    
-  node_save($node);
-  */
-  
-  /*
-  $response = xml_import_get_xml_data(XML_IMPORT_LINK);
-
-	echo "<pre>";
-	//var_dump($response);
-	echo "</pre>";
-	//die;
-	
-	foreach($response['product'] as $val){
-	  
-	  $product_code = $val[id].".".$val[color][id];
-	  
-	  for($x = 1; $x < 7; $x++){
-	    $image_code = $product_code.".0".$x; 
-	    echo $image_code."<br>";
-	    $img_path = import_image_move($image_code);
-	    echo "the image path: ".$img_path."<br>";
-	  }
-	  
-	  
-	  
-  }*/
-  /*
-  $response = xml_import_get_xml_data(XML_IMPORT_LINK);
-	
-	$output = " cooltwothree";
-	
-	foreach($response['product'] as $val){
-		
-		$output .= "name: ".$val[name]."<br>";
-		$output .= "color: ".$val[color][id]."<br>";
-		$output .= "misure: ".$val[misure]."<br>";
-		$output .= "imballo: ".$val[imballo]."<br>";
-		
-		$product_code = $val[id].".".$val[color][id];
-		
-		  $p = xml_import_product_load($product_code);
-
-      if($p){ // if the product exists load the node and modify it.
-        $node = node_load($p->vid);
-        
-        $existing = element_children($node->taxonomy);
-        
-        if($val[novita] == '1'){
-          if(!in_array('7',$existing)){
-            $existing[] = '7'; // if its not already in the array add it
-          }
-        }else{
-          // it shouldnt be selected so take it out of the array
-          foreach($existing as $key => $item){
-            if($item == '7'){
-              unset($existing[$key]);
-            }
-          }
-        }
-        
-        if($val[offerta] == '1'){
-          if(!in_array('29',$existing)){
-            $existing[] = '29'; // if its not already in the array add it
-          }
-        }else{
-          // it shouldnt be selected so take it out of the array
-          foreach($existing as $key => $item){
-            if($item == '29'){
-              unset($existing[$key]);
-            }
-          }
-        }
-        
-        $node->taxonomy = array('1' => $existing);
-        
-        node_save($node);
-          echo "<pre>";
-         print_r($node);
-         echo "</pre>";
-      }
-       
-      } */
-      
-   
- 
-}
-
 
 
 function import_image_move($filename){
@@ -369,9 +249,17 @@ function xml_import_product_load($model) {
 }
 
 
+function xml_import_catalog($arg=NULL){
+  
+  $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
+  _xml_step_two_categories($response,TRUE);
+  
+}
+
+
 // start the chain here:
 
-function _xml_step_one_images($arg=NULL){
+function _xml_step_one_images($arg=NULL,$independent=FALSE){
   $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
   
   foreach($response['product'] as $id => $val){
@@ -385,7 +273,7 @@ function _xml_step_one_images($arg=NULL){
 	    if($img_path){
 	      echo "the image path: ".$img_path."<br>";
 	      $response['product'][$id]['new_images'][] = $img_path;
-	      //drupal_add_existing_file($img_path);
+	      drupal_add_existing_file($img_path);
       }
 	   
 	  }
@@ -395,7 +283,7 @@ function _xml_step_one_images($arg=NULL){
   //_xml_step_two_categories($response); // more onto the next step
 }
 
-function _xml_step_two_categories($response){
+function _xml_step_two_categories($response,$independent=FALSE){
   
   $catList = array();
 
@@ -473,12 +361,14 @@ function _xml_step_two_categories($response){
 		
 	}
 
-  _xml_step_three_products($response);
+  if(!$independent){
+    _xml_step_three_products($response);
+  } 
   
 }
 
 
-function _xml_step_three_products($response){
+function _xml_step_three_products($response,$independent=FALSE){
   
 	$product_list = array();
 	
@@ -792,7 +682,7 @@ function _xml_update_stock($response){
 		$node->field_offerta[0]['value'] = ($val["versions"][0][offerta] == "S") ? 1 : 0;
 		$node->field_esclusiva[0]['value'] = ($val["versions"][0][esclusiva] == "S") ? 1 : 0;
 		
-		$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val["versions"][0][categoria][id]));
+		//$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val["versions"][0][categoria][id]));
 		
 		if(!in_array($result->tid,$existing)){
       $existing[] = $result->tid; // see if the id in the xml file is the same and load it if not.
@@ -855,8 +745,8 @@ function _xml_update_stock($response){
        		  $node->field_image_cache[] = drupal_add_existing_file($img_path->filepath);
        		  print $img_path->filepath."<br/>";
        		}
-       	}*/
-    
+       	}
+    */
 
   	node_save($node);
   	
@@ -997,298 +887,7 @@ function _xml_update_stock($response){
   
 }
 
-function xml_import_cron(){
-  xml_import_update_stock();
-}
 
-function xml_import_update_stock($arg=NULL){
-  $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
-  _xml_update_stock($response);
-}
-
-function xml_import_products($name) {
-	
-	$response = xml_import_get_xml_data(XML_IMPORT_LINK);
-
-	$countParent = 0;
-	$countChild = 0;
-	//echo "<pre>";
-	//var_dump($response);
-	//echo "</pre>";
-	//die;
-	$product_list = array();
-	
-	$output = " cooltwothree";
-	
-	foreach($response['product'] as $val){
-		
-		$output .= "name: ".$val[name]."<br>";
-		$output .= "color: ".$val[color][id]."<br>";
-		$output .= "misure: ".$val[misure]."<br>";
-		$output .= "imballo: ".$val[imballo]."<br>";
-		
-		// here we need to check to see if a node exists with the current product name. if it exists lets just update the
-		// existing node. otherwise, lets create a new node. we'll also check the published node to see if we should delete it.
-		// for images we need a conditional that checks first if this is the first install, if so use a different image directory
-		// to download and transfer the images. otherwise use the update images directory. when updating images send the cURL call
-		// and if the file name is not present do not update the image file.
-		
-		      // - <pubblica><![CDATA[S]]></pubblica>
-		      
-		// ----- ASK ABOUT HAT COLORS. WHERE ONE ITEM HAS MULTIPLE COLORS. OTHERIWSE EACH COLOR OF THE PRODUCT HAS ITS OWN PAGE?
-		
-		// -- need to add the CCK fields for:
-		      // - <arrivo_1><![CDATA[0,00]]></arrivo_1>  -- int
-          // - <data_arrivo_1><![CDATA[00/00/0000]]></data_arrivo_1> -- date
-          // - <arrivo_2><![CDATA[0,00]]></arrivo_2>  -- int
-          // - <data_arrivo_2><![CDATA[00/00/0000]]></data_arrivo_2> -- date
-          // - <disponibile_descr><![CDATA[Maggiore di 1000]]></disponibile_descr> -- text
-          // - <novita><![CDATA[]]></novita>  !!!!! -- this field should also set a taxonmy category to show on the novita page
-          // - <offerta><![CDATA[]]></offerta>
-          // - <esclusiva><![CDATA[]]></esclusiva>
-          
-    // -- need to add the attributes fields. First we should loop through the xml with the categories and insert and update
-    // the attribute options, potentially using a temp table like with categories. then match up the attributes with the product
-    // node when it is inserted/updated.
-          // - <color id="51" name="ARGENTO/SILVER"/>
-                // - IMAGES WILL BE ADDED BY COMBINING THE PRODUCT CODE AND THE COLOR ID.
-                // - DEFAULT PHOTO COULD BE DETERMINED BY PUTTING ITS NAME IN THE FOTO NODE OF THE XML
-	
-		
-		$product_code = $val[id].".".$val[color][id];
-		
-		  $p = xml_import_product_load($product_code);
-
-      if($p){ // if the product exists load the node and modify it.
-        $node = node_load($p->vid);
-        $output .= "loaded existig <br>";
-      }else{
-        $node = new StdClass();
-        $output .= "creating new <br>";
-      }
-		
-		  $price = number_format($val[listino], 2, '.', '');
-      $result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val[categoria][id]));
-		
-		$node->type = 'product';
-		$node->title = $val[name];
-		$node->taxonomy[3] = $result->tid;
-		$node->language = "it";
-		$node->uid = 1;
-	  $node->status = 1;
-	  $node->active = 1;
-		$node->body = $val[description];
-		$node->teaser = $val[description];
-		
-		$node->field_product_code[0]['value'] = $val[id];
-		$node->field_product_color_code[0]['value'] = $val[color][id];
-		$node->field_dimensions[0]['value'] = $val[misure];
-		$node->field_imballo[0]['value'] = $val[imballo];
-		$node->field_arrivo_1[0]['value'] = number_format($val[arrivo_1],0);
-		$node->field_data_arrivo_1[0]['value'] = $val[data_arrivo_1];
-		$node->field_arrivo_2[0]['value'] = number_format($val[arrivo_2],0);
-		$node->field_data_arrivo_2[0]['value'] = $val[data_arrivo_2];
-		$node->field_disponibile_descr[0]['value'] = $val[disponibile_descr];
-		$node->field_novita[0]['value'] = $val[novita];
-		$node->field_offerta[0]['value'] = $val[offerta];
-		$node->field_esclusiva[0]['value'] = $val[esclusiva];
-		
-	  /*
-	  $img_path = import_image_move($product_code);
-	  if($img_path){
-      $node->field_image_cache = array();
-      $node->field_image_cache[] = drupal_add_existing_file($img_path);
-    }
-    // LETS GET THIS IN HERE FOR OTHER IAMGE VERSIONS. ALSO NOTE THAT WE NEED TO REPLACE SPECIFIC IMAGES ON UPDATE FIND IT WITH ARRAY KEY
-    for($x = 1; $x < 7; $x++){
-	    $image_code = $product_code.".0".$x; 
-	    echo $image_code."<br>";
-	    $img_path = import_image_move($image_code);
-	    echo "the image path: ".$img_path."<br>";
-	  }
-    
-    
-    */
- 
-		
-		$node->sell_price = $price;
-		$node->list_price = $price;
-		$node->cost = $price;
-		$node->model = $product_code;
-		$node->list_in_catalog = 0;
-
-  	node_save($node);
-		
-		$product_list[$val[id]]["models"][] = $product_code;
-		$product_list[$val[id]]["vids"][] = $node->vid;
-		
-		db_query("INSERT INTO {uc_product_stock} (sku, nid, active, stock) VALUES ('%s', %d, %d, %d)", $node->model,$node->vid, true, $val[disponibile]);
-
-		$countParent++;
-		
-		
-
-	}
-	
-	
-	// lets add product kits now
-	
-	foreach($product_list as $key => $kit){
-	    
-	    $default_product = $product_list[$key]["vids"][0];
-	    $combined_ids = join(" / ",$product_list[$key]["models"]);
-	    echo $default_product. "  ";
-	    echo $combined_ids."  ";
-	    
-	    echo "count: ".count($product_list[$key]["models"]);
-	    
-	    $pk = xml_import_product_load($combined_ids);
-
-      if($pk && count($product_list[$key]["models"]) > 1){
-          $product_kit = node_load($pk->vid);
-          echo "laoded <br/>";
-        }elseif(count($product_list[$key]["models"]) > 1){
-          $product_kit = new StdClass();
-          $product_kit->type = "product_kit";
-          $product_kit->list_in_catalog = 1;
-          echo "new kit <br/>";
-      }else{
-          
-          echo "not a kit <br/>";
-          $np = node_load($default_product);
-          $np->list_in_catalog = 1;
-          node_save($np);
-        	unset($np);
-          
-          unset($product_kit);
-      }
-	    
-	    if(isset($product_kit->type) && $product_kit->type == "product_kit"){
-	        echo "im a kit <br/>";
-	        // load the first node and put it's details in the kit !!! maybe consider a default selection?
-	        $product_kit_first_item = node_load($default_product);
-         	$product_kit->title = $product_kit_first_item->title;
-         	$product_kit->taxonomy = $product_kit_first_item->taxonomy;
-         	$product_kit->uid = 1;
-          $product_kit->status = 1;
-          $product_kit->active = 1;
-         	$product_kit->body = $product_kit_first_item->body;
-         	$product_kit->teaser = $product_kit_first_item->teaser;
-         	$product_kit->language = "it";
-        
-           // each product
-             $product_kit->products = $product_list[$key]["vids"];
-
-           // to allow product to be old seperately -1 dont list 0 list but dont add seperate 1 list and add seperate
-             $product_kit->mutable = 1;
-
-           node_save($product_kit);
-        }
-	     
-	}
-	
-	echo "<pre>";
-	var_dump($product_list);
-	echo "</pre>";
-	die();
-	
-	
-	$output .= "success!";
-	return $output;
-}
-
-
-function removePeriodDivider($s){
-  $n = explode(".",$s);
-  return $n[0];
-}
-
-
-
-function xml_import_catalog($name) {
-	//$URL = 'http://pofd.com/projects/lotus/xml/test.xml';
-	$response = xml_import_get_xml_data(XML_IMPORT_LINK);
-	
-	$catList = array();
-
-
-	$countParent = 0;
-	$countChild = 0;
-	
-	foreach($response['product'] as $val){
-
-		foreach($val as $key => $v){
-
-			if($key == "categoria"){
-				$nk = (int)$v["id"];
-				$catList[$nk] = $v["name"];
-			}
-
-				$countChild++;
-		}
-		$countParent++;
-
-	}
-	
-	
-	$output = " ";
-	
-	foreach($catList as $k => $v){
-		
-		$term_parent = 3; // 3 = standard / 4 = outlet
-		
-		$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$k));
-		
-		$hexResult = db_fetch_object(db_query("SELECT * FROM {stock_category_colors} WHERE used_by_tid = '0' ORDER BY RAND() LIMIT 1"));
-	
-		
-		if($result->tid){
-		  //found a match, now update it clean up stupid characters and periods and stuff.
-		  $v = removePeriodDivider($v);
-		  db_query("UPDATE {term_data} SET name = '%s' WHERE tid = '%d'",$v,$result->tid);
-		  
-		  // if cat doesnt have a color give it one
-		  $resultImage = db_fetch_object(db_query("SELECT * FROM {uc_catalog_images} WHERE tid = '%d'",$result->tid));
-		    if(!$resultImage->hexcolor){
-	    	  db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$result->tid,$hexResult->scid);
-    		  db_query("UPDATE {uc_catalog_images} SET hexcolor = '%s' WHERE tid = '%d'",$hexResult->hex,$result->tid);
-  		  }
-		  
-		}else{
-		
-		
-		
-		  if(strstr($v,"OUTLET")){
-		    $term_parent = 4; // check if category is an outlet. if so change the term parent
-		    $v = removePeriodDivider($v);
-		  }
-		
-    
-	
-	      	db_query("INSERT INTO {term_data} (vid, name, weight, description) VALUES (%d, '%s', '%d','%s')", 1, $v, 0,"autoImported");
-      		$updateid = db_result(db_query("SELECT LAST_INSERT_ID()"));
-		
-      		db_query("INSERT INTO {term_hierarchy} (tid, parent) VALUES (%d, '%d')", $updateid, $term_parent); //3 is the standard category
-		
-      		db_query("INSERT INTO {xml_import_temp_cats} (tid, cid) VALUES (%d, '%d')", $updateid, $k); //add a temp table to hold references for product import
-		
-		      $hexResultnew = db_fetch_object(db_query("SELECT * FROM {stock_category_colors} WHERE used_by_tid = '0' ORDER BY RAND() LIMIT 1"));
-      		// we are faking an image on the category to allow addition of color
-      		db_query("INSERT INTO {uc_catalog_images} (fid,tid, filename,filepath,filemime,filesize,hexcolor) 
-      		        VALUES (%d, '%d', '%s', '%s', '%s', '%d', '%s')", '1553',$updateid,'image-missing.png','sites/default/files/image-missing.png','image/png','65969',$hexResultnew->hex); 
-		
-      		// this adds an id to the stock color to not allow it to be chosen again
-      		db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$updateid,$hexResultnew->scid);
-	
-	    }
-		
-		$output .= $v." | ".$result->tid." : ".$result->cid;
-		$output .= "<br>";
-		
-	}
-	$output .= "success!";
-	return $output;
-}
 
 function remove_temp_cats(){
 	db_query("DELETE FROM {xml_import_temp_cats} WHERE tid > %d", 0);
@@ -1315,22 +914,36 @@ function xml_import_delete_all_products($name){
 	return $output;
 
 }
+  function xml_import_cron(){
+    //xml_import_update_stock();
+  }
 
 
-   function buildCurlParamString() {
-       $urlstring = '';
+  function xml_import_update_stock($arg=NULL){
+    $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
+    _xml_update_stock($response);
+  }
 
-       foreach ($this->parameters as $key => $value) {
-           $urlstring .= urlencode($key).'='.urlencode($value).'&';
-       }
 
-       if (trim($urlstring) != '') {
-           $urlstring = preg_replace("/&$/", "", $urlstring);
-           return ($urlstring);
-       } else {
-           return (-1);
-       }
-   }
+  function removePeriodDivider($s){
+    $n = explode(".",$s);
+    return $n[0];
+  }
+
+ function buildCurlParamString() {
+     $urlstring = '';
+
+     foreach ($this->parameters as $key => $value) {
+         $urlstring .= urlencode($key).'='.urlencode($value).'&';
+     }
+
+     if (trim($urlstring) != '') {
+         $urlstring = preg_replace("/&$/", "", $urlstring);
+         return ($urlstring);
+     } else {
+         return (-1);
+     }
+ }
 
 
  function pullXML($URL, $request, $parameters) {
@@ -1432,142 +1045,4 @@ function xml_import_delete_all_products($name){
        
         return $return;
     }
-
-//---- overwrite some functions of the uc cart. add these to a new module ---//
-/*
-function xml_import_uc_catalog_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'taxonomy_form_term' && $form['vid']['#value'] == variable_get('uc_catalog_vid', 0)) {
-    $form['#attributes'] = array("enctype" => "multipart/form-data");
-
-    $form['identification']['name']['#weight'] = -1;
-    $form['identification']['image']['#weight'] = 0;
-    $form['identification']['image']['image'] = array('#type' => 'file',
-      '#title' => t('Image'),
-      '#weight' => 0,
-    );
-    $image = uc_catalog_image_load($form['tid']['#value']);
-    $imagecache = module_exists('imagecache');
-    if ($image) {
-      if ($imagecache) {
-        $image_display = theme('imagecache', 'uc_category', $image->filepath);
-      }
-      else {
-        $image_display = theme('image', $image->filepath, t('Term image'));
-      }
-      $form['identification']['image']['remove'] = array('#type' => 'checkbox',
-        '#title' => t('Remove category image: !image', array('!image' => $image_display)),
-        '#weight' => 1,
-      );
-    }
-    if (!$imagecache) {
-      $form['identification']['image']['image']['#description'] = t('The image will not be resized. Consider installing <a href="@url">Image cache</a>.', array('@url' => url('http://drupal.org/project/imagecache')));
-    }
-
-    $form['identification']['description']['#description'] = t('A description of the term. Displayed to customers at the top of catalog pages.');
-	
-	$form['identification']['hexcolor']['hexcolor'] = array('#type' => 'text',
-      '#title' => t('Hex Color'),
-      '#weight' => 0,
-    );
-	$form['identification']['hexcolor']['#description'] = t('A color that will highlight the category aroudn the site.');
-
-  }
-}
-
-function xml_import_form_alter(&$form, &$form_state, $form_id){ 
-  switch($form_id){
-    // Attribute options form
-    case 'uc_object_options_form': 
-      // Make sure we are a node's options page
-      if (!is_numeric(arg(1)) && arg(0) != 'node'){
-        return;
-      }           
-      // Add option image previews and browse fields
-      if ($aids = element_children($form['attributes'])){  
-        $node = menu_get_object();
-        $nid = $node->nid;
-                                       
-        foreach($aids AS $aid) { 
-          // Make sure the attribute is switchable
-        
-          
-          // Display fields
-          if ($oids = element_children($form['attributes'][$aid]['options'])){ 
-            foreach($oids AS $oid) { 
-              
-              $form['attributes'][$aid]['options'][$oid]['test_form_item'] = array(
-                '#type' => 'textfield',
-                '#default_value' => "cool",
-                '#size' => 10,
-              );
-              
-             
-            }
-          } 
-        } 
-        
-        $form['#submit'][] = 'uc_option_image_uc_object_options_form';
-        $form['#attributes'] = array('enctype' => 'multipart/form-data');
-      }
-      break;
-    }
-}
-      
-function phptemplate_uc_object_options_form($form) {
-  $header = array(t('Attribute'), array('data' => '&nbsp;&nbsp;'. t('Options')) + theme('table_select_header_cell'), t('Default'), t('Order'), t('Image'), t('Preview'));
-
-  foreach (element_children($form['attributes']) as $key) {
-    $row = array();
-    $row[] = array('data' => drupal_render($form['attributes'][$key]['aid']) . drupal_render($form['attributes'][$key]['name']), 'class' => 'attribute');
-
-    if (element_children($form['attributes'][$key]['default'])) {
-      $first = TRUE;
-      foreach (element_children($form['attributes'][$key]['default']) as $oid) {
-        $row[] = drupal_render($form['attributes'][$key]['options'][$oid]['select']);
-        $row[] = drupal_render($form['attributes'][$key]['default'][$oid]);
-       // $row[] = drupal_render($form['attributes'][$key]['options'][$oid]['cost']);
-      //  $row[] = drupal_render($form['attributes'][$key]['options'][$oid]['price']);
-      //  $row[] = drupal_render($form['attributes'][$key]['options'][$oid]['weight']);
-        $row[] = drupal_render($form['attributes'][$key]['options'][$oid]['ordering']);
-        // MOD: added the image field and preview
-        $row[] = drupal_render($form['attributes'][$key]['options'][$oid]['test_form_item']); 
-        $row[] = drupal_render($form['attributes'][$key]['options'][$oid]['option_image_preview']);
-        
-        if (!$first) {
-          // MOD: changed from -7 to -9 to accomidate the new columns 
-          $row = array_pad($row, -6, '');
-        }
-        else {
-          $first = FALSE;
-        }
-
-        $rows[] = $row;
-        $row = array();
-      }
-      unset($form['attributes'][$key]['default']);
-    }
-    else {
-      $row[] = array('data' => drupal_render($form['attributes'][$key]['default']), 'colspan' => 7);
-      $rows[] = $row;
-    }
-
-    // MOD: changed colspan from 7 to 9
-    $rows[] = array(array('data' => '<hr />', 'colspan' => 6));
-  }
-
-  if (count($rows) == 0) {
-    $rows[] = array(
-      array('data' => t('This !type does not have any attributes.', array('!type' => $form['type']['#value'] == 'product' ? t('product') : t('product class'))), 'colspan' => 7),
-    );
-  }
-
-  $output = theme('table', $header, $rows, array('class' => 'product_attributes'))
-          . drupal_render($form);
-
-  return $output;
-}
-*/
-
-//---- end of changes ---//
-
 ?>
