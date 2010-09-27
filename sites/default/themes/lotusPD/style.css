@@ -353,6 +353,12 @@ div.sub-nav ul li a {
 
 }
 
+a#skip {
+  text-transform:uppercase;
+  font-size:9px;
+  color:#666;
+}
+
 
 div#content {
 	background:#000;

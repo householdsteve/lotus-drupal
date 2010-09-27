@@ -275,7 +275,7 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
         //unset($form['attributes']);
        } 
       	
-     }    
+     }
     
   }
   

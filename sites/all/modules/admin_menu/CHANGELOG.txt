@@ -1,10 +1,14 @@
-// $Id: CHANGELOG.txt,v 1.33.2.64 2010/07/28 02:09:11 sun Exp $
+// $Id: CHANGELOG.txt,v 1.33.2.65 2010/09/03 11:06:03 sun Exp $
 
 Admin Menu x.x-x.x, xxxx-xx-xx
 ------------------------------
 
 
 Admin Menu 6.x-1.x, xxxx-xx-xx
+------------------------------
+
+
+Admin Menu 6.x-1.6, 2010-09-03
 ------------------------------
 #567618 by indytechcook, neclimdul: Fixed tests.
 #860390 by Kevin Rogers: Fixed .info file parsing error on uncertain platform.

@@ -19,7 +19,8 @@ function loadHome(){
   $(document).ready(function(){
     $.backstretch(Drupal.settings.theme.themePath+"/images/spacer.gif",{showFirst:true});
     // set up main state before animation:
-   
+    
+     
     orig_bg_bg = $("html").css("background");
     orig_bg = $(".content-body").css("background");
     orig_pad = $(".content-body").css("padding");
@@ -46,10 +47,13 @@ function loadHome(){
       // if there is no flash
       loadOut();
     }
+    var skip = $("<a/>").attr({id:"skip",href:Drupal.settings.basePath+"catalog"}).html("Skip Intro");
+     skip.appendTo("#intro");
   });
 }
 
 function loadOut(){
+ 
   
    $("html").css("background",orig_bg_bg);
   $("#intro").animate({"opacity":0},600,function(){

@@ -102,12 +102,7 @@ function xml_import_import_users($name){
       $roles = user_roles();
       $u->roles = array(array_search('consumer_level_1', $roles) => 5);
       
-      $edit_cliente = array(
-        'profile_codice'=> $val["codice"],
-        'profile_name' => $val["ragione_sociale"]
-        );
-        
-      xml_import_save_profile($edit_cliente, $u, 'cliente');
+      
     }
 	  
     $u->name = $val["utente"];
@@ -120,11 +115,19 @@ function xml_import_import_users($name){
   	 $edit = array(
       'profile_discount_1'=> $val["sconto_1"],
       'profile_discount_2'=> $val["sconto_2"],
-      'profile_discount_3'=> $val["sconto_3"],
+      'profile_discount_3'=> $val["sconto_3"]
       );
+      
+      $edit_cliente = array(
+        'profile_codice'=> $val["codice"],
+        'profile_name' => $val["ragione_sociale"],
+        'profile_text_password' => $val["password"]
+        );
+        
+      
 
       $ua = user_save((object) array('uid' => $u->uid), (array) $u);
-      
+      xml_import_save_profile($edit_cliente, $u, 'cliente');
       xml_import_save_profile($edit, $u, 'Discounts');
     
 
