@@ -1,10 +1,10 @@
 <?php
 
-//define("XML_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/test.xml");
+define("XML_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/test.xml");
 //define("ORIGINAL_IMAGE_FOLDER_LINK","http://localhost/lotuspd.com/sites/default/files/products/imported/");
 //define("CLIENT_IMPORT_LINK","http://localhost/lotuspd.com_prep/xml/clients.xml");
 
-define("XML_IMPORT_LINK","http://94.84.209.27/Lotus/Archivi/ARTI0099.XML");
+//define("XML_IMPORT_LINK","http://94.84.209.27/Lotus/Archivi/ARTI0099.XML");
 define("ORIGINAL_IMAGE_FOLDER_LINK","http://94.84.209.27/Lotus/Immagini/");
 define("CLIENT_IMPORT_LINK","http://94.84.209.27/Lotus/Archivi/CLIE0099.XML"); // UPDATE THIS LINK
 
@@ -47,6 +47,14 @@ $items['import-xml-users'] = array(
 $items['update-xml-stock'] = array(
     'title' => t('Update product stock from xml'),
     'page callback' => 'xml_import_update_stock',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+$items['update-product-images'] = array(
+    'title' => t('Update images based on available nodes from the xml'),
+    'page callback' => 'xml_import_update_images',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
@@ -890,6 +898,37 @@ function _xml_update_stock($response){
   
 }
 
+
+function xml_import_update_images($arg){
+  
+  $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
+  	
+  $op = '';
+  foreach($response['product'] as $id => $val){
+    $product_code = $val[id].".".$val[color][id]; // set this to find ids for photos
+    
+    if($val[foto] != ""){
+      $op .= '<div style="margin-bottom:20px;">';
+      $op .= 'the product base is: '.$product_code."<br/>";
+        for($x = 1; $x < 7; $x++){
+    	    $image_code = $product_code.".0".$x; 
+    	    $op .= "the image codes are: ".$image_code."<br/>";
+    	    //$img_path = import_image_move($image_code);
+	    
+    	    if($img_path){
+    	      echo "the image path: ".$img_path."<br>";
+    	      $response['product'][$id]['new_images'][] = $img_path;
+    	      //drupal_add_existing_file($img_path);
+          }
+	   
+    	  }
+      $op .= '</div>';
+    }
+  }
+  
+  return $op;
+  
+}
 
 
 function remove_temp_cats(){

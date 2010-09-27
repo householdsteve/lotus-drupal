@@ -283,25 +283,44 @@ div#navigation > ul > li {
 	background:black;
 	position:relative;
 	z-index:5;
+	margin:0 10px 0 0;
 }
 
+div#navigation > ul > li:first-child ul {
+  left:0;
+}
+
+div#navigation > ul > li:first-child ul li:first-child {
+  padding:0;
+}
 div#navigation ul li ul {
 	position:absolute;
 	padding:0 0 0 0;
 	top:0;
 	width:600px;
 	z-index:2;
+	left:-20px;
 }
 
 div#navigation ul li ul li {
 	font: 18px/15px 'BebasRegular', Helvetica, sans-serif;
-	padding:0 0 0 0;
+	padding:0 0 0 10px;
 	margin:15px 0 0 0;
 	background:black;
 	display:inline-block;
 	float:left;
+	line-height:25px;
+	height:30px;
+	position:relative;
+	top:-5px;
 }
 
+div#navigation ul li ul li.last {
+  padding-right:20px;
+}
+div#navigation ul li ul li:first-child {
+  padding:0 0 0 20px;
+}
 
 div#navigation ul li a {
 	padding:0 20px 0 0;
@@ -312,7 +331,7 @@ div#navigation ul li a {
 
 div#navigation ul > li > a {
   z-index:30;
-  background:black;
+  /*background:black;*/
 }
 div#navigation ul li.last a, div.sub-nav ul li.last a{
 	padding:0 0 0 0;
