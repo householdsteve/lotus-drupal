@@ -290,17 +290,8 @@ $(document).ready(function(){
     // this is for deeping linking menu opening
   	if($(this).children("ul").find("a.active").length > 0){
       _div.show().css("z-index","2").animate({top:"30px"}, 500 );
-      $(this).children("ul").animate({top:"34px",opacity:1}, 500 );
+      $(this).children("ul").show().animate({top:"34px",opacity:1}, 500 );
   	}
   	
   });
 });
-
-function clearOutDropdown(o,d){
-  d.css("z-index","1").animate({top:"-10px"}, 500, function(e){});
-	o.children("ul").animate({top:"0px"}, 500);
-	o.removeClass("over");
-
-	console.log("getting called")
-	clearInterval(timer);
-}
