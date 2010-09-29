@@ -242,10 +242,16 @@ function drupal_add_existing_file($file_drupal_path,$uid=1,$status=FILE_STATUS_P
   );
   
   // check to see if file exists in database
-  $fnData = db_fetch_object(db_query("SELECT * FROM {files} WHERE filename = '%s' AND status = 1 ORDER BY timestamp DESC LIMIT 1",$file_drupal_path));
+  $fnData = db_fetch_object(db_query("SELECT * FROM {files} WHERE filepath = '%s' AND status = 1 ORDER BY timestamp DESC LIMIT 1",$file_drupal_path));
   
+  echo "<pre>";
+  echo $file_drupal_path;
+ 	print_r($fnData);
+ 	echo "</pre>";
+ 	
   if($fnData){
     drupal_write_record('files',$file,array('fid','uid','status','timestamp'));
+    echo "saving existing file <br>";
   }else{
     drupal_write_record('files',$file);
   }
@@ -920,7 +926,7 @@ function xml_import_update_images($arg){
   foreach($response['product'] as $id => $val){
     $product_code = $val[id].".".$val[color][id]; // set this to find ids for photos
     
-    if($val[foto][0] == "X"){
+    if($val[foto][0] == "X" || $val[foto][0] == "x"){
       $op .= '<div style="margin-bottom:20px;">';
       $op .= 'the foto is: '.$val[foto][0]."<br/>";
       $op .= 'the product base is: '.$product_code."<br/>";
@@ -961,11 +967,9 @@ function xml_import_update_images($arg){
     
   }
   
-  echo "<pre>";
-	print_r($product_with_fotos);
-	echo "</pre>";
-	
-	
+ // echo "<pre>";
+//	print_r($product_with_fotos);
+//	echo "</pre>";
   //return $op;
   
 }

@@ -305,9 +305,8 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
   }
   
   
-  function lotus_product_versions_cart_form($form_id,$node = NULL) {
+function lotus_product_versions_cart_form($form_id,$node = NULL) {
     
-
   $current_cart = uc_cart_get_contents();
     
   $applicable_items = array(); 
@@ -363,13 +362,13 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
     return $form;
   }
   
-  function theme_lotus_product_versions_cart_form($form){
+function theme_lotus_product_versions_cart_form($form){
   	//$oot = '<div class="test-theories">';
   	
   	//$oot .= drupal_render($form['submit']);
   	//$oot .= '</div>';
   	//return $oot;
-  	
+  	global $user;
   	
     $node_data = $form['#parameters'][2]; // object like normal node object.
     //echo "<pre>";
@@ -422,6 +421,12 @@ function lotus_product_versions_nodeapi(&$node, $op, $arg3 = NULL, $arg4 = NULL)
         'type' => 'product_version_all_imballo',
         'subject' => array('sku' => $version_data->sku,'offer'=>$version_data->offerta),
       );
+      
+      if(in_array("consumer_level_2",$user->roles)){ // check if user is an agent to see show real availability
+        $disp_desc = uc_stock_level($version_data->sku);
+      }elseif(in_array("consumer_level_3",$user->roles)){ // show the real availabilty this user shows discounted pricing
+        $disp_desc = uc_stock_level($version_data->sku);
+      }
       
       $rows[] = array(
         array('data' => $version_data->sku),

@@ -51,8 +51,10 @@
         break;
         
         case 'product_version_all_imballo':
-  
-              $price_info['price'] =  round($price_info['price'] * 0.9, 2); // 10% discount
+              
+              if(!in_array("consumer_level_2",$account->roles)){ // check if user is an agent to see prices without discounts
+                $price_info['price'] =  round($price_info['price'] * 0.9, 2); // 10% discount
+               }
         
         break;
         
@@ -61,7 +63,9 @@
          
             if($context['subject']['qty'] >= $context['subject']['imballo']){ 
               // check that the item is in the cart and it meets the imballo for discount
-              $price_info['price'] = round($price_info['price'] * 0.9, 2); // 10% discount
+              if(!in_array("consumer_level_2",$account->roles)){ // check if user is an agent to see prices without discounts
+                $price_info['price'] =  round($price_info['price'] * 0.9, 2); // 10% discount
+               }
             }
         
         
