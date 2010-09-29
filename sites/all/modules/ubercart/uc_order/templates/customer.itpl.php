@@ -40,7 +40,7 @@
             <?php if ($thank_you_message) { ?>
             <p><b><?php echo t('Thanks for your order, [order-first-name]!'); ?></b></p>
             
-            <p><?php print t("La sua richiesta &egrave; andata a un buon fine. il numero della richiesta &egrave;: [order-link]");?></p>
+            <p><?php print t("La sua richiesta &egrave; andata a un buon fine. Il numero della richiesta &egrave;: [order-link]");?></p>
               
             <p><?php print t("L'ufficio commerciale provvederà ad evadere l'ordine attenendosi alle condizioni di consegna e pagamento in uso. Solo in caso di anomalie vi contatteremmo entro le prossime 48 ore.");?></p>
 

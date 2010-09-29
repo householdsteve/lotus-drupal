@@ -319,7 +319,11 @@ function lotusPD_uc_catalog_product_grid($array) {
         $product_table .= '<div class="product-flags">';
     
         if(in_array(7,array_keys($product->taxonomy))){ // checks to see if item is novita by taxonomy
-          $product_table .= '<div class="lotus_flags new">&nbsp;</div>';
+          if($catalog->tid == 7){ //if we are on the novita page
+            $product_table .= '<div class="lotus_flags new">&nbsp;</div>';
+          }else{
+            $product_table .= '<div class="lotus_flags new flash"><img src="'.get_full_path_to_theme().'/images/novita-flash.gif" width="39" height="14" /></div>';
+          }
         }
     
         if(in_array(29,array_keys($product->taxonomy))){ // checks to see if item is offerta by taxonomy

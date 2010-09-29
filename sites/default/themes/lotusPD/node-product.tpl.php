@@ -162,7 +162,9 @@
   	                <div class="product-flags-page">
   	                <?php
   	                  if(in_array(7,array_keys($node->taxonomy))){ // checks to see if item is novita by taxonomy
-                        print '<div class="lotus_flags new">&nbsp;</div>';
+                        //print '<div class="lotus_flags new">&nbsp;</div>';
+                       print '<div class="lotus_flags new flash"><img src="'.get_full_path_to_theme().'/images/novita-flash.gif" width="39" height="14" /></div>';
+                    
                       }
                       
                       if(in_array(29,array_keys($node->taxonomy))){ // checks to see if item is offerta by taxonomy
@@ -183,6 +185,13 @@
   	             <h3 class="dettagli"><?php print t('Informazione Aggiuntive')?>:</h3>
   	             
   	                 <?php print $node->content['body']['#value']; ?>
+                    
+                    <div id="product-weight">
+                      <?php ($node->weight != 0) ? print $node->content['weight']["#value"] : print ""; ?>
+                    </div>
+                    <div id="product-box-dimensions">
+                      <?php ($node->height != 0) ? print $node->content['dimensions']["#value"] : print ""; ?>
+                    </div>
                     
                     <?php if(!user_access('view product version')):?>
            	          <div class="generic-row">imballo: <?php print $default_product->imballo; ?> </div>
