@@ -277,10 +277,11 @@ function lotusPD_uc_catalog_product_grid($array) {
   foreach ($products as $nid) {
     $product = node_load($nid);
     
+    
     $context = array(
       'revision' => 'themed',
       'type' => 'product_version_all_imballo',
-      'subject' => array('node' => $product,'sku' => $version_data->sku,'offer'=>$version_data->offerta),
+      'subject' => array('node' => $product,'sku' => $product->sku,'offer'=>$product->field_offerta[0]['value']),
 
     );
   

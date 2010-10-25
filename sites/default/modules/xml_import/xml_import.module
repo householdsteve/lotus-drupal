@@ -67,6 +67,13 @@ $items['run-xml-cron'] = array(
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+$items['flush-product-image-cache'] = array(
+    'title' => t('Flush image cache for products'),
+    'page callback' => 'reset_products_image_cache',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
@@ -153,8 +160,9 @@ function xml_import_import_users($name){
     
 
   }
-  
-  return $output;
+  watchdog("xml_import","Completed client update");
+  //return $output;
+  return "Update Complete";
  
 }
 
@@ -216,7 +224,7 @@ function import_image_move($filename){
     if($retcode == "200"){ 
      $ch = curl_init($file_address); //Here is the file we are downloading
      $fp = fopen (file_directory_path()."/products/imported/".$filename.".jpg", 'w');//This is the file where we save the information create it after we've confirmed its existance.
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);      
+        //curl_setopt($ch, CURLOPT_TIMEOUT, 10);      
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_exec($ch);
@@ -244,14 +252,14 @@ function drupal_add_existing_file($file_drupal_path,$uid=1,$status=FILE_STATUS_P
   // check to see if file exists in database
   $fnData = db_fetch_object(db_query("SELECT * FROM {files} WHERE filepath = '%s' AND status = 1 ORDER BY timestamp DESC LIMIT 1",$file_drupal_path));
   
-  echo "<pre>";
+ /* echo "<pre>";
   echo $file_drupal_path;
  	print_r($fnData);
- 	echo "</pre>";
+ 	echo "</pre>";*/
  	
   if($fnData){
     drupal_write_record('files',$file,array('fid','uid','status','timestamp'));
-    echo "saving existing file <br>";
+    //echo "saving existing file <br>";
   }else{
     drupal_write_record('files',$file);
   }
@@ -292,7 +300,7 @@ function xml_import_catalog($arg=NULL){
 function _xml_step_one_images($arg=NULL,$independent=FALSE){
   $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
   
-  foreach($response['product'] as $id => $val){
+ /* foreach($response['product'] as $id => $val){
     $product_code = $val[id].".".$val[color][id]; // set this to find ids for photos
     
     for($x = 1; $x < 5; $x++){
@@ -308,9 +316,9 @@ function _xml_step_one_images($arg=NULL,$independent=FALSE){
 	   
 	  }
     
-  }
+  }*/
   
-  //_xml_step_two_categories($response); // more onto the next step
+  _xml_step_two_categories($response); // more onto the next step
 }
 
 function _xml_step_two_categories($response,$independent=FALSE){
@@ -386,8 +394,8 @@ function _xml_step_two_categories($response,$independent=FALSE){
 	
 	    }
 		
-		echo $v." | ".$result->tid." : ".$result->cid;
-		echo "<br>";
+		//echo $v." | ".$result->tid." : ".$result->cid;
+		//echo "<br>";
 		
 	}
 
@@ -401,252 +409,6 @@ function _xml_step_two_categories($response,$independent=FALSE){
 function _xml_step_three_products($response,$independent=FALSE){
   
 	$product_list = array();
-	
-	foreach($response['product'] as $id => $val){
-		$product_list[$val[id]]["versions"][] = $val;
-		if(count($response['product'][$id]['new_images']) > 0){
-		  foreach($response['product'][$id]['new_images'] as $key => $imgs){
-  		  $product_list[$val[id]]["photos"][] = $response['product'][$id]['new_images'][$key];
-  		}
-  	}
-	}
-	
-	
-	
-	foreach($product_list as $id => $val){
-		// we need to use the first product as a default
-		$product_code = $val["versions"][0][id];
-		$is_new = true;
-				
-		  $p = xml_import_product_load($product_code);
-
-      if($p){ // if the product exists load the node and modify it.
-        $node = node_load($p->vid);
-        
-        $existing = element_children($node->taxonomy);
-        print "product vid: ".$p->vid." <br>";
-        db_query("DELETE FROM {content_field_image_cache} WHERE vid = '%d'", $p->vid); // get rid of old image references
-        
-        $is_new = false;
-        $output .= "loaded existig <br>";
-      }else{
-        $node = new StdClass();
-        $output .= "creating new <br>";
-        $is_new = true;
-        $existing = array(); //create it to push other items in
-      }
-		
-		$reformatted_price = str_replace(",",".",$val["versions"][0][listino]);
-		$price = number_format($reformatted_price, 2, '.', '');
-      
-		
-		$node->type = 'product';
-		$node->title = check_plain($val["versions"][0][name]);
-		$node->language = "it";
-		$node->uid = 1;
-	  $node->status = 1;
-	  $node->active = 1;
-		$node->body = check_plain($val["versions"][0][description]);
-		$node->teaser = check_plain($val["versions"][0][description]);
-		
-		$node->field_product_code[0]['value'] = check_plain($val["versions"][0][id]);
-		$node->field_imballo[0]['value'] = $val["versions"][0][imballo];
-	
-	// these should also set taxonomy records to show in catalog listings
-		$node->field_novita[0]['value'] = ($val["versions"][0][novita] == "S") ? 1 : 0;
-		$node->field_offerta[0]['value'] = ($val["versions"][0][offerta] == "S") ? 1 : 0;
-		$node->field_esclusiva[0]['value'] = ($val["versions"][0][esclusiva] == "S") ? 1 : 0;
-		
-		$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val["versions"][0][categoria][id]));
-		
-		if(!in_array($result->tid,$existing)){
-      $existing[] = $result->tid; // see if the id in the xml file is the same and load it if not.
-    }
-		
-		if($val["versions"][0][novita] == 'S'){
-      if(!in_array('7',$existing)){
-        $existing[] = '7'; // if its not already in the array add it
-      }
-    }else{
-      // it shouldnt be selected so take it out of the array
-      foreach($existing as $key => $item){
-        if($item == '7'){
-          unset($existing[$key]);
-        }
-      }
-    }
-    
-    if($val["versions"][0][offerta] == 'S'){
-      if(!in_array('29',$existing)){
-        $existing[] = '29'; // if its not already in the array add it
-      }
-    }else{
-      // it shouldnt be selected so take it out of the array
-      foreach($existing as $key => $item){
-        if($item == '29'){
-          unset($existing[$key]);
-        }
-      }
-    }
-    
-    $node->taxonomy = array('1' => $existing); // this assigns all of our taxonomy to the vocab 1 which is our catalog
-		
-		unset($node->field_image_cache); // get rid of the deleted images from the array
-  	
-		if(count($val["photos"]) > 0){
-	  	foreach($val["photos"] as $img_id => $img_path){
-  		  $node->field_image_cache[] = drupal_add_existing_file($img_path);
-  		}
-  	}
-		// WE NEED TO CHECK FOR THE EXISTING IMAGES AND COMPARE.
-
- 
-		
-		$node->sell_price = $price;
-		$node->list_price = $price;
-		$node->cost = $price;
-		$node->model = $product_code;
-		$node->list_in_catalog = 0;
-
-  	node_save($node);
-  	
-  	$product_list[$id]["vid"] = $node->vid;
-  	
-  	// get correpsonding color id from our color table
-  	$color_table = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE product_color_code = %d", $val["versions"][0][color][id]));
-  	
-  	$attr = new StdClass();
-    $attr->nid = $node->vid;
-    $attr->aid = 4; // this is out color attribute // attention because it could change
-    $attr->label = '<none>';
-    $attr->default_option = $color_table['oid'];
-    $attr->required = 0;
-    $attr->ordering = 0;
-    $attr->display = 1;
-
-    //print 'Calling uc_attributes_form';
-    if($is_new){
-      drupal_write_record('uc_product_attributes', $attr);
-      echo 'attrib parent is: '.$node->vid." and i am new";
-    }else{
-      drupal_write_record('uc_product_attributes', $attr,array('nid','aid'));
-    }
-		
-		//db_query("INSERT INTO {uc_product_stock} (sku, nid, active, stock) VALUES ('%s', %d, %d, %d)", $node->model,$node->vid, true, $val[disponibile]);
-
-		
-		// lets add the attributes
-
-  	  foreach($val["versions"] as $key => $option){
-  	     // next loop through each model and add option, version and stock data.
-  	     
-  	    // get correpsonding color id from our color table
-      	$version_color_table = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE product_color_code = %d", $option['color']['id']));
-      	
-      	echo "<pre>";
-      	print_r($version_color_table);
-      	echo "</pre>";
-        
-        // check if the option already exists by the option id. this should be the real color id not the lotus id.
-        $option_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_options} WHERE oid = %d AND nid = %d", $version_color_table['oid'], $node->vid));
-    	 
-    	  $opts = new StdClass();
-        $opts->nid = $node->vid;
-        $opts->oid = $version_color_table['oid']; // this is out color attribute // attention because it could change
-        $opts->cost = 0;
-        $opts->price = 0;
-        $opts->weight = 0;
-        $opts->ordering = 0;
-
-        //print 'Calling uc_attributes_form';
-        if(!$option_lookup){
-          drupal_write_record('uc_product_options', $opts);
-        }else{
-          drupal_write_record('uc_product_options', $opts, array('nid','oid'));
-        }
-        
-        // check if the option already exists by the sku
-        $sku_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_adjustments} WHERE model = '%s'", $option['id'].".".$option['color']['id']));
-        
-        $adjusts = new StdClass();
-        $adjusts->nid = $node->vid;
-        $adjusts->combination = serialize(array('4' => $version_color_table['oid'])); //this bind our color adjustment with model numbers and attributes
-        $adjusts->model = $option['id'].".".$option['color']['id'];
-        
-        
-        echo "<pre>";
-      	print_r($sku_lookup);
-      	echo "</pre>";
-
-        //print 'Calling uc_attributes_form';
-        if(!$sku_lookup){
-          drupal_write_record('uc_product_adjustments', $adjusts);
-          echo 'my id is: '.$node->vid." and i am new <br/>";
-        }else{
-          drupal_write_record('uc_product_adjustments', $adjusts, array('nid','model'));
-          echo 'my id is: '.$node->vid." i am totally being updated <br/>";
-        }
-        
-        $stock_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_stock} WHERE sku = '%s'", $option['id'].".".$option['color']['id']));
-        
-        $stock = new StdClass();
-        $stock->nid = $node->vid;
-        $stock->sku = $option['id'].".".$option['color']['id']; // this is out color attribute // attention because it could change
-        $stock->active = 1;
-        $stock->stock = $option['disponibile'];
-        $stock->threshold = 0;
-
-        //print 'Calling uc_attributes_form';
-        if(!$stock_lookup){
-         drupal_write_record('uc_product_stock', $stock);
-         echo 'stock: '.$node->vid." and i am new";
-        }else{
-         drupal_write_record('uc_product_stock', $stock, 'sku');
-         echo 'stock: '.$node->vid." i am totally being updated";
-        }
-        
-        
-        $version_lookup = db_fetch_object(db_query("SELECT * FROM {product_versions} WHERE sku = '%s'", $option['id'].".".$option['color']['id']));
-        
-        $version_data = new StdClass();
-        $version_data->nid = $node->vid;
-        $version_data->sku = $option['id'].".".$option['color']['id'];
-        $version_data->imballo = $option['imballo'];
-        $version_data->dimensions = check_plain($option['misure']);
-        $version_data->arrivo_1 = $option['arrivo_1'];
-        $version_data->data_arrivo_1 = check_plain($option['data_arrivo_1']);
-        $version_data->arrivo_2 = $option['arrivo_2'];
-        $version_data->data_arrivo_2 = check_plain($option['data_arrivo_2']);
-        $version_data->disponibile_descr = check_plain($option['disponibile_descr']);
-        $version_data->novita = ($option['novita'] == "S") ? 1 : 0;
-        $version_data->offerta = ($option['offerta'] == "S") ? 1 : 0;
-        $version_data->esclusiva = ($option['esclusiva'] == "S") ? 1 : 0;
-        $version_data->published = 1;
-
-        //print 'Calling uc_attributes_form';
-        if(!$version_lookup){
-          drupal_write_record('product_versions', $version_data);
-          echo 'version: '.$node->vid." and i am new";
-        }else{
-          drupal_write_record('product_versions', $version_data, 'sku');
-         echo 'version is: '.$node->vid." i am totally being updated";
-        }
-        
-        
-        
-        
-      }
-	}
-	
-	$response['product_heirarchy'] = $product_list;
-	
-  
-}
-
-function _xml_update_stock($response){
-  
-	
-	$product_list = array();
 	$price_array = array();
 	
 	foreach($response['product'] as $id => $val){
@@ -657,11 +419,7 @@ function _xml_update_stock($response){
     
     $product_list[$val[id]]["prices"][] = $price_item;
 		
-		if(count($response['product'][$id]['new_images']) > 0){
-		  foreach($response['product'][$id]['new_images'] as $key => $imgs){
-  		  $product_list[$val[id]]["photos"][] = $response['product'][$id]['new_images'][$key];
-  		}
-  	}
+	
 	}
 	
 	
@@ -674,17 +432,11 @@ function _xml_update_stock($response){
 		  $p = xml_import_product_load($product_code);
 
       if($p){ // if the product exists load the node and modify it.
-        $node = node_load($p->vid);
-        
+        $node = node_load($p->vid);        
         $existing = element_children($node->taxonomy);
-        print "product vid: ".$p->vid." <br>";
-        //db_query("DELETE FROM {content_field_image_cache} WHERE vid = '%d'", $p->vid); // get rid of old image references
-        
         $is_new = false;
-        $output .= "loaded existig <br>";
       }else{
         $node = new StdClass();
-        $output .= "creating new <br>";
         $is_new = true;
         $existing = array(); //create it to push other items in
       }
@@ -712,7 +464,7 @@ function _xml_update_stock($response){
 		$node->field_offerta[0]['value'] = ($val["versions"][0][offerta] == "S") ? 1 : 0;
 		$node->field_esclusiva[0]['value'] = ($val["versions"][0][esclusiva] == "S") ? 1 : 0;
 		
-		//$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$val["versions"][0][categoria][id]));
+
 		
 		if(!in_array($result->tid,$existing)){
       $existing[] = $result->tid; // see if the id in the xml file is the same and load it if not.
@@ -755,28 +507,6 @@ function _xml_update_stock($response){
 		$node->cost = $price;
 		$node->model = $product_code;
 		$node->list_in_catalog = 0;
-		
-		/*
-		 $fnData = db_query("SELECT * FROM {files} WHERE filename LIKE '%s' AND status = 1 ORDER BY timestamp DESC","%".$product_code."%");
-     $photos = array();
-       while ( $obj = db_fetch_object ($fnData) ) {
-        
-       	 $photos[] = $obj;
-       }
-        
-        sort($photos);
-         echo "<pre>";
-      	 print_r($val["prices"]);
-      	 echo "</pre>";
-      	 
-       
-       	if(count($photos) > 0){
-     	  	foreach($photos as $img_id => $img_path){
-       		  $node->field_image_cache[] = drupal_add_existing_file($img_path->filepath);
-       		  print $img_path->filepath."<br/>";
-       		}
-       	}
-    */
 
   	node_save($node);
   	
@@ -796,13 +526,11 @@ function _xml_update_stock($response){
 
     //print 'Calling uc_attributes_form';
     if($is_new){
+      watchdog("xml_import","this attribute not found in db: %dbid",array("%dbid"=>$val["versions"][0][color][id]));
       drupal_write_record('uc_product_attributes', $attr);
-      echo 'attrib parent is: '.$node->vid." and i am new";
     }else{
       drupal_write_record('uc_product_attributes', $attr,array('nid','aid'));
     }
-		
-		//db_query("INSERT INTO {uc_product_stock} (sku, nid, active, stock) VALUES ('%s', %d, %d, %d)", $node->model,$node->vid, true, $val[disponibile]);
 
 		
 		// lets add the attributes
@@ -817,10 +545,6 @@ function _xml_update_stock($response){
          
   	    // get correpsonding color id from our color table
       	$version_color_table = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE product_color_code = %d", $option['color']['id']));
-      	
-      	echo "<pre>";
-      	print_r($price_high);
-      	echo "</pre>";
         
         // check if the option already exists by the option id. this should be the real color id not the lotus id.
         $option_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_options} WHERE oid = %d AND nid = %d", $version_color_table['oid'], $node->vid));
@@ -835,6 +559,7 @@ function _xml_update_stock($response){
 
         //print 'Calling uc_attributes_form';
         if(!$option_lookup){
+          watchdog("xml_import","this option not found in db: %dbid",array("%dbid"=>$option['id'].".".$option['color']['id']));
           drupal_write_record('uc_product_options', $opts);
         }else{
           drupal_write_record('uc_product_options', $opts, array('nid','oid'));
@@ -848,18 +573,12 @@ function _xml_update_stock($response){
         $adjusts->combination = serialize(array('4' => $version_color_table['oid'])); //this bind our color adjustment with model numbers and attributes
         $adjusts->model = $option['id'].".".$option['color']['id'];
         
-        echo "FUCK FUCK UFCK: ".$option['id'].".".$option['color']['id']."<BR/>";
-        echo "<pre>";
-      	print_r($sku_lookup);
-      	echo "</pre>";
-
         //print 'Calling uc_attributes_form';
         if(!$sku_lookup){
+          watchdog("xml_import","this adjustment not found in db: %dbid",array("%dbid"=>$option['id'].".".$option['color']['id']));
           drupal_write_record('uc_product_adjustments', $adjusts);
-          echo 'my id is: '.$node->vid." and i am new <br/>";
         }else{
           drupal_write_record('uc_product_adjustments', $adjusts, array('nid','model'));
-          echo 'my id is: '.$node->vid." i am totally being updated <br/>";
         }
         
         $stock_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_stock} WHERE sku = '%s'", $option['id'].".".$option['color']['id']));
@@ -873,11 +592,10 @@ function _xml_update_stock($response){
 
         //print 'Calling uc_attributes_form';
         if(!$stock_lookup){
+          watchdog("xml_import","this stock not found in db: %dbid",array("%dbid"=>$option['id'].".".$option['color']['id']));
          drupal_write_record('uc_product_stock', $stock);
-         echo 'stock: '.$node->vid." and i am new <br/>";
         }else{
          drupal_write_record('uc_product_stock', $stock, 'sku');
-         echo 'stock: '.$node->vid." i am totally being updated <br/>";
         }
         
         
@@ -887,10 +605,28 @@ function _xml_update_stock($response){
         $version_data->nid = $node->vid;
         $version_data->sku = $option['id'].".".$option['color']['id'];
         $version_data->imballo = $option['imballo'];
-        $version_data->dimensions = $option['misure'];
-        $version_data->arrivo_1 = $option['arrivo_1'];
+        
+        if($option['imballo']){
+          $version_data->imballo = check_plain($option['imballo']); 
+        }else{
+          watchdog("xml_import","this product imballo causes errors: %dbid",array("%dbid"=>$option['id'].".".$option['color']['id']));
+        }
+        
+        if($option['misure']){
+          $version_data->dimensions = check_plain($option['misure']);          
+        }else{
+          watchdog("xml_import","this product dimensions causes errors: %dbid",array("%dbid"=>$option['id'].".".$option['color']['id']));
+        }
+        
+        $ar1 = str_replace(",",".",$option['arrivo_1']);
+    		$ar1F = number_format($ar1, 0, '.', '');
+    		
+    		$ar2 = str_replace(",",".",$option['arrivo_2']);
+    		$ar2F = number_format($ar2, 0, '.', '');
+    		
+        $version_data->arrivo_1 = $ar1F;
         $version_data->data_arrivo_1 = htmlspecialchars($option['data_arrivo_1']);
-        $version_data->arrivo_2 = $option['arrivo_2'];
+        $version_data->arrivo_2 = $ar2F;
         $version_data->data_arrivo_2 = htmlspecialchars($option['data_arrivo_2']);
         $version_data->disponibile_descr = htmlspecialchars($option['disponibile_descr']);
         $version_data->novita = ($option['novita'] == "S") ? 1 : 0;
@@ -900,21 +636,54 @@ function _xml_update_stock($response){
 
         //print 'Calling uc_attributes_form';
         if(!$version_lookup){
+          watchdog("xml_import","this version not found in db: %dbid",array("%dbid"=>$option['id'].".".$option['color']['id']));
           drupal_write_record('product_versions', $version_data);
-          echo 'version: '.$node->vid." and i am new <br/>";
         }else{
-          drupal_write_record('product_versions', $version_data, 'sku');
-         echo 'version is: '.$node->vid." i am totally being updated <br/>";
+          drupal_write_record('product_versions', $version_data, array('sku','nid'));
         }
         
-        
-        
-        
-      }
+      } // end versions loop
+      
+      // if the product has a publication of N delete it.
+      //if($val["versions"][0][pubblica] == "C" || $val["versions"][0][pubblica] == "c"){
+        //node_delete($p->nid);
+        //drupal_flush_all_caches();
+      //}
 	}
 	
-	$response['product_heirarchy'] = $product_list;
-  
+	watchdog("xml_import","Completed product update");
+  return "Product update Complete";
+}
+
+
+
+function _xml_update_stock($response){
+
+	foreach($response['product'] as $id => $val){
+    $product_sku = $val['id'].".".$val['color']['id'];
+		 $stock_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_stock} WHERE sku = '%s'", $product_sku));
+      
+      $stock = new StdClass();
+      $stock->nid = $stock_lookup->vid;
+      $stock->sku = $product_sku; // this is out color attribute // attention because it could change
+      $stock->active = $stock_lookup->active;
+      $stock->stock = $val['disponibile'];
+      $stock->threshold = $stock_lookup->threshold;
+
+      //print 'Calling uc_attributes_form';
+      if(!$stock_lookup){
+       //echo 'stock: '.$product_sku." | doesnt exist in db <br/>";
+       watchdog("xml_import","this product couldnt be found in db: %dbid",array("%dbid"=>$product_sku));
+      }else{
+       drupal_write_record('uc_product_stock', $stock, 'sku');
+       //echo 'stock: '.$product_sku." | i am totally being updated <br/>";
+      }
+	
+	}
+	watchdog("xml_import","Completed stock update");
+	
+	return "Update completed";
+	  
 }
 
 
@@ -967,11 +736,33 @@ function xml_import_update_images($arg){
     
   }
   
+  // clean out image caches
+  imagecache_preset_flush(6);
+  imagecache_preset_flush(4);
+  imagecache_preset_flush(7);
+  imagecache_preset_flush(5);
+  imagecache_preset_flush(8);
+  imagecache_preset_flush(9);
+  
+  
  // echo "<pre>";
 //	print_r($product_with_fotos);
 //	echo "</pre>";
-  //return $op;
+  return "";
   
+}
+
+function reset_products_image_cache($args){
+  imagecache_preset_flush(6);
+  imagecache_preset_flush(4);
+  imagecache_preset_flush(7);
+  imagecache_preset_flush(5);
+  imagecache_preset_flush(8);
+  imagecache_preset_flush(9);
+  
+  drupal_set_message('cache flushed.');
+
+	return t("Completato");
 }
 
 
