@@ -342,6 +342,7 @@ function uc_attribute_option_form($form_state, $attribute, $option = NULL) {
   if (!empty($option)) {
     $form['oid'] = array('#type' => 'hidden', '#value' => $option->oid);
     drupal_set_title(t('Edit option: %name', array('%name' => $option->name)));
+    $color_query = db_fetch_object(db_query("SELECT * FROM {color_options_hex} WHERE oid = %d",$option->oid));
   }
   else {
     drupal_set_title(t('Options for %name', array('%name' => $attribute->name)));
@@ -355,6 +356,34 @@ function uc_attribute_option_form($form_state, $attribute, $option = NULL) {
     '#required' => TRUE,
     '#weight' => 0,
   );
+  
+  $form['color_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Lotus Color Id'),
+    '#description' => t('This is the Number Lotus uses to reference the color'),
+    '#default_value' => $color_query->product_color_code,
+    '#required' => TRUE,
+    '#weight' => 1,
+  );
+  
+  $form['color_1'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Color'),
+    '#description' => t('This is the color swatch for the option'),
+    '#default_value' => $color_query->hex,
+    '#required' => TRUE,
+    '#weight' => 2,
+  );
+  
+  $form['color_2'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Secondary Color'),
+    '#description' => t('This is the secondary color swatch for the option'),
+    '#default_value' => $color_query->hex2,
+    '#required' => FALSE,
+    '#weight' => 3,
+  );
+  
   $form['ordering'] = array(
     '#type' => 'weight',
     '#title' => t('List position'),
@@ -424,6 +453,13 @@ function uc_attribute_option_form_submit($form, &$form_state) {
   if (!isset($form_state['values']['oid'])) {
     db_query("INSERT INTO {uc_attribute_options} (aid, name, cost, price, weight, ordering) VALUES (%d, '%s', %f, %f, %f, %d)",
       $form_state['values']['aid'], $form_state['values']['name'], $form_state['values']['cost'], $form_state['values']['price'], $form_state['values']['weight'], $form_state['values']['ordering']);
+    
+    $new_oid = db_result(db_query("SELECT LAST_INSERT_ID()"));
+    
+    db_query("INSERT INTO {color_options_hex} (oid, product_color_code, hex, hex2) VALUES (%d, '%s', '%s', '%s')",
+      $new_oid, $form_state['values']['color_id'], $form_state['values']['color_1'], $form_state['values']['color_2']);
+      
+      
     drupal_set_message(t('Created new option %option.', array('%option' => $form_state['values']['name'])));
     watchdog('uc_attribute', 'Created new option %option.', array('%option' => $form_state['values']['name']), WATCHDOG_NOTICE, 'admin/store/attributes/'. $form_state['values']['aid'] .'/options/add');
     $form_state['redirect'] = 'admin/store/attributes/'. $form_state['values']['aid'] .'/options/add';
@@ -431,6 +467,19 @@ function uc_attribute_option_form_submit($form, &$form_state) {
   else {
     db_query("UPDATE {uc_attribute_options} SET name = '%s', cost = %f, price = %f, weight = %f, ordering = %d WHERE aid = %d AND oid = %d",
       $form_state['values']['name'], $form_state['values']['cost'], $form_state['values']['price'], $form_state['values']['weight'], $form_state['values']['ordering'], $form_state['values']['aid'], $form_state['values']['oid']);
+    
+      $color_query = db_fetch_object(db_query("SELECT * FROM {color_options_hex} WHERE oid = %d",$form_state['values']['oid']));
+      
+    if(!$color_query){
+      db_query("INSERT INTO {color_options_hex} (oid, product_color_code, hex, hex2) VALUES (%d, '%s', '%s', '%s')",
+        $new_oid, $form_state['values']['color_id'], $form_state['values']['color_1'], $form_state['values']['color_2']);
+    }else{
+      
+      db_query("UPDATE {color_options_hex} SET color_id = '%s', color_1 = '%s', color_2 = '%s' WHERE oid = %d",
+        $form_state['values']['color_id'], $form_state['values']['color_1'], $form_state['values']['color_2'], $form_state['values']['oid']);
+      
+    }  
+    
     drupal_set_message(t('Updated option %option.', array('%option' => $form_state['values']['name'])));
     watchdog('uc_attribute', 'Updated option %option.', array('%option' => $form_state['values']['name']), WATCHDOG_NOTICE, 'admin/store/attributes/'. $form_state['values']['aid'] .'/options/'. $form_state['values']['oid']);
     $form_state['redirect'] = 'admin/store/attributes/'. $form_state['values']['aid'] .'/options';
