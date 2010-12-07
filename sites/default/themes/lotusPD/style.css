@@ -1347,6 +1347,14 @@ div.address-pane-table .field-label {
   background:none;
 }
 
+.order-pane {
+  border:none;
+}
+
+.order-pane .line-item-table {
+  background:#fff;
+}
+
 .order-review-table .pane-title-row {
   background-color:#000;
   border:none;

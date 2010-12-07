@@ -74,6 +74,7 @@
         
         case 'order_product_version' :
             
+            
             //echo "<pre>";
            // print_r($price_info['qty']);
             
@@ -82,9 +83,9 @@
             //echo $context['subject']['node']->product_versions[$context['subject']['product']->model]->imballo;
             
               if($price_info['qty'] >= $context['subject']['node']->product_versions[$context['subject']['product']->model]->imballo){ 
-                // check that the item is in the cart and it meets the imballo for discount
-               // $price_info['price'] = round($price_info['price'] * 0.9, 2); // 10% discount
-               // echo "cool";
+               // check that the item is in the cart and it meets the imballo for discount
+                $price_info['price'] = round($price_info['price'] * 0.9, 2); // 10% discount
+                //echo "cool";
               }
            
               
@@ -92,11 +93,22 @@
         
         
         case 'line_item' :
-           //echo "<pre>";
-            //print_r($context['subject']['order']);
+           /* echo "price info: <pre>";
+            print_r($price_info);
+            echo "</pre>";
             
-            //echo "</pre>";
+            echo "context info: <pre>";
+            print_r($context);
+            echo "</pre>";*/
+            //$context['subject']['order']->products
+            //$price_info['price'] = 0;
+        break;
         
+        case 'order_product_page':
+         if($context['qty'] >= $context['subject']['node']->product_versions[$context['subject']['product']->model]->imballo){ 
+           // check that the item is in the cart and it meets the imballo for discount
+           $price_info['price'] = round($price_info['price'] * 0.9, 2); // 10% discount
+         }
         break;
         
     
