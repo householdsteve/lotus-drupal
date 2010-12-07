@@ -84,6 +84,13 @@ $items['cache-xml-data'] = array(
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
+$items['cache-xml-user-data'] = array(
+    'title' => t('Cache Users XML data in db'),
+    'page callback' => 'xml_cache_users_in_db',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 $items['flush-product-image-cache'] = array(
     'title' => t('Flush image cache for products'),
     'page callback' => 'reset_products_image_cache',
@@ -108,24 +115,36 @@ function xml_import_uc_price_handler() {
   );
 }
 
+function xml_cache_users_in_db($arg){
+  
+  $response = xml_import_get_xml_data(CLIENT_IMPORT_LINK); // call the xml data
+
+	
+	db_query("TRUNCATE TABLE {xml_sync_users}"); // empty the whole table to start fresh
+	
+	foreach($response['cliente'] as $val){
+	    db_query("INSERT INTO {xml_sync_users} (client_id, client_data) VALUES ('%s', '%s')", $val['utente'], serialize($val)); 
+	}
+	
+	watchdog("xml_import","Completed xml user cache");
+  return "Xml user cache Complete";
+	
+}
+
 
 function xml_import_import_users($name){
   
-  $response = xml_import_get_xml_data(CLIENT_IMPORT_LINK);
- 
-
-	$output = "starting output <br/>";
+  $q = db_query("SELECT * FROM {xml_sync_users}");
 	
-	foreach($response['cliente'] as $val){
+	while ($dbUser = db_fetch_object($q)) {
+
+    $val = unserialize($dbUser->client_data);
 	  
 	  $uq = db_fetch_object(db_query("SELECT * FROM {users} WHERE name = '%s'",$val["utente"]));
 
-    if($uq){ // if the product exists load the node and modify it.
-      $u = user_load($uq->uid);
-      $output .= "loaded existig <br>";
-      
+    if($uq){ // if the user exists load the node and modify it.
+      $u = user_load($uq->uid);   
     }else{
-      
       
       $newUser = array(
         'name' => $val["utente"],
@@ -135,20 +154,17 @@ function xml_import_import_users($name){
         'status' => 1,
         'language' => "it",
         'init' => $val["e_mail"]
-      );           
+      ); 
+      echo "this user is new <br>";
+            
       $uo = user_save(null, $newUser);
       $u = user_load($uo->uid);
       
       $output .= "creating new: ".$u->name."<br>";
       $roles = user_roles();
       $u->roles = array(array_search('consumer_level_1', $roles) => 5);
-      
-      
+       
     }
-    
-    //echo "<pre>";
-  	//print_r($u);
-  	//echo "</pre>";
 	  
     $u->name = $val["utente"];
     $u->pass = $val["password"];
@@ -172,14 +188,16 @@ function xml_import_import_users($name){
       
 
       $ua = user_save((object) array('uid' => $u->uid), (array) $u);
-      xml_import_save_profile($edit_cliente, $u, 'cliente');
-      xml_import_save_profile($edit, $u, 'Discounts');
+      xml_import_save_profile($edit_cliente, $ua, 'cliente');
+      xml_import_save_profile($edit, $ua, 'Discounts');
     
-
+      //echo "second update: <pre>";
+    	//print_r($ua);
+    	//echo "</pre>";
   }
+
   watchdog("xml_import","Completed client update");
-  //return $output;
-  return "Update Complete";
+  return "User Update Complete";
  
 }
 
@@ -340,32 +358,8 @@ function xml_control_categories($args){
 		$countParent++;
     
   }
-  echo count($catList)."<br>";
-  echo $countParent."<br>";
-    echo $countChild."<br>";
-  echo "<pre>";
-  	print_r($catList);
-  	echo "</pre>";
-  
-  die;
 	
-	foreach($response['product'] as $val){
-
-		foreach($val as $key => $v){
-
-			if($key == "categoria"){
-				$nk = (int)$v["id"];
-				$catList[$nk] = $v["name"];
-			}
-
-				$countChild++;
-		}
-		$countParent++;
-
-	}
-	
-	
-	db_query("TRUNCATE TABLE {xml_import_temp_cats}"); // empty the whole table to start fresh
+	//db_query("TRUNCATE TABLE {xml_import_temp_cats}"); // empty the whole table to start fresh
 	
 	foreach($catList as $k => $v){
 		
@@ -390,8 +384,6 @@ function xml_control_categories($args){
 		  
 		}else{
 		
-		
-		
 		  if(strstr($v,"OUTLET")){
 		    $term_parent = 4; // check if category is an outlet. if so change the term parent
 		    $v = removePeriodDivider($v);
@@ -415,11 +407,12 @@ function xml_control_categories($args){
       		db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$updateid,$hexResult->scid);
 	
 	    }
-		
-		//echo $v." | ".$result->tid." : ".$result->cid;
-		//echo "<br>";
+
 		
 	}
+	
+	watchdog("xml_import","Completed category update");
+  return "Category update Complete";
 
   
 }
@@ -450,6 +443,9 @@ function xml_cache_in_db($arg){
 	    db_query("INSERT INTO {xml_sync_products} (product_id, product_sku, product_data, product_highest_price) VALUES ('%s', '%s', '%s',%f)", $id, $id.".".$option['color']['id'], serialize($option), $price_high); 
     }
 	}
+	
+	watchdog("xml_import","Completed xml cache");
+  return "Xml cache Complete";
 	
 }
 
@@ -767,30 +763,29 @@ function _xml_update_stock($response=""){
 
 
 function xml_import_update_images($arg){
-  
-  $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
+
   $product_with_fotos = array();	
-  $op = '';
-  foreach($response['product'] as $id => $val){
+  
+  $q = db_query("SELECT * FROM {xml_sync_products}");
+
+	while ($dbProd = db_fetch_object($q)) {
+
+    $val = unserialize($dbProd->product_data);
+
+
     $product_code = $val[id].".".$val[color][id]; // set this to find ids for photos
     
     if($val[foto][0] == "X" || $val[foto][0] == "x"){
-      $op .= '<div style="margin-bottom:20px;">';
-      $op .= 'the foto is: '.$val[foto][0]."<br/>";
-      $op .= 'the product base is: '.$product_code."<br/>";
+
         for($x = 1; $x < 7; $x++){
     	    $image_code = $product_code.".0".$x; 
-    	    $op .= "the image codes are: ".$image_code."<br/>";
     	    $img_path = import_image_move($image_code);
 	    
     	    if($img_path){
-    	     // echo "the image path: ".$img_path."<br>";
-    	      //$product_with_fotos[$val[id]][] = $img_path;
     	      $product_with_fotos[$val[id]][] = drupal_add_existing_file($img_path);
           }
 	   
     	  }
-      $op .= '</div>';
     }
   }
   
@@ -801,16 +796,13 @@ function xml_import_update_images($arg){
     if($p){ // if the product exists load the node and modify it.
       $node = node_load($p->vid);
       db_query("DELETE FROM {content_field_image_cache} WHERE vid = '%d'", $p->vid); // get rid of old image references
-      //db_query("DELETE FROM {files} WHERE filename LIKE '%s' AND status = 1 ORDER BY timestamp DESC","%".$sku."%");
-      
-      
+    
       unset($node->field_image_cache); // get rid of the deleted images from the array
 
     	$node->field_image_cache = $item; // pass it an array of the paths
       
       node_save($node);
     }
-    
     
     
   }
@@ -823,11 +815,8 @@ function xml_import_update_images($arg){
   imagecache_preset_flush(8);
   imagecache_preset_flush(9);
   
-  
- // echo "<pre>";
-//	print_r($product_with_fotos);
-//	echo "</pre>";
-  return "";
+  watchdog("xml_import","Completed Image update");
+  return "Updated Product Images";
   
 }
 
