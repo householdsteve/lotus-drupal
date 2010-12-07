@@ -719,19 +719,20 @@ function op_products_view_table($order) {
   );
   $table['#columns']['product'] = array(
     'cell' => array(
-      'data' => t('Product'),
+      'data' => t('Prodotto'),
       'width' => '80%',
     ),
     'weight' => 1,
   );
   $table['#columns']['model'] = array(
     'cell' => array(
-      'data' => t('SKU'),
+      'data' => t('Codice'),
       'class' => 'text-center',
       'nowrap' => 'nowrap',
     ),
     'weight' => 2,
   );
+  /*
   if (user_access('administer products')) {
     $table['#columns']['cost'] = array(
       'cell' => array(
@@ -740,7 +741,7 @@ function op_products_view_table($order) {
       ),
       'weight' => 3,
     );
-  }
+  }*/
   $table['#columns']['price'] = array(
     'cell' => array(
       'data' => t('Price'),
@@ -758,7 +759,7 @@ function op_products_view_table($order) {
 
   $context = array(
     'revision' => 'themed',
-    'type' => 'order_product',
+    'type' => 'order_product_page',
     'subject' => array(
       'order' => $order,
     ),
@@ -781,6 +782,7 @@ function op_products_view_table($order) {
 
       $context['subject']['product'] = $product;
       $context['subject']['node'] = node_load($product->nid);
+      /*
       if (user_access('administer products')) {
         $context['field'] = 'cost';
 
@@ -788,13 +790,14 @@ function op_products_view_table($order) {
           '#value' => uc_price($product->cost, $context),
           '#cell_attributes' => array('align' => 'right', 'nowrap' => 'nowrap'),
         );
-      }
+      }*/
 
       $context['field'] = 'price';
       $price_info = array(
         'price' => $product->price,
         'qty' => $product->qty,
       );
+      $context['qty'] = $product->qty;
       $data['price'] = array(
         '#value' => uc_price($product->price, $context),
         '#cell_attributes' => array('align' => 'right', 'nowrap' => 'nowrap'),
