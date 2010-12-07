@@ -21,13 +21,25 @@ function xml_import_menu(){
 
 $items['import-xml-products'] = array(
     'title' => t('Import Xml products'),
-    'page callback' => '_xml_step_one_images',
+    'page callback' => 'xml_control_products',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-
-  
+$items['import-xml-categories'] = array(
+    'title' => t('Import Xml products'),
+    'page callback' => 'xml_control_categories',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+$items['update-xml-attributes'] = array(
+    'title' => t('Import Xml products'),
+    'page callback' => 'xml_update_product_attributes',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );  
 $items['delete-all-products-test'] = array(
     'title' => t('Delete all products'),
     'page callback' => 'xml_import_delete_all_products',
@@ -35,7 +47,6 @@ $items['delete-all-products-test'] = array(
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-  
 $items['import-xml-users'] = array(
     'title' => t('Import users with xml'),
     'page callback' => 'xml_import_import_users',
@@ -43,7 +54,6 @@ $items['import-xml-users'] = array(
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
-
 $items['update-xml-stock'] = array(
     'title' => t('Update product stock from xml'),
     'page callback' => 'xml_import_update_stock',
@@ -63,6 +73,13 @@ $items['update-product-images'] = array(
 $items['run-xml-cron'] = array(
     'title' => t('Test cron jobs'),
     'page callback' => 'xml_import_test_cron',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+$items['cache-xml-data'] = array(
+    'title' => t('Cache XML data in db'),
+    'page callback' => 'xml_cache_in_db',
     'page arguments' => array(1),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
@@ -297,37 +314,40 @@ function xml_import_catalog($arg=NULL){
 
 // start the chain here:
 
-function _xml_step_one_images($arg=NULL,$independent=FALSE){
-  $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
-  
- /* foreach($response['product'] as $id => $val){
-    $product_code = $val[id].".".$val[color][id]; // set this to find ids for photos
-    
-    for($x = 1; $x < 5; $x++){
-	    $image_code = $product_code.".0".$x; 
-	    echo $image_code."<br>";
-	    $img_path = import_image_move($image_code);
-	    
-	    if($img_path){
-	      echo "the image path: ".$img_path."<br>";
-	      $response['product'][$id]['new_images'][] = $img_path;
-	      drupal_add_existing_file($img_path);
-      }
-	   
-	  }
-    
-  }*/
-  
-  _xml_step_two_categories($response); // more onto the next step
-}
-
-function _xml_step_two_categories($response,$independent=FALSE){
+function xml_control_categories($args){
   
   $catList = array();
 
 
 	$countParent = 0;
 	$countChild = 0;
+	
+	$q = db_query("SELECT * FROM {xml_sync_products}  GROUP BY product_id ORDER BY id");
+	
+	while ($dbProd = db_fetch_object($q)) {
+
+    $val = unserialize($dbProd->product_data);
+    
+    foreach($val as $key => $v){
+
+			if($key == "categoria"){
+				$nk = (int)$v["id"];
+				$catList[$nk] = $v["name"];
+			}
+
+				$countChild++;
+		}
+		$countParent++;
+    
+  }
+  echo count($catList)."<br>";
+  echo $countParent."<br>";
+    echo $countChild."<br>";
+  echo "<pre>";
+  	print_r($catList);
+  	echo "</pre>";
+  
+  die;
 	
 	foreach($response['product'] as $val){
 
@@ -344,6 +364,8 @@ function _xml_step_two_categories($response,$independent=FALSE){
 
 	}
 	
+	
+	db_query("TRUNCATE TABLE {xml_import_temp_cats}"); // empty the whole table to start fresh
 	
 	foreach($catList as $k => $v){
 		
@@ -399,17 +421,18 @@ function _xml_step_two_categories($response,$independent=FALSE){
 		
 	}
 
-  if(!$independent){
-    _xml_step_three_products($response);
-  } 
   
 }
 
 
-function _xml_step_three_products($response,$independent=FALSE){
+function xml_cache_in_db($arg){
+  
+  $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
   
 	$product_list = array();
 	$price_array = array();
+	
+	db_query("TRUNCATE TABLE {xml_sync_products}"); // empty the whole table to start fresh
 	
 	foreach($response['product'] as $id => $val){
 		$product_list[$val[id]]["versions"][] = $val;
@@ -418,15 +441,28 @@ function _xml_step_three_products($response,$independent=FALSE){
 		$price_item = number_format($reformatted_price_all, 2, '.', '');
     
     $product_list[$val[id]]["prices"][] = $price_item;
-		
-	
 	}
 	
-	
-	
 	foreach($product_list as $id => $val){
-		// we need to use the first product as a default
-		$product_code = $val["versions"][0][id];
+	  foreach($val["versions"] as $key => $option){
+	    $price_high = max($val["prices"]);
+	    //echo "id: ".$id.".".$option['color']['id']." price: ".$price_high."<br>";
+	    db_query("INSERT INTO {xml_sync_products} (product_id, product_sku, product_data, product_highest_price) VALUES ('%s', '%s', '%s',%f)", $id, $id.".".$option['color']['id'], serialize($option), $price_high); 
+    }
+	}
+	
+}
+
+function xml_control_products($response,$independent=FALSE){
+  
+  $q = db_query("SELECT * FROM {xml_sync_products}  GROUP BY product_id ORDER BY id");
+	
+	while ($dbProd = db_fetch_object($q)) {
+
+    $data = unserialize($dbProd->product_data);
+
+
+		$product_code = $dbProd->product_id;
 		$is_new = true;
 				
 		  $p = xml_import_product_load($product_code);
@@ -441,36 +477,37 @@ function _xml_step_three_products($response,$independent=FALSE){
         $existing = array(); //create it to push other items in
       }
       
-      //$deleteFotos = db_query("DELETE FROM {files} WHERE filename LIKE '%s' AND status = 1 ORDER BY timestamp DESC","%".$product_code."%");
+     
 		
-		$reformatted_price = str_replace(",",".",$val["versions"][0][listino]);
+		$reformatted_price = str_replace(",",".",$data[listino]);
 		$price = number_format($reformatted_price, 2, '.', '');
   
 		
 		$node->type = 'product';
-		$node->title = $val["versions"][0][name];
+		$node->title = $data[name];
 		$node->language = "it";
 		$node->uid = 1;
 	  $node->status = 1;
 	  $node->active = 1;
-		$node->body = htmlspecialchars($val["versions"][0][description]);
-		$node->teaser = htmlspecialchars($val["versions"][0][description]);
+		$node->body = htmlspecialchars($data[description]);
+		$node->teaser = htmlspecialchars($data[description]);
 		
-		$node->field_product_code[0]['value'] = $val["versions"][0][id];
-		$node->field_imballo[0]['value'] = $val["versions"][0][imballo];
+		$node->field_product_code[0]['value'] = $data[id];
+		$node->field_imballo[0]['value'] = $data[imballo];
 	
 	// these should also set taxonomy records to show in catalog listings
-		$node->field_novita[0]['value'] = ($val["versions"][0][novita] == "S") ? 1 : 0;
-		$node->field_offerta[0]['value'] = ($val["versions"][0][offerta] == "S") ? 1 : 0;
-		$node->field_esclusiva[0]['value'] = ($val["versions"][0][esclusiva] == "S") ? 1 : 0;
+		$node->field_novita[0]['value'] = ($data[novita] == "S") ? 1 : 0;
+		$node->field_offerta[0]['value'] = ($data[offerta] == "S") ? 1 : 0;
+		$node->field_esclusiva[0]['value'] = ($data[esclusiva] == "S") ? 1 : 0;
 		
-
+		
+    $result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$data[categoria][id]));
 		
 		if(!in_array($result->tid,$existing)){
       $existing[] = $result->tid; // see if the id in the xml file is the same and load it if not.
     }
 		
-		if($val["versions"][0][novita] == 'S'){
+		if($data[novita] == 'S'){
       if(!in_array('7',$existing)){
         $existing[] = '7'; // if its not already in the array add it
       }
@@ -483,7 +520,7 @@ function _xml_step_three_products($response,$independent=FALSE){
       }
     }
     
-    if($val["versions"][0][offerta] == 'S'){
+    if($data[offerta] == 'S'){
       if(!in_array('29',$existing)){
         $existing[] = '29'; // if its not already in the array add it
       }
@@ -500,7 +537,7 @@ function _xml_step_three_products($response,$independent=FALSE){
 		
     
    // list the highest price for the product
-   $price_high = max($val["prices"]);
+   $price_high = $dbProd->product_highest_price;
 		
 		$node->sell_price = $price_high;
 		$node->list_price = $price_high;
@@ -509,11 +546,9 @@ function _xml_step_three_products($response,$independent=FALSE){
 		$node->list_in_catalog = 0;
 
   	node_save($node);
-  	
-  	$product_list[$id]["vid"] = $node->vid;
-  	
+  	  	
   	// get correpsonding color id from our color table
-  	$color_table = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE product_color_code = %d", $val["versions"][0][color][id]));
+  	$color_table = db_fetch_array(db_query("SELECT * FROM {color_options_hex} WHERE product_color_code = %d", $data[color][id]));
   	
   	$attr = new StdClass();
     $attr->nid = $node->vid;
@@ -523,24 +558,41 @@ function _xml_step_three_products($response,$independent=FALSE){
     $attr->required = 0;
     $attr->ordering = 0;
     $attr->display = 1;
-
-    //print 'Calling uc_attributes_form';
+    
     if($is_new){
-      watchdog("xml_import","this attribute not found in db: %dbid",array("%dbid"=>$val["versions"][0][color][id]));
-      drupal_write_record('uc_product_attributes', $attr);
+        drupal_write_record('uc_product_attributes', $attr);
     }else{
-      drupal_write_record('uc_product_attributes', $attr,array('nid','aid'));
-    }
+        drupal_write_record('uc_product_attributes', $attr,array('nid','aid'));
+    }	
+    
+    //echo "id: ".$node->vid."  Product:".$product_code.".".$data['color']['id']."<br>";
+    
+	}
+	
+	watchdog("xml_import","Completed main product update");
+  return "Product update Complete";
+}
 
-		
+function xml_update_product_attributes($args){
+
 		// lets add the attributes
 
-  	  foreach($val["versions"] as $key => $option){
+  	  $q = db_query("SELECT * FROM {xml_sync_products}");
+
+    	while ($dbProd = db_fetch_object($q)) {
+    	  
+    	  // in theory all product exist, because first function created non existing products. that means we can just load the nodes.
+        $p = xml_import_product_load($dbProd->product_id);
+        $node = node_load($p->vid);
+
+        $option = unserialize($dbProd->product_data);
+        $product_sku = $dbProd->product_sku;
   	     // next loop through each model and add option, version and stock data.
   	    
          $reformatted_price_version = str_replace(",",".",$option[listino]);
      		 $price_version = number_format($reformatted_price_version, 2, '.', '');
      		 
+     		 $price_high = $dbProd->product_highest_price;
      		 $differential_price = $price_version - $price_high; // always minus the ind prod price first. we know it can result at the highest of 0;
          
   	    // get correpsonding color id from our color table
@@ -641,26 +693,26 @@ function _xml_step_three_products($response,$independent=FALSE){
         }else{
           drupal_write_record('product_versions', $version_data, array('sku','nid'));
         }
-        
-      } // end versions loop
-      
-      // if the product has a publication of N delete it.
-      //if($val["versions"][0][pubblica] == "C" || $val["versions"][0][pubblica] == "c"){
-        //node_delete($p->nid);
-        //drupal_flush_all_caches();
-      //}
-	}
+  
+      echo "Product:".$product_sku."<br>";
+	  }
 	
-	watchdog("xml_import","Completed product update");
-  return "Product update Complete";
+	watchdog("xml_import","Completed product version updates");
+  return "Product version updates Complete";
 }
 
 
 
-function _xml_update_stock($response){
 
-	foreach($response['product'] as $id => $val){
-    $product_sku = $val['id'].".".$val['color']['id'];
+function _xml_update_stock($response=""){
+
+	$q = db_query("SELECT * FROM {xml_sync_products}");
+
+	while ($dbProd = db_fetch_object($q)) {
+
+    $val = unserialize($dbProd->product_data);
+    
+    $product_sku = $dbProd->product_sku;
 		 $stock_lookup = db_fetch_object(db_query("SELECT * FROM {uc_product_stock} WHERE sku = '%s'", $product_sku));
       
       $stock = new StdClass();
@@ -678,8 +730,35 @@ function _xml_update_stock($response){
        drupal_write_record('uc_product_stock', $stock, 'sku');
        //echo 'stock: '.$product_sku." | i am totally being updated <br/>";
       }
+    
+    // we need to update some info on the product version as well for congruency
+    
+    $version_lookup = db_fetch_object(db_query("SELECT * FROM {product_versions} WHERE sku = '%s'", $product_sku));
+    
+    $version_data = new StdClass();
+    $version_data->nid = $version_lookup->nid;
+    $version_data->sku = $version_lookup->sku;
+    $version_data->imballo = $version_lookup->imballo;
+    $version_data->arrivo_1 = $version_lookup->arrivo_1;
+    $version_data->data_arrivo_1 = $version_lookup->data_arrivo_1;
+    $version_data->arrivo_2 = $version_lookup->arrivo_2;
+    $version_data->data_arrivo_2 = $version_lookup->data_arrivo_2;
+    $version_data->disponibile_descr = htmlspecialchars($val['disponibile_descr']);
+    $version_data->novita = ($val['novita'] == "S") ? 1 : 0;
+    $version_data->offerta = ($val['offerta'] == "S") ? 1 : 0;
+    $version_data->esclusiva = ($val['esclusiva'] == "S") ? 1 : 0;
+    // pull non published items
+    $version_data->published = ($val["pubblica"] == "S" || $val["pubblica"] == "s") ? 1 : 0;
+
+  
+    if(!$version_lookup){
+      watchdog("xml_import","this version not found in db: %dbid",array("%dbid"=>$product_sku));
+    }else{
+      drupal_write_record('product_versions', $version_data, array('sku','nid'));
+    }
 	
 	}
+	
 	watchdog("xml_import","Completed stock update");
 	
 	return "Update completed";
@@ -767,7 +846,11 @@ function reset_products_image_cache($args){
 
 
 function xml_import_test_cron($args){
-  	watchdog("xml_import","we are doing cron: %path",array("%path"=>time()));
+  	//watchdog("xml_import","we are doing cron: %path",array("%path"=>time()));
+  	$response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
+   echo "<pre>";
+   print_r($response);
+   echo "</pre>";
 }
 
 
@@ -802,8 +885,8 @@ function xml_import_delete_all_products($name){
 
 
   function xml_import_update_stock($arg=NULL){
-    $response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
-    _xml_update_stock($response);
+    //$response = xml_import_get_xml_data(XML_IMPORT_LINK); // call the xml data
+    _xml_update_stock();
   }
 
 

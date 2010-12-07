@@ -91,7 +91,7 @@ function loadAudio(play){
   so.addParam('allowscriptaccess','always');
   so.addParam('wmode','opaque');
   so.addVariable('plugins', 'revolt-1');
-  so.write('mediaspace');
+  //so.write('mediaspace');
   
   // end player code //
   }else{
