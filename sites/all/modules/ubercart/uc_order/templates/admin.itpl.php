@@ -14,22 +14,21 @@
 <?php echo t('Shipping method:'); ?> [order-shipping-method]
 </p>
 
-<h2>Attenzione che i prezzi qui non si dimostrano correttamente. E' un lavoro in corso</h2>
 <p>
 <?php echo t('Products:'); ?><br />
 <?php
 $context = array(
   'revision' => 'themed',
-  'type' => 'order_product',
+  'type' => 'order_product_page',
 );
 foreach ($products as $product) {
   $price_info = array(
     'price' => $product->price,
     'qty' => $product->qty,
   );
-  $context['subject'] = array(
-    'order_product' => $product,
-  );
+  $context['subject']['product'] = $product;
+  $context['subject']['node'] = node_load($product->nid);
+  $context['qty'] = $product->qty;
 ?>
 - <?php echo $product->qty; ?> x <?php echo $product->title .' - '. uc_price($price_info, $context); ?><br />
 &nbsp;&nbsp;<?php echo t('SKU: ') . $product->model; ?><br />
