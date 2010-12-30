@@ -604,6 +604,9 @@ div.lotus_flags.exclusive {
   background:url('images/esclusiva.png') top left no-repeat;
 }
 
+div.lotus_flags.fine-serie {
+  background:url('images/fine-serie.png') top left no-repeat;
+}
 
 
 div.product-column.category div.category-label {
@@ -755,7 +758,7 @@ div.column.full.main div.category-grid-products {
 }
 
 div.column.full.main div.category-grid-products div.product-row {
-  width:650px;
+  width:315px;
   margin:60px auto 0 auto;
 }
 

@@ -245,6 +245,13 @@ function lotusPD_uc_catalog_product_grid($array) {
 	
   $products = $array["products"];
   $catalog = $array["catalog"];
+  $is_fine_category = false;
+  $cc = taxonomy_get_parents($catalog->tid);
+    foreach($cc as $kk => $ii){
+     if($ii->tid == 4){
+       $is_fine_category = true;
+     }
+    }
  
   //learn_taxonomy_ancestry($catalog->tid);
   $product_table = '<div class="full-content clearfix">';
@@ -314,11 +321,26 @@ function lotusPD_uc_catalog_product_grid($array) {
       $imagelink = '';
     }
     
-
+   
     $product_table .= '<div class="product-column">';
     
         $product_table .= '<div class="product-flags">';
-    
+        $is_fine_serie = false;
+        foreach($product->taxonomy as $k => $ch){
+         $pp = taxonomy_get_parents($ch->tid);
+          foreach($pp as $kk => $ii){
+           if($ii->tid == 4){
+             $is_fine_serie = true;
+           }
+          }
+        }
+        
+        if($is_fine_serie){ // checks to see if item is fine serie by boolean
+          if(!$is_fine_category){ // hides flag if we are on fine serie page
+            $product_table .= '<div class="lotus_flags fine-serie">&nbsp;</div>';
+          }
+        }
+        
         if(in_array(7,array_keys($product->taxonomy))){ // checks to see if item is novita by taxonomy
           if($catalog->tid == 7){ //if we are on the novita page
             $product_table .= '<div class="lotus_flags new">&nbsp;</div>';

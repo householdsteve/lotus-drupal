@@ -498,6 +498,19 @@ function xml_control_products($response,$independent=FALSE){
 		
 		
     $result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$data[categoria][id]));
+    
+    if(strstr($data[categoria][name],"OUTLET")){  
+	    $v = removePeriodDivider($data[categoria][name]);
+	    //$resultTax = db_fetch_object(db_query("SELECT * FROM {term_data} WHERE name = '%s'",$v));
+	    $c = taxonomy_get_tree(1,3);
+	    foreach($c as $k => $i){
+	      if($v == $i->name){
+	        //echo $i->tid."  ".$i->name."<br>";
+	        $existing[] = $i->tid; // add refernce to the main categories fro "fine serie products"
+	      }
+	    }
+	     
+	  }
 		
 		if(!in_array($result->tid,$existing)){
       $existing[] = $result->tid; // see if the id in the xml file is the same and load it if not.

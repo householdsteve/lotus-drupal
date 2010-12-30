@@ -25,6 +25,13 @@ function loadHome(){
     orig_bg_bg = $("html").css("background");
     orig_bg = $(".content-body").css("background");
     orig_pad = $(".content-body").css("padding");
+   
+  var so = new SWFObject(Drupal.settings.theme.themePath+'/intro-lotus.swf','intro-clip','660','150','9');
+  so.addParam('allowfullscreen','true');
+  so.addParam('allowscriptaccess','always');
+  so.addParam('wmode','transparent');
+  if(so.write('intro')){
+      
     $(".content-body").css({"background":"none","padding":"0"});
         $("html").css("background","#000");
     
@@ -40,16 +47,14 @@ function loadHome(){
     $("#content").css({"top":($(document).height()/2) - 75});
     $(".wrapper").css({"width":"660px"});
     
-    var so = new SWFObject(Drupal.settings.theme.themePath+'/intro-lotus.swf','intro-clip','660','150','9');
-    so.addParam('allowfullscreen','true');
-    so.addParam('allowscriptaccess','always');
-    so.addParam('wmode','transparent');
-    if(!so.write('intro')){
+    var skip = $("<a/>").attr({id:"skip",href:Drupal.settings.basePath+"catalog"}).html("Skip Intro");
+     skip.appendTo("#intro");
+      
+    }else{
       // if there is no flash
       loadOut();
     }
-    var skip = $("<a/>").attr({id:"skip",href:Drupal.settings.basePath+"catalog"}).html("Skip Intro");
-     skip.appendTo("#intro");
+    
   });
 }
 
@@ -91,7 +96,7 @@ function loadAudio(play){
   so.addParam('allowscriptaccess','always');
   so.addParam('wmode','opaque');
   so.addVariable('plugins', 'revolt-1');
-  //so.write('mediaspace');
+  so.write('mediaspace');
   
   // end player code //
   }else{
