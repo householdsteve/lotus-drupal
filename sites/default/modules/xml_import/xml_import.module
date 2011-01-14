@@ -506,7 +506,9 @@ function xml_control_products($response,$independent=FALSE){
 	    foreach($c as $k => $i){
 	      if($v == $i->name){
 	        //echo $i->tid."  ".$i->name."<br>";
-	        $existing[] = $i->tid; // add refernce to the main categories fro "fine serie products"
+	        if(!in_array($i->tid,$existing)){
+	          $existing[] = $i->tid; // add refernce to the main categories fro "fine serie products"
+	        }
 	      }
 	    }
 	     
@@ -573,6 +575,20 @@ function xml_control_products($response,$independent=FALSE){
     }else{
         drupal_write_record('uc_product_attributes', $attr,array('nid','aid'));
     }	
+   
+    if($data[pubblica] == 'A'){
+      node_delete($node->nid);
+      $qD = db_query("SELECT * FROM {xml_sync_products}  WHERE product_id LIKE '%s'", $dbProd->product_id);
+      while ($dbProdDel = db_fetch_object($qD)) {
+        db_query("DELETE FROM {xml_sync_products} WHERE product_id LIKE '%s'", $dbProdDel->product_id);
+      }
+    }elseif($data[pubblica] == 'N'){
+      $node->status = 0;
+      node_save($node);
+    } elseif($data[pubblica] == 'S' && $node->status != 1){
+      $node->status = 1;
+      node_save($node);
+    }
     
     //echo "id: ".$node->vid."  Product:".$product_code.".".$data['color']['id']."<br>";
     
