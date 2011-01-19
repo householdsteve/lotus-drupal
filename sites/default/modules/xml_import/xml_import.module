@@ -465,7 +465,8 @@ function xml_control_products($response,$independent=FALSE){
 
       if($p){ // if the product exists load the node and modify it.
         $node = node_load($p->vid);        
-        $existing = element_children($node->taxonomy);
+        //$existing = element_children($node->taxonomy);
+        $existing = array(); //lets not carry over items
         $is_new = false;
       }else{
         $node = new StdClass();
@@ -556,6 +557,7 @@ function xml_control_products($response,$independent=FALSE){
 		$node->model = $product_code;
 		$node->list_in_catalog = 0;
 
+if($data[pubblica] != 'A'){
   	node_save($node);
   	  	
   	// get correpsonding color id from our color table
@@ -575,7 +577,7 @@ function xml_control_products($response,$independent=FALSE){
     }else{
         drupal_write_record('uc_product_attributes', $attr,array('nid','aid'));
     }	
-   
+}   
     if($data[pubblica] == 'A'){
       node_delete($node->nid);
       $qD = db_query("SELECT * FROM {xml_sync_products}  WHERE product_id LIKE '%s'", $dbProd->product_id);
@@ -719,7 +721,7 @@ function xml_update_product_attributes($args){
           drupal_write_record('product_versions', $version_data, array('sku','nid'));
         }
   
-      echo "Product:".$product_sku."<br>";
+      //echo "Product:".$product_sku."<br>";
 	  }
 	
 	watchdog("xml_import","Completed product version updates");
