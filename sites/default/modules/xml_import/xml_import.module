@@ -362,7 +362,7 @@ function xml_control_categories($args){
 	//db_query("TRUNCATE TABLE {xml_import_temp_cats}"); // empty the whole table to start fresh
 	
 	foreach($catList as $k => $v){
-		
+
 		$term_parent = 3; // 3 = standard / 4 = outlet
 		
 		$result = db_fetch_object(db_query("SELECT * FROM {xml_import_temp_cats} WHERE cid = '%d'",$k));
@@ -372,6 +372,7 @@ function xml_control_categories($args){
 		
 		if($result->tid){
 		  //found a match, now update it clean up stupid characters and periods and stuff.
+		 if($result->tid != '4'){ // if the categorie is not fine serie update it.
 		  $v = removePeriodDivider($v);
 		  db_query("UPDATE {term_data} SET name = '%s' WHERE tid = '%d'",$v,$result->tid);
 		  
@@ -381,30 +382,33 @@ function xml_control_categories($args){
 	    	  db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$result->tid,$hexResult->scid);
     		  db_query("UPDATE {uc_catalog_images} SET hexcolor = '%s' WHERE tid = '%d'",$hexResult->hex,$result->tid);
   		  }
-		  
+		  } // end check for fine serie
 		}else{
 		
 		  if(strstr($v,"OUTLET")){
 		    $term_parent = 4; // check if category is an outlet. if so change the term parent
 		    $v = removePeriodDivider($v);
-		  }
-		
-    
-	
-	      	db_query("INSERT INTO {term_data} (vid, name, weight, description) VALUES (%d, '%s', '%d','%s')", 1, $v, 0,"autoImported");
+		    
+      		db_query("INSERT INTO {xml_import_temp_cats} (tid, cid) VALUES (%d, '%d')", '4', $k); //add a temp table to hold references for product import
+		      //db_query("DELETE FROM {xml_import_temp_cats} WHERE cid LIKE '%d'", $k);
+		  }else{
+		    	db_query("INSERT INTO {term_data} (vid, name, weight, description) VALUES (%d, '%s', '%d','%s')", 1, $v, 0,"autoImported");
       		$updateid = db_result(db_query("SELECT LAST_INSERT_ID()"));
 		
       		db_query("INSERT INTO {term_hierarchy} (tid, parent) VALUES (%d, '%d')", $updateid, $term_parent); //3 is the standard category
 		
       		db_query("INSERT INTO {xml_import_temp_cats} (tid, cid) VALUES (%d, '%d')", $updateid, $k); //add a temp table to hold references for product import
-		
-		
-      		// we are faking an image on the category to allow addition of color
+		      
+		      // we are faking an image on the category to allow addition of color
       		db_query("INSERT INTO {uc_catalog_images} (fid,tid, filename,filepath,filemime,filesize,hexcolor) 
       		        VALUES (%d, '%d', '%s', '%s', '%s', '%d', '%s')", '1553',$updateid,'image-missing.png','sites/default/files/image-missing.png','image/png','65969',$hexResult->hex); 
-		
+
       		// this adds an id to the stock color to not allow it to be chosen again
       		db_query("UPDATE {stock_category_colors} SET used_by_tid = '%d' WHERE scid = '%d'",$updateid,$hexResult->scid);
+		  }
+
+		
+      	
 	
 	    }
 
@@ -485,8 +489,10 @@ function xml_control_products($response,$independent=FALSE){
 		$node->uid = 1;
 	  $node->status = 1;
 	  $node->active = 1;
-		$node->body = htmlspecialchars($data[description]);
-		$node->teaser = htmlspecialchars($data[description]);
+	  if($data[description]){
+		$node->body = htmlspecialchars($data[description],ENT_QUOTES);
+		$node->teaser = htmlspecialchars($data[description],ENT_QUOTES);
+	  }
 		
 		$node->field_product_code[0]['value'] = $data[id];
 		$node->field_imballo[0]['value'] = $data[imballo];
