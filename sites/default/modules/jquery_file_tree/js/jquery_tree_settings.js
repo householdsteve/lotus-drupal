@@ -23,7 +23,7 @@ $(document).ready(function(){
     openFile(file);
   });
   
-  $('#dl-col-2').fileTree({callback:function(){qs.cache();}, root: Drupal.settings.basePath+Drupal.settings.jqueryTree.fileDirectory+'/products/imported/', script: script_path, folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, loadMessage: 'Un momento...' }, function(file) {
+  $('#dl-col-2').fileTree({callback:function(){qs.cache();}, root: Drupal.settings.basePath+Drupal.settings.jqueryTree.fileDirectory+'/default/prodotti_alta/', script: script_path, folderEvent: 'click', expandSpeed: 750, collapseSpeed: 750, loadMessage: 'Un momento...' }, function(file) {
     openFile(file);
   });
   

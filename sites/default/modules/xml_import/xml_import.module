@@ -456,8 +456,7 @@ function xml_control_products($response,$independent=FALSE){
 	while ($dbProd = db_fetch_object($q)) {
 
     $data = unserialize($dbProd->product_data);
-
-
+    
 		$product_code = $dbProd->product_id;
 		$is_new = true;
 				
@@ -502,7 +501,10 @@ function xml_control_products($response,$independent=FALSE){
     
     if(strstr($data[categoria][name],"OUTLET")){  
 	    $v = removePeriodDivider($data[categoria][name]);
-	    //$resultTax = db_fetch_object(db_query("SELECT * FROM {term_data} WHERE name = '%s'",$v));
+	    if(!in_array(4,$existing)){ // 4 is the id for fine serie
+	      $existing[] = 4; // add refernce to the main categories fro "fine serie products"
+      }
+	    /* used for targeting sub categories of fine serie
 	    $c = taxonomy_get_tree(1,3);
 	    foreach($c as $k => $i){
 	      if($v == $i->name){
@@ -511,7 +513,7 @@ function xml_control_products($response,$independent=FALSE){
 	          $existing[] = $i->tid; // add refernce to the main categories fro "fine serie products"
 	        }
 	      }
-	    }
+	    }*/
 	     
 	  }
 		
@@ -558,6 +560,11 @@ function xml_control_products($response,$independent=FALSE){
 		$node->list_in_catalog = 0;
 
 if($data[pubblica] != 'A'){
+  if($data[pubblica] == 'N'){
+    $node->status = 0;
+  } elseif($data[pubblica] == 'S' && $node->status != 1){
+    $node->status = 1;
+  }
   	node_save($node);
   	  	
   	// get correpsonding color id from our color table
@@ -577,19 +584,13 @@ if($data[pubblica] != 'A'){
     }else{
         drupal_write_record('uc_product_attributes', $attr,array('nid','aid'));
     }	
-}   
-    if($data[pubblica] == 'A'){
+    
+}elseif($data[pubblica] == 'A'){
       node_delete($node->nid);
       $qD = db_query("SELECT * FROM {xml_sync_products}  WHERE product_id LIKE '%s'", $dbProd->product_id);
       while ($dbProdDel = db_fetch_object($qD)) {
         db_query("DELETE FROM {xml_sync_products} WHERE product_id LIKE '%s'", $dbProdDel->product_id);
       }
-    }elseif($data[pubblica] == 'N'){
-      $node->status = 0;
-      node_save($node);
-    } elseif($data[pubblica] == 'S' && $node->status != 1){
-      $node->status = 1;
-      node_save($node);
     }
     
     //echo "id: ".$node->vid."  Product:".$product_code.".".$data['color']['id']."<br>";
