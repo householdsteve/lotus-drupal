@@ -719,20 +719,19 @@ function op_products_view_table($order) {
   );
   $table['#columns']['product'] = array(
     'cell' => array(
-      'data' => t('Prodotto'),
+      'data' => t('Product'),
       'width' => '80%',
     ),
     'weight' => 1,
   );
   $table['#columns']['model'] = array(
     'cell' => array(
-      'data' => t('Codice'),
+      'data' => t('SKU'),
       'class' => 'text-center',
       'nowrap' => 'nowrap',
     ),
     'weight' => 2,
   );
-  /*
   if (user_access('administer products')) {
     $table['#columns']['cost'] = array(
       'cell' => array(
@@ -741,7 +740,7 @@ function op_products_view_table($order) {
       ),
       'weight' => 3,
     );
-  }*/
+  }
   $table['#columns']['price'] = array(
     'cell' => array(
       'data' => t('Price'),
@@ -759,7 +758,7 @@ function op_products_view_table($order) {
 
   $context = array(
     'revision' => 'themed',
-    'type' => 'order_product_page',
+    'type' => 'order_product',
     'subject' => array(
       'order' => $order,
     ),
@@ -782,7 +781,6 @@ function op_products_view_table($order) {
 
       $context['subject']['product'] = $product;
       $context['subject']['node'] = node_load($product->nid);
-      /*
       if (user_access('administer products')) {
         $context['field'] = 'cost';
 
@@ -790,14 +788,13 @@ function op_products_view_table($order) {
           '#value' => uc_price($product->cost, $context),
           '#cell_attributes' => array('align' => 'right', 'nowrap' => 'nowrap'),
         );
-      }*/
+      }
 
       $context['field'] = 'price';
       $price_info = array(
         'price' => $product->price,
         'qty' => $product->qty,
       );
-      $context['qty'] = $product->qty;
       $data['price'] = array(
         '#value' => uc_price($product->price, $context),
         '#cell_attributes' => array('align' => 'right', 'nowrap' => 'nowrap'),
@@ -829,35 +826,29 @@ function op_products_customer_table($order) {
     '#attributes' => array('class' => 'order-pane-table'),
   );
 
-  $table['#columns']['foto'] = array(
+  $table['#columns']['qty'] = array(
     'cell' => array(
-      'data' => t('Foto'),
-      'class' => 'foto',
+      'data' => t('Qty'),
+      'class' => 'text-right',
     ),
     'weight' => 0,
   );
-  $table['#columns']['codice'] = array(
+  $table['#columns']['product'] = array(
     'cell' => array(
-      'data' => t('Codice'),
-      'class' => 'sku',
+      'data' => t('Product'),
+      'width' => '80%',
     ),
     'weight' => 1,
   );
-  $table['#columns']['colore'] = array(
+  $table['#columns']['model'] = array(
     'cell' => array(
-      'data' => t('Colore'),
-      'class' => 'color',
+      'data' => t('SKU'),
+      'class' => 'text-center',
+      'nowrap' => 'nowrap',
     ),
     'weight' => 2,
   );
-  $table['#columns']['quantita'] = array(
-    'cell' => array(
-      'data' => t('Quantità'),
-      'class' => 'quantity',
-    ),
-    'weight' => 3,
-  );
-  /*if (user_access('administer products')) {
+  if (user_access('administer products')) {
     $table['#columns']['cost'] = array(
       'cell' => array(
         'data' => t('Cost'),
@@ -865,25 +856,25 @@ function op_products_customer_table($order) {
       ),
       'weight' => 3,
     );
-  }*/
+  }
   $table['#columns']['price'] = array(
     'cell' => array(
-      'data' => t('Prezzo'),
-      'class' => 'price',
+      'data' => t('Price'),
+      'class' => 'text-right',
     ),
     'weight' => 4,
   );
   $table['#columns']['total'] = array(
     'cell' => array(
-      'data' => t('Totale'),
-      'class' => 'total',
+      'data' => t('Total'),
+      'class' => 'text-right',
     ),
     'weight' => 5,
   );
 
   $context = array(
     'revision' => 'themed',
-    'type' => 'order_product_page',
+    'type' => 'order_product',
     'subject' => array(
       'order' => $order,
     ),
@@ -892,55 +883,40 @@ function op_products_customer_table($order) {
   if (is_array($order->products)) {
     foreach ($order->products as $product) {
       $data = array();
-      $data['foto'] = array(
-        '#value' => uc_product_get_picture_by_name($product->nid,$product->model, 'cart'),
-        '#cell_attributes' => array('class' => 'foto'),
+      $data['qty'] = array(
+        '#value' => $product->qty .'&times;',
+        '#cell_attributes' => array('align' => 'right'),
       );
-      $data['codice'] = array(
-        '#value' => $product->model,
-        '#cell_attributes' => array('class' => 'sku'),
+      $data['product'] = array(
+        '#value' => check_plain($product->title) . uc_product_get_description($product),
       );
-      $data['colore'] = array(
-        '#value' => $product->data[attributes][Color][0],
-        '#cell_attributes' => array('class' => 'codice'),
+      $data['model'] = array(
+        '#value' => check_plain($product->model),
+        '#cell_attributes' => array('align' => 'center', 'nowrap' => 'nowrap'),
       );
 
       $context['subject']['product'] = $product;
       $context['subject']['node'] = node_load($product->nid);
-      
-      /*
       if (user_access('administer products')) {
         $context['field'] = 'cost';
         $data['cost'] = array(
           '#value' => uc_price($product->cost, $context),
           '#cell_attributes' => array('align' => 'right', 'nowrap' => 'nowrap'),
         );
-      }*/
-      
-      /*echo "<pre>";
-    	print_r($context['subject']['node']);
-    	echo "</pre>";*/
-    	
-    	$data['quantita'] = array(
-        '#value' => $product->qty,
-        '#cell_attributes' => array('class' => 'quantity'),
-      );
-      
+      }
 
       $context['field'] = 'price';
       $price_info = array(
         'price' => $product->price,
         'qty' => $product->qty,
       );
-      $context['qty'] = $product->qty;
       $data['price'] = array(
         '#value' => uc_price($product->price, $context),
-        '#cell_attributes' => array('class' => 'price'),
+        '#cell_attributes' => array('align' => 'right', 'nowrap' => 'nowrap'),
       );
-     // $context['type'] = 'order_product'; // change the context type back
       $data['total'] = array(
         '#value' => uc_price($price_info, $context),
-        '#cell_attributes' => array('class' => 'total'),
+        '#cell_attributes' => array('align' => 'right', 'nowrap' => 'nowrap'),
       );
       $data['#attributes'] = array('valign' => 'top');
       $table['#rows'][] = $data;

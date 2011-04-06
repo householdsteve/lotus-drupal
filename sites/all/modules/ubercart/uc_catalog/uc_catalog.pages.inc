@@ -33,7 +33,6 @@ function theme_uc_catalog_browse($tid = 0) {
   $is_first = false;
 	// get rid of last two items in array (novita') if its the main gallery page //
 	if($catalog->name == 'Catalog'){
-		array_pop($catalog->children); // git rid of "fine serie as well"
 		array_pop($catalog->children);
 		array_pop($catalog->children);
 		$is_first = true;

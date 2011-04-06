@@ -225,7 +225,7 @@ function profile_user($type, &$edit, &$user, $category = NULL) {
   }
 }
 
-function profile_load_profile($user) {
+function profile_load_profile(&$user) {
   $result = db_query('SELECT f.name, f.type, v.value FROM {profile_fields} f INNER JOIN {profile_values} v ON f.fid = v.fid WHERE uid = %d', $user->uid);
   while ($field = db_fetch_object($result)) {
     if (empty($user->{$field->name})) {
